@@ -62,14 +62,23 @@ npm run dev
 ## 📌 Estructura general
 
 /
+
 ├── public/                 # Archivos estáticos (imágenes, favicon, etc.)
+
 ├── src/
+
 │   ├── components/         # Componentes reutilizables
+
 │   ├── layouts/            # Plantillas base de la web
+
 │   └── pages/              # Páginas y rutas
+
 ├── astro.config.mjs        # Configuración de Astro
+
 ├── package.json            # Dependencias y scripts
+
 └── README.md               # Documentación del proyecto
+
 ---
 
 ## 📖 Licencia
