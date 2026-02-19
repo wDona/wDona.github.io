@@ -1,6 +1,7 @@
 ---
 import BotonPrimario from "../../Common/BotonPrimario.astro";
 import BotonSecundario from "../../Common/BotonSecundario.astro";
+import LenguajeLabel from "./LenguajeLabel.astro";
 
 interface Props {
   title: string;
@@ -38,7 +39,7 @@ const alt = "Imagen de " + title.toLowerCase();
 ---
 
 <div
-  class="card rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 sm:px-12 sm:py-12 px-6 py-10 relative overflox-hidden"
+  class="card rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 sm:px-12 sm:py-12 px-6 py-10 relative overflow-x-hidden"
 >
 {img && (
     <div
@@ -56,9 +57,20 @@ const alt = "Imagen de " + title.toLowerCase();
   <div class="grid w-full md:grid-cols-2">
     
     {
-      img && (
-        <div class=" hidden md:flex h-full justify-center items-center mx-auto pr-6">
-          <img class="rounded-lg aspect-video object-cover" src={img} alt={alt} />
+      img ? (
+        <div class="hidden md:flex h-full w-full items-center pr-6">
+          <img class="rounded-lg w-full aspect-video object-cover" src={img} alt={alt} />
+        </div>
+      ) : (
+        <div class="hidden md:flex h-full w-full items-center pr-6">
+          <div class="rounded-lg aspect-video bg-gray-800/10 border border-white/6 flex items-center justify-center text-gray-400 w-full">
+            <!-- placeholder SVG para escritorio -->
+            <svg class="w-20 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2.5" y="4" width="19" height="14" rx="2"></rect>
+              <path d="M3.5 18.5l5.5-6 4 5.5 5-7 1.5 2.5"></path>
+              <circle cx="8.5" cy="9" r="1.2"></circle>
+            </svg>
+          </div>
         </div>
       )
     }
@@ -70,40 +82,40 @@ const alt = "Imagen de " + title.toLowerCase();
             {
               tec && (
                 <div>
-                  {" "}
-                  <img src={tec} alt="tec" class="h-6" loading="lazy" />{" "}
+                  <LenguajeLabel img={tec} />
+                  {/* <img src={tec} alt="tec" class="h-8" loading="lazy" /> */}
                 </div>
               )
             }
             {
               tec2 && (
                 <div>
-                  {" "}
-                  <img src={tec2} alt="tec2" class="h-6" loading="lazy" />{" "}
+                  <LenguajeLabel img={tec2} />
+                  {/* <img src={tec2} alt="tec2" class="h-8" loading="lazy" /> */}
                 </div>
               )
             }
             {
               tec3 && (
                 <div>
-                  {" "}
-                  <img src={tec3} alt="tec3" class="h-6" loading="lazy" />{" "}
+                  <LenguajeLabel img={tec3} />
+                  {/* <img src={tec3} alt="tec3" class="h-8" loading="lazy" /> */}
                 </div>
               )
             }
             {
               tec4 && (
                 <div>
-                  {" "}
-                  <img src={tec4} alt="tec4" class="h-6" loading="lazy" />{" "}
+                  <LenguajeLabel img={tec4} />
+                  {/* <img src={tec4} alt="tec4" class="h-8" loading="lazy" /> */}
                 </div>
               )
             }
             {
               tec5 && (
                 <div>
-                  {" "}
-                  <img src={tec5} alt="tec5" class="h-6" loading="lazy" />{" "}
+                  <LenguajeLabel img={tec5} />
+                  {/* <img src={tec5} alt="tec5" class="h-8" loading="lazy" /> */}
                 </div>
               )
             }

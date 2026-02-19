@@ -7,7 +7,7 @@ const img = Astro.props.img;
 const title = Astro.props.title;
 ---
 
-<div class="w-24 h-24 p-6 sm:w-32 sm:h-32 sm:p-8 mb-4 flex flex-col items-center justify-center mx-auto card rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 hover:scale-105 transition-all duration-200 hover:bg-white/20">
+<div class=" h-16 p-1 sm:w-20 sm:h-20 sm:p-2 mb-4 flex flex-col items-center justify-center mx-auto rounded-lg hover:scale-105 transition-all duration-200">
     <div class = "w-full h-full flex items-center justify-center">
         <img src={img} alt={title} class="w-full h-full object-contain" loading="lazy"/>
     </div>

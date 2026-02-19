@@ -1,0 +1,32 @@
+---
+import Background from "../Common/Background.astro";
+import BotonSecundario from "../Common/BotonSecundario.astro";
+---
+
+<section
+  class="flex justify-center items-center flex-col lg:w-[1200px] sm:w-[90%] w-[98%] py-24 md:py-72 relative"
+>
+  <Background o=".2" tx="100vw" ty="80vh" x="-20vw" y="10vh" visibleMobile="" />
+
+  <!--
+    <Background o=".3" tx="100vw" ty="60vh" x="-40vw" y="-120vh" visibleMobile="" />
+    <Background o=".2" tx="200vw" ty="100vh" x="40vw" y="-70vh" visibleMobile="" />
+  -->
+
+  <article
+    class="p-4 mx-4 sm:px-0 sm:px:0 lg:mx-0 backdrop-blur-sm sm:max-w-[1200px] w-full"
+  >
+    <div class="flex sm:justify-center items-center sm:gap-8 gap-4 flex-col-reverse sm:flex-row">
+      <!-- <h2 class="text-lg mb-2 zilla-slab-regular text-center opacity-80">¿Quién soy?</h2> -->
+      <!-- <div class="flex justify-center items-center">
+        <BotonSecundario texto="Sobre mí" enlace="https://wdona.dev/sobre-mi" />
+      </div> -->
+    </div>
+    <p class="zilla-slab-regular text-4xl sm:text-6xl text-center">
+      Soy un desarrollador perfeccionista por vocación y explorador por distracción. 
+      <!-- Principalmente me centro en el desarrollo backend, aunque también tengo conocimientos 
+      básicos de desarrollo de UX/UI. -->
+    </p>
+
+  </article>
+</section>

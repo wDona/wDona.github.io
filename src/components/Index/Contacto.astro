@@ -1,0 +1,68 @@
+---
+import BotonPrimario from "../Common/BotonPrimario.astro";
+import BotonSecundario from "../Common/BotonSecundario.astro";
+const EMAIL = "me@wdona.dev";
+const LINKEDIN = "https://www.linkedin.com/in/fernando-de-cisneros-gonzález-2b575b388";
+---
+<section class="lg:w-[900px] sm:w-[90%] w-[98%]" id="contacto">
+  <!-- <h2 class="text-3xl zilla-slab-regular mb-8 text-center">Contacto</h2> -->
+
+  <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+    <a id="copyEmail" role="button"
+       class="gradient-border zilla-slab-regular text-xl text-white px-3 py-1 text-center hover:scale-105 transition-all duration-200 rounded-lg inline-block">
+       Copiar correo
+    </a>
+
+    <BotonSecundario texto="Enviar correo" enlace={`mailto:${EMAIL}`} />
+
+    <BotonSecundario texto="LinkedIn" enlace={LINKEDIN} />
+  </div>
+
+</section>
+
+<script type="module">
+  const email = "me@wdona.dev";
+  const copyBtn = document.getElementById("copyEmail");
+  const hint = document.getElementById("copyHint");
+
+  copyBtn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      const original = copyBtn.innerHTML;
+      copyBtn.disabled = true;
+      copyBtn.innerHTML = "¡Copiado!";
+      hint.textContent = "Correo copiado al portapapeles";
+      setTimeout(() => {
+        copyBtn.innerHTML = original;
+        copyBtn.disabled = false;
+        hint.textContent = "Correo: " + email;
+      }, 2000);
+    } catch (e) {
+      hint.textContent = "No se pudo copiar. Usa 'Enviar correo' en su lugar.";
+    }
+  });
+</script>
+
+<style>
+    .gradient-border {
+    position: relative;
+    display: inline-block;
+    border-radius: 0.5rem;
+    background: transparent;
+  }
+  
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    border-radius: inherit;
+    background: linear-gradient(to right, #a855f7, #ec4899, #ef4444);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+  }
+
+</style>
