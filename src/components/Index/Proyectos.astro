@@ -2,8 +2,8 @@
 import Background from "../Common/Background.astro";
 import ProyectoCard from "./Proyectos/ProyectoCard.astro";
 ---
-<div class="lg:w-[900px] sm:w-[90%] w-[98%] pt-24 sm:pt-0">
-  <h2 class="text-5xl zilla-slab-regular mb-16 text-center">Proyectos principales</h2>
+<section class="xl:w-[1200px] sm:w-[90%] w-[98%] py-24">
+  <h2 class="text-3xl zilla-slab-regular mb-12 text-center">Proyectos principales</h2>
   <div class="grid grid-cols-1 gap-8 zilla-slab-regular content-center items-center mb-12 relative">
        
     <Background o=".2" tx="200vw" ty="100vh" x="-120vw" y="10vh" visibleMobile="" />
@@ -16,18 +16,37 @@ import ProyectoCard from "./Proyectos/ProyectoCard.astro";
       text="Aplicación móvil y desktop para la asignación y seguimiento de tareas en equipos de trabajo mientras se fomenta el bienestar, orientado a evitar sindrome de Burnout."
       text2="Es mi proyecto intermodular de desarrollo de aplicaciones multiplataforma, desarrollado en Kotlin con Jetpack Compose para la interfaz y Ktor para la API."
       img="img/burntoutlogo.webp"
-      summary="Trello gamificado que fomenta trabajo en equipo y evita el burnout. No disponible hasta mayo."
-      link="https://wdona.dev/burn-t-out/"
+      summary="Trello gamificado que fomenta trabajo en equipo y evita el Sindrome de Burnout. En desarrollo hasta mayo 2026."
+      link="https://github.com/wDona/Burnt-out-Proyecto-Final"
     />
     <ProyectoCard
+      tec="img/javalogo.webp"
+      title="Gestor de inventario por QRs"
+      text="Aplicacion para gestionar inventario a base de escaneo de QRs con un telefono Chainway C70"
+      summary="Aplicacion para gestionar inventario a base de escaneo de QRs con un telefono Chainway C70"
+      link="https://github.com/wDona/Gestor-Inventario-QR"
+    />
+
+    <ProyectoCard
+      tec="img/javalogo.webp"
+      title="Bloc de notas con reconocimiento de voz"
+      text="Aplicacion para gestionar notas con reconocimiento de voz en tiempo real."
+      summary="Aplicacion para gestionar notas con reconocimiento de voz en tiempo real."
+      link="https://github.com/wDona/Bloc-notas-voz"
+    />
+
+    <!-- <ProyectoCard
       tec="img/astrologo.webp"
+      tec2="img/HTML5_logo.png"
+      tec3="img/CSS3_logo.webp"
       title="Mi portfolio web"
       text="Este es mi portfolio web, donde muestro mis proyectos y habilidades."
       text2="Está desarrollado con Astro, un framework moderno para la creación de sitios web, generalmente estáticos."
       img="img/portfolioheadercomprimido.webp"
       summary="Pagina web en la que muestro lo que he hecho y ensenio mis conocimientos."
       link="https://github.com/wDona/wDona.github.io"
-    />
+    /> -->
+    
       <!-- <ProyectoCard tec="" title="" text="" text2="" img="" summary="" link="" /> -->
   </div>
-</div>
+</section>
