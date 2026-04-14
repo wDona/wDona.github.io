@@ -5,18 +5,26 @@ import '../styles/global.css';
 
 interface Props {
   title: string;
+  keywords?: string | undefined;
+  titlePestana: string | undefined;
+  description: string | undefined;
+
 }
-const { title } = Astro.props;
+const title = Astro.props.title;
+const keywords = Astro.props.keywords || "desarrollador, aplicaciones multiplataforma, portfolio, Astro, programación, frontend, backend, wdona, dona, miaudona, kotlin, jetpack compose, kmp";
+const titlePestana = Astro.props.titlePestana || "wDona | Desarrollador de aplicaciones multiplataforma";
+const description = Astro.props.description || "Soy un desarrollador de aplicaciones multiplataforma, al que desde pequeño siempre le apasionaba la tecnología y siempre le han atraído los desafíos y las cosas difíciles.";
+
 ---
 
 <!doctype html>
 <html lang="es">
   <head>
     <Head 
-    title="wDona | Desarrollador de aplicaciones multiplataforma" 
-    titlePestana={title} 
-    keywords="desarrollador, aplicaciones multiplataforma, portfolio, Astro, programación, frontend, backend, wdona, dona, miaudona, kotlin, jetpack compose, kmp" 
-    description="Soy un desarrollador de aplicaciones multiplataforma, al que desde pequeño siempre le apasionaba la tecnología y siempre me han atraído los desafíos y las cosas difíciles." />
+    title={title}
+    titlePestana={titlePestana} 
+    keywords={keywords} 
+    description={description} />
   </head>
   <body>
     <slot />
