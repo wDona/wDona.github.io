@@ -1,8 +1,16 @@
-<html>
+---
+interface Props {
+  url: string;
+}
+
+const { url } = Astro.props;
+---
+
+<html lang="es">
   <head>
     <meta
       http-equiv="refresh"
-      content="0;url=https://discord.com/invite/TMCnxb2pqc"
+      content={`0;url=${url}`}
       transition:animate="fade"
       window-target="_blank"
     />
@@ -24,4 +32,8 @@
       color: white;
     }
   }
-  </style>
+
+  body {
+    margin: 0;
+  }
+</style>
