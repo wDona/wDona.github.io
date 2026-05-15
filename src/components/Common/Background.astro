@@ -18,11 +18,12 @@ const x = Astro.props.x || Astro.props.y || "calc(50% - var(--tx)/2)"; // Distan
 const position = Astro.props.position || "absolute";
 const circle = Astro.props.circle || "ellipse";
 const visibleMobile = Astro.props.visibleMobile;
+const displayMobile = visibleMobile !== undefined ? 'block' : 'none';
 ---
 
 <div class="circulo"></div>
 
-<style define:vars={{ o, tx, ty, x, y, position, circle, visibleMobile }}>
+<style define:vars={{ o, tx, ty, x, y, position, circle, displayMobile }}>
   .circulo {
     width: var(--tx);
     height: var(--ty);
@@ -41,7 +42,7 @@ const visibleMobile = Astro.props.visibleMobile;
 
   @media (max-width: 640px) {
     .circulo {
-      display: {visibleMobile ? 'block' : 'none'};
+      display: var(--displayMobile);
     }
   }
 </style>
