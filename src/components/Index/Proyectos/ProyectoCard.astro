@@ -4,12 +4,14 @@ import BotonSecundario from "../../Common/BotonSecundario.astro";
 import LenguajeLabel from "./LenguajeLabel.astro";
 
 interface Props {
+  highlight?: boolean;
   title: string;
   text: string;
   text2?: string;
   text3?: string;
   text4?: string;
   link: string;
+  linkdescarga?: string;
   img?: string;
   tec: string;
   tec2?: string;
@@ -18,12 +20,14 @@ interface Props {
   tec5?: string;
   summary?: string;
 }
+const highlight = Astro.props.highlight;
 const title = Astro.props.title;
 const text = Astro.props.text;
 const text2 = Astro.props.text2;
 const text3 = Astro.props.text3;
 const text4 = Astro.props.text4;
 const link = Astro.props.link;
+const linkdescarga = Astro.props.linkdescarga;
 const img = Astro.props.img;
 const tec = Astro.props.tec;
 const tec2 = Astro.props.tec2;
@@ -39,11 +43,16 @@ const alt = "Imagen de " + title.toLowerCase();
 ---
 
 <div
-  class="card rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 sm:px-12 sm:py-12 px-6 py-10 relative overflow-x-hidden"
+  class:list={[
+    "card rounded-xl backdrop-blur-sm sm:px-12 sm:py-12 px-6 py-10 relative overflow-x-hidden hover:scale-[1.02] transition-transform duration-300",
+    highlight 
+      ? "border border-fuchsia-500/30 bg-gradient-to-br from-fuchsia-500/10 to-transparent" 
+      : "bg-white/5 border border-white/10"
+  ]}
 >
 {img && (
     <div
-      class="absolute inset-0 bg-cover bg-center md:hidden rounded-xl"
+      class="absolute inset-0 bg-cover bg-center lg:hidden rounded-xl"
       style={`background-image: url('${img}'); opacity: 0.25;`}
     ></div>
   )}
@@ -54,15 +63,15 @@ const alt = "Imagen de " + title.toLowerCase();
     <h3 class="text-4xl sm:text-4xl">{title}</h3>
   </div>
 
-  <div class="grid w-full md:grid-cols-2">
+  <div class="grid w-full lg:grid-cols-2">
     
     {
       img ? (
-        <div class="hidden md:flex h-full w-full items-center pr-6">
+        <div class="hidden lg:flex h-full w-full items-center pr-6">
           <img class="rounded-lg w-full aspect-video object-cover" src={img} alt={alt} />
         </div>
       ) : (
-        <div class="hidden md:flex h-full w-full items-center pr-6">
+        <div class="hidden lg:flex h-full w-full items-center pr-6">
           <div class="rounded-lg aspect-video bg-gray-800/10 border border-white/6 flex items-center justify-center text-gray-400 w-full">
             <!-- placeholder SVG para escritorio -->
             <svg class="w-20 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -74,10 +83,19 @@ const alt = "Imagen de " + title.toLowerCase();
         </div>
       )
     }
-      <div class="text-xl md:flex md:justify-center md:items-center">
+      <div class="text-xl lg:flex lg:justify-center lg:items-center">
         <div>
           {summary && <p class="zilla-slab-regular mb-4">{summary}</p>}
+          
+          {
+            linkdescarga && (
+              <div class="text-xl my-4">
+                <BotonPrimario texto="Descargar Proyecto" enlace={linkdescarga} />
+              </div>
+            )
+          }
           <BotonSecundario texto="Saber más" enlace={link} />
+          
           <div id="tech-icons" class="flex sm:items-center gap-2 mt-4 ml-1">
             {
               tec && (
@@ -134,13 +152,7 @@ const alt = "Imagen de " + title.toLowerCase();
         {text4 && <p class="zilla-slab-regular">{text4}</p>}
       </div>
     </div>
-    {
-      link && (
-        <div class="text-xl mt-4">
-          <BotonPrimario texto="Ver Proyecto" enlace={link} />
-        </div>
-      )
-    }
+
   </div>
 </div>
 
@@ -152,7 +164,7 @@ const alt = "Imagen de " + title.toLowerCase();
     text-wrap: pretty;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
   .card {
     background-image: none !important;
   }

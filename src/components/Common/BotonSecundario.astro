@@ -2,14 +2,16 @@
 interface Props {
     texto: string;
     enlace: string;
+    target?: string;
 }
 
 const texto = Astro.props.texto;
 const enlace = Astro.props.enlace;
+const target = Astro.props.target;
 ---
 
 <a href={enlace}
-   target="_blank"
+   target={target || "_blank"}
    class="gradient-border zilla-slab-regular text-xl text-white px-3 py-1 text-center hover:scale-105 transition-all duration-200">
    {texto}
 </a>

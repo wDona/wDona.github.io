@@ -1,0 +1,43 @@
+---
+---
+<article class="col-span-1 border border-fuchsia-500/30 rounded-3xl p-7 text-center flex flex-col justify-center items-center bg-gradient-to-br from-fuchsia-500/10 to-transparent hover:scale-[1.02] transition-transform duration-300">
+  <span class="text-3xl mb-2">🎂</span>
+  <span class="text-sm font-medium mt-1 uppercase tracking-widest text-fuchsia-300">Mi cumpleaños en</span>
+  <span id="countdown-cumple" class="text-2xl font-mono font-light text-fuchsia-100 mt-2 tracking-tight">--d --h --m --s</span>
+</article>
+
+<script>
+  function updateCountdown() {
+    const el = document.getElementById('countdown-cumple');
+    if (!el) return;
+
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    let target = new Date(currentYear, 11, 16);
+
+    if (now.getMonth() === 11 && now.getDate() === 16) {
+      el.innerHTML = "¡Es hoy! 🥳";
+      return;
+    }
+
+    if (now.getTime() > target.getTime()) {
+      target = new Date(currentYear + 1, 11, 16);
+    }
+
+    const diff = target.getTime() - now.getTime();
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / 1000 / 60) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+
+    // Format with leading zeros for cleaner look
+    const hh = h.toString().padStart(2, '0');
+    const mm = m.toString().padStart(2, '0');
+    const ss = s.toString().padStart(2, '0');
+
+    el.innerHTML = `${d}d ${hh}h ${mm}m ${ss}s`;
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>

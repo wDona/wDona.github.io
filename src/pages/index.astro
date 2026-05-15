@@ -8,20 +8,22 @@ import Proyectos from "../components/Index/Proyectos.astro";
 import Habilidades from "../components/Index/Habilidades.astro";
 import InitialTake from "../components/Index/InitialTake.astro";
 import Contacto from "../components/Index/Contacto.astro";
+import SobreMi from "../components/Index/SobreMi.astro";
+import Experiencia from "../components/Index/Experiencia.astro";
 ---
 
 <Layout title="wDona" titlePestana="wDona" description="Me llamo Fernando. Soy un desarrollador backend centrado en Java y Kotlin. Revisa mis proyectos en esta web. Te invito a que entres a mi GitHub.">
   <Nav />
   <Header />
 
-  <main class="flex flex-col justify-center items-center">
-    <div class="max-w-[900px] flex flex-col justify-center items-center gap-1">
+  <main class="flex flex-col justify-center items-center overflow-x-hidden">
+    <div class="max-w-[1200px] flex flex-col justify-center items-center gap-4 sm:gap-10 w-full">
       <InitialTake/> 
-      <!-- <GridCards/> -->
-      <!-- <Habilidades /> -->
+      <Experiencia />
       <Proyectos />
+      <SobreMi />
     </div>
   </main>
 
-  <Footer texto="Ultima actualización: Febrero 2026 - wDona" />
+  <Footer texto="Ultima actualización: Mayo 2026 - wDona" />
 </Layout>

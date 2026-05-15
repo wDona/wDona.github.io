@@ -2,7 +2,7 @@
 import Background from "../Common/Background.astro";
 import ProyectoCard from "./Proyectos/ProyectoCard.astro";
 ---
-<section class="xl:w-[1200px] sm:w-[90%] w-[98%] py-24">
+<section class="xl:w-[1200px] sm:w-[90%] w-[98%] py-24 mx-auto">
   <h2 class="text-3xl zilla-slab-regular mb-12 text-center">Proyectos principales</h2>
   <div class="grid grid-cols-1 gap-8 zilla-slab-regular content-center items-center mb-12 relative">
        
@@ -12,28 +12,34 @@ import ProyectoCard from "./Proyectos/ProyectoCard.astro";
       tec="img/kotlinlogo.webp"
       tec2="img/jetpackcomposelogo.webp"
       tec3="img/ktorlogo.webp"
+      highlight={true}
       title="Burn't out"
       text="Aplicación móvil y desktop para la asignación y seguimiento de tareas en equipos de trabajo mientras se fomenta el bienestar, orientado a evitar sindrome de Burnout."
       text2="Es mi proyecto intermodular de desarrollo de aplicaciones multiplataforma, desarrollado en Kotlin con Jetpack Compose para la interfaz y Ktor para la API."
-      img="img/burntoutlogo.webp"
-      summary="Trello gamificado que fomenta trabajo en equipo y evita el Sindrome de Burnout. En desarrollo hasta mayo 2026."
-      link="https://github.com/wDona/Burnt-out-Proyecto-Final"
+      img="img/burntoutlogo.png"
+      summary="Trello gamificado que fomenta trabajo en equipo y evita el Sindrome de Burnout."
+      link="https://github.com/wDona/Burnt-out"
+      linkdescarga="https://wdona.dev/burnt-out"
     />
+    
     <ProyectoCard
-      tec="img/javalogo.webp"
-      title="Gestor de inventario por QRs"
-      text="Aplicacion para gestionar inventario a base de escaneo de QRs con un telefono Chainway C70"
-      summary="Aplicacion para gestionar inventario a base de escaneo de QRs con un telefono Chainway C70"
-      link="https://github.com/wDona/Gestor-Inventario-QR"
+      tec="img/kotlinlogo.webp"
+      title="Copia de Flappy Bird"
+      text="Una copia del Flappy Bird usando Canva en Android"
+      summary="Una copia del Flappy Bird usando Canva en Android de proyecto para clase."
+      img="img/pajaro.webp"
+      link="https://github.com/wDona/FlappyBird-Android"
     />
 
     <ProyectoCard
       tec="img/javalogo.webp"
       title="Bloc de notas con reconocimiento de voz"
-      text="Aplicacion para gestionar notas con reconocimiento de voz en tiempo real."
-      summary="Aplicacion para gestionar notas con reconocimiento de voz en tiempo real."
+      text="Aplicacion para crear/editar notas con reconocimiento de voz en tiempo real."
+      summary="Aplicacion para crear/editar notas con reconocimiento de voz en tiempo real."
+      img="img/bloc-de-notas-icon.webp"
       link="https://github.com/wDona/Bloc-notas-voz"
     />
+
 
     <!-- <ProyectoCard
       tec="img/astrologo.webp"
