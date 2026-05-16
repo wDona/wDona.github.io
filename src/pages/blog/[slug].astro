@@ -28,8 +28,24 @@ const { Content } = await render(post);
 </Blog>
 
 <style is:global>
-  p {
+  article p {
     @apply mt-6;
   }
+  
+  article h1, article h2, article h3, article h4, article h5, article h6 {
+    @apply mt-10 mb-4;
+  }
 
+  article ul {
+    @apply list-disc ml-8 mt-4 flex flex-col gap-2;
+  }
+
+  article ol {
+    @apply list-decimal ml-8 mt-4 flex flex-col gap-2;
+  }
+
+  article li {
+    @apply text-base md:text-lg;
+    font-size: inherit;
+  }
 </style>
