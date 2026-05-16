@@ -1,0 +1,14 @@
+---
+interface Props {
+  texto: string;
+  enlace: string;
+}
+const { texto, enlace } = Astro.props;
+---
+
+<a
+  href={enlace}
+  class="zilla-slab-regular bg-slate-800 border-[1px] border-slate-600 text-white sm:px-6 sm:py-4 rounded-lg hover:bg-slate-700 hover:scale-105 transition-all duration-200 text-center w-full sm:w-auto inline-block px-4 py-3 text-xl sm:max-w-[320px] sm:w-[320px] shadow-md"
+>
+  {texto}
+</a>

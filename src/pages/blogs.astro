@@ -1,8 +1,11 @@
 ---
-import BotonPrimario from "../components/Common/BotonPrimario.astro";
 import BotonSecundario from "../components/Common/BotonSecundario.astro";
 import Nav from "../components/Common/Nav.astro";
+import BotonBlog from "../components/PaginaDeBlogs/BotonBlog.astro";
 import PaginaDeBlogs from "../layouts/PaginaDeBlogs.astro";
+import { getCollection } from "astro:content";
+
+const blogs = await getCollection("blog");
 ---
 
 <PaginaDeBlogs>
@@ -16,7 +19,11 @@ import PaginaDeBlogs from "../layouts/PaginaDeBlogs.astro";
       <h1>Blogs</h1>
       <div class="w-full flex gap-12">
         <ul class="flex gap-6 w-full flex-col sm:flex-row flex-wrap justify-center">
-          <li><BotonPrimario texto="Blog de prueba" enlace="/blog/prueba" target="_self"/></li>
+          {blogs.map((blog) => (
+            <li>
+              <BotonBlog texto={blog.data.title} enlace={`/blog/${blog.id}`} />
+            </li>
+          ))}
         </ul>
       </div>
     </div>
