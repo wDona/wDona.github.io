@@ -104,23 +104,25 @@ const { Content } = await render(proyecto);
     if (btnDescarga && repoLink) {
       const urlRepo = repoLink.getAttribute("href");
       
-      // Si el repo es de GitHub, extraemos el usuario y el nombre del repo
-      const githubMatch = urlRepo.match(/github\.com\/([^\/]+)\/([^\/]+)/);
-      
-      if (githubMatch) {
-        const owner = githubMatch[1];
-        const repo = githubMatch[2];
-        const apiUrl = `https://api.github.com/repos/${owner}/${repo}/releases`;
+      if (urlRepo) {
+        // Si el repo es de GitHub, extraemos el usuario y el nombre del repo
+        const githubMatch = urlRepo.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+        
+        if (githubMatch) {
+          const owner = githubMatch[1];
+          const repo = githubMatch[2];
+          const apiUrl = `https://api.github.com/repos/${owner}/${repo}/releases`;
 
-        fetch(apiUrl, { cache: "no-store" })
-          .then(res => res.json())
-          .then(releases => {
-            if (releases && releases.length > 0) {
-              // Asiganmos el enlace de la release más reciente (incluye pre-releases)
-              btnDescarga.setAttribute("href", releases[0].html_url);
-            }
-          })
-          .catch(err => console.error("Error al obtener las releases del repositorio:", err));
+          fetch(apiUrl, { cache: "no-store" })
+            .then(res => res.json())
+            .then(releases => {
+              if (releases && releases.length > 0) {
+                // Asiganmos el enlace de la release más reciente (incluye pre-releases)
+                btnDescarga.setAttribute("href", releases[0].html_url);
+              }
+            })
+            .catch(err => console.error("Error al obtener las releases del repositorio:", err));
+        }
       }
     }
   </script>

@@ -1,5 +1,4 @@
 ---
-import BotonPrimario from "../Common/BotonPrimario.astro";
 import BotonSecundario from "../Common/BotonSecundario.astro";
 const EMAIL = "me@wdona.dev";
 const LINKEDIN = "https://www.linkedin.com/in/fernando-de-cisneros-gonzález-2b575b388";
@@ -24,7 +23,7 @@ const LINKEDIN = "https://www.linkedin.com/in/fernando-de-cisneros-gonzález-2b5
   <p id="copyHint" class="text-sm font-medium zilla-slab-regular text-fuchsia-400 opacity-0 transition-opacity duration-300 h-2 -mt-2">¡Correo copiado al portapapeles!</p>
 </section>
 
-<script type="module">
+<script is:inline type="module">
   const email = "me@wdona.dev";
   const copyBtn = document.getElementById("copyEmail");
   const hint = document.getElementById("copyHint");

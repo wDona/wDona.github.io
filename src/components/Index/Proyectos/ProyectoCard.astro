@@ -79,7 +79,7 @@ const alt = "Imagen de " + title.toLowerCase();
   </div>
 </div>
 
-<script define:vars={{ cardId: id, repoLink: Astro.props.link }}>
+<script is:inline define:vars={{ cardId: id, repoLink: Astro.props.link }}>
   const btnDescarga = document.getElementById(`btn-descarga-card-${cardId}`);
 
   if (btnDescarga && repoLink) {
