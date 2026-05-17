@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "PowerShell(nvm version *)"
+      "PowerShell(nvm version *)",
+      "Skill(caveman)",
+      "Skill(caveman:*)"
     ]
   }
 }

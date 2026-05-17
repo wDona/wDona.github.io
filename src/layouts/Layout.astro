@@ -31,6 +31,8 @@ const description = Astro.props.description || "Soy un desarrollador de aplicaci
     <BackgroundAnimado />
     <slot />
     <script>
+      document.documentElement.classList.add('js-ready');
+
       const io = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
@@ -42,6 +44,11 @@ const description = Astro.props.description || "Soy un desarrollador de aplicaci
       }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
       document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+      // Fallback: si el observer no dispara, revelar todo tras 1s
+      setTimeout(() => {
+        document.querySelectorAll('.reveal:not(.revealed)').forEach(el => el.classList.add('revealed'));
+      }, 1000);
     </script>
   </body>
 </html>

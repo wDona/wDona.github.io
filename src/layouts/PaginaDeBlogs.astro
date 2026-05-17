@@ -26,6 +26,8 @@ import '../styles/global.css';
     <slot />
     <Footer texto="Blog de wDona" />
     <script>
+      document.documentElement.classList.add('js-ready');
+
       const io = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
@@ -36,6 +38,10 @@ import '../styles/global.css';
         });
       }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
       document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+      setTimeout(() => {
+        document.querySelectorAll('.reveal:not(.revealed)').forEach(el => el.classList.add('revealed'));
+      }, 1000);
     </script>
   </body>
 </html>
