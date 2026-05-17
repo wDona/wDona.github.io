@@ -73,8 +73,31 @@ const alt = "Imagen de " + title.toLowerCase();
     <!-- Botón de descarga al final -->
     <div class="mt-auto pt-4 pointer-events-auto relative z-20">
       {linkdescarga && (
-        <BotonPrimario texto="Descargar" enlace={linkdescarga} />
+        <BotonPrimario texto="Descargar" enlace={linkdescarga} id={`btn-descarga-card-${id}`} />
       )}
     </div>
   </div>
 </div>
+
+<script define:vars={{ cardId: id, repoLink: Astro.props.link }}>
+  const btnDescarga = document.getElementById(`btn-descarga-card-${cardId}`);
+
+  if (btnDescarga && repoLink) {
+    const githubMatch = repoLink.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+    
+    if (githubMatch) {
+      const owner = githubMatch[1];
+      const repo = githubMatch[2];
+      const apiUrl = `https://api.github.com/repos/${owner}/${repo}/releases`;
+
+      fetch(apiUrl, { cache: "no-store" })
+        .then(res => res.json())
+        .then(releases => {
+          if (releases && releases.length > 0) {
+            btnDescarga.setAttribute("href", releases[0].html_url);
+          }
+        })
+        .catch(err => console.error(`Error obteniendo releases para ${repo}:`, err));
+    }
+  }
+</script>
