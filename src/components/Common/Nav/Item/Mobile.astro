@@ -9,8 +9,8 @@ interface Props {
 const { enlace, texto } = Astro.props;
 ---
 
-<a href={enlace}>
-      <li class="py-4"><p class="zilla-slab-regular">{texto}</p></li>
+<a href={enlace} class="block group">
+      <li class="py-4 group-hover:bg-fuchsia-900/20 transition-colors duration-300 w-full"><p class="zilla-slab-regular group-hover:text-fuchsia-400 group-hover:scale-105 transition-all duration-300 w-full inline-block">{texto}</p></li>
     </a>
     <LineaSeparadoraHorizontal />
 

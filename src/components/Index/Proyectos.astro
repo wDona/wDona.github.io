@@ -1,58 +1,86 @@
 ---
-import Background from "../Common/Background.astro";
+import { getCollection } from 'astro:content';
 import ProyectoCard from "./Proyectos/ProyectoCard.astro";
+
+const proyectos = (await getCollection('proyectos'))
+  .sort((a, b) => (b.data.highlight ? 1 : 0) - (a.data.highlight ? 1 : 0));
+
+const allTechs = [...new Map(
+  proyectos.flatMap(p => p.data.tecnologias ?? []).map(t => [t.name, t])
+).values()];
 ---
-<section class="xl:w-[1200px] sm:w-[90%] w-[98%] py-24 mx-auto">
-  <h2 class="text-3xl zilla-slab-regular mb-12 text-center">Proyectos principales</h2>
-  <div class="grid grid-cols-1 gap-8 zilla-slab-regular content-center items-center mb-12 relative">
-       
-    <Background o=".2" tx="200vw" ty="100vh" x="-120vw" y="10vh" visibleMobile="" />
 
-    <ProyectoCard
-      tec="img/kotlinlogo.webp"
-      tec2="img/jetpackcomposelogo.webp"
-      tec3="img/ktorlogo.webp"
-      highlight={true}
-      title="Burn't out"
-      text="Aplicación móvil y desktop para la asignación y seguimiento de tareas en equipos de trabajo mientras se fomenta el bienestar, orientado a evitar sindrome de Burnout."
-      text2="Es mi proyecto intermodular de desarrollo de aplicaciones multiplataforma, desarrollado en Kotlin con Jetpack Compose para la interfaz y Ktor para la API."
-      img="img/burntoutlogo.png"
-      summary="Trello gamificado que fomenta trabajo en equipo y evita el Sindrome de Burnout."
-      link="https://github.com/wDona/Burnt-out"
-      linkdescarga="https://wdona.dev/burnt-out"
-    />
-    
-    <ProyectoCard
-      tec="img/kotlinlogo.webp"
-      title="Copia de Flappy Bird"
-      text="Una copia del Flappy Bird usando Canva en Android"
-      summary="Una copia del Flappy Bird usando Canva en Android de proyecto para clase."
-      img="img/pajaro.webp"
-      link="https://github.com/wDona/FlappyBird-Android"
-    />
+<section id="proyectos" class="xl:w-[1200px] sm:w-[90%] w-[98%] py-24 mx-auto">
+  <h2 class="text-4xl md:text-5xl zilla-slab-regular mb-8 text-center tracking-tight reveal">Proyectos principales</h2>
 
-    <ProyectoCard
-      tec="img/javalogo.webp"
-      title="Bloc de notas con reconocimiento de voz"
-      text="Aplicacion para crear/editar notas con reconocimiento de voz en tiempo real."
-      summary="Aplicacion para crear/editar notas con reconocimiento de voz en tiempo real."
-      img="img/bloc-de-notas-icon.webp"
-      link="https://github.com/wDona/Bloc-notas-voz"
-    />
+  <!-- Filtros -->
+  <div id="tech-filters" class="flex flex-wrap gap-2 justify-center mb-10 relative z-10 reveal" data-reveal-delay="150">
+    <button
+      data-filter="all"
+      class="filter-btn active inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium zilla-slab-regular transition-all duration-200 bg-fuchsia-500/25 border border-fuchsia-500/50 text-fuchsia-200 cursor-pointer"
+    >
+      Todos
+    </button>
+    {allTechs.map(tec => (
+      <button
+        data-filter={tec.name}
+        class="filter-btn inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium zilla-slab-regular transition-all duration-200 bg-fuchsia-950/40 border border-fuchsia-500/20 text-fuchsia-200/60 hover:border-fuchsia-500/40 hover:text-fuchsia-200/90 cursor-pointer"
+      >
+        <img src={"/" + tec.img} alt={tec.name} class="w-4 h-4 object-contain" loading="lazy" />
+        {tec.name}
+      </button>
+    ))}
+  </div>
 
-
-    <!-- <ProyectoCard
-      tec="img/astrologo.webp"
-      tec2="img/HTML5_logo.png"
-      tec3="img/CSS3_logo.webp"
-      title="Mi portfolio web"
-      text="Este es mi portfolio web, donde muestro mis proyectos y habilidades."
-      text2="Está desarrollado con Astro, un framework moderno para la creación de sitios web, generalmente estáticos."
-      img="img/portfolioheadercomprimido.webp"
-      summary="Pagina web en la que muestro lo que he hecho y ensenio mis conocimientos."
-      link="https://github.com/wDona/wDona.github.io"
-    /> -->
-    
-      <!-- <ProyectoCard tec="" title="" text="" text2="" img="" summary="" link="" /> -->
+  <!-- Grid de proyectos -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 zilla-slab-regular relative">
+    {proyectos.map((proyecto, i) => (
+      <div
+        class="proyecto-item reveal"
+        data-techs={JSON.stringify(proyecto.data.tecnologias?.map(t => t.name) ?? [])}
+        data-reveal-delay={200 + i * 150}
+      >
+        <ProyectoCard
+          id={proyecto.slug}
+          title={proyecto.data.title}
+          img={proyecto.data.img}
+          link={proyecto.data.link}
+          linkdescarga={proyecto.data.linkdescarga}
+          tecnologias={proyecto.data.tecnologias}
+          summary={proyecto.data.summary}
+          highlight={proyecto.data.highlight}
+        />
+      </div>
+    ))}
   </div>
 </section>
+
+<script>
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.proyecto-item');
+
+  const activeClass = ['bg-fuchsia-500/25', 'border-fuchsia-500/50', 'text-fuchsia-200'];
+  const inactiveClass = ['bg-fuchsia-950/40', 'border-fuchsia-500/20', 'text-fuchsia-200/60'];
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter!;
+
+      filterBtns.forEach(b => {
+        b.classList.remove(...activeClass);
+        b.classList.add(...inactiveClass);
+      });
+      btn.classList.remove(...inactiveClass);
+      btn.classList.add(...activeClass);
+
+      cards.forEach(card => {
+        if (filter === 'all') {
+          card.style.display = '';
+        } else {
+          const techs: string[] = JSON.parse(card.dataset.techs || '[]');
+          card.style.display = techs.includes(filter) ? '' : 'none';
+        }
+      });
+    });
+  });
+</script>

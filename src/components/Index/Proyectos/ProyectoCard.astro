@@ -4,22 +4,20 @@ import BotonSecundario from "../../Common/BotonSecundario.astro";
 import LenguajeLabel from "./LenguajeLabel.astro";
 
 interface Props {
+  id?: string;
   highlight?: boolean;
   title: string;
-  text: string;
+  text?: string;
   text2?: string;
   text3?: string;
   text4?: string;
   link: string;
   linkdescarga?: string;
   img?: string;
-  tec: string;
-  tec2?: string;
-  tec3?: string;
-  tec4?: string;
-  tec5?: string;
+  tecnologias?: Array<{ name: string; img: string }>;
   summary?: string;
 }
+const id = Astro.props.id || title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 const highlight = Astro.props.highlight;
 const title = Astro.props.title;
 const text = Astro.props.text;
@@ -29,144 +27,68 @@ const text4 = Astro.props.text4;
 const link = Astro.props.link;
 const linkdescarga = Astro.props.linkdescarga;
 const img = Astro.props.img;
-const tec = Astro.props.tec;
-const tec2 = Astro.props.tec2;
-const tec3 = Astro.props.tec3;
-const tec4 = Astro.props.tec4;
-const tec5 = Astro.props.tec5;
+const tecnologias = Astro.props.tecnologias ?? [];
 const summary = Astro.props.summary;
 
 const alt = "Imagen de " + title.toLowerCase();
-
-// todo: agregar imagenes de los proyectos
-// todo: hacer que al pasar por encima se abra la descripcion completa y se cierre
 ---
 
-<div
-  class:list={[
-    "card rounded-xl backdrop-blur-sm sm:px-12 sm:py-12 px-6 py-10 relative overflow-x-hidden hover:scale-[1.02] transition-transform duration-300",
-    highlight 
-      ? "border border-fuchsia-500/30 bg-gradient-to-br from-fuchsia-500/10 to-transparent" 
-      : "bg-white/5 border border-white/10"
+<div class:list={[
+    "relative flex flex-col group rounded-2xl overflow-hidden h-full transition-transform duration-300 hover:scale-[1.02]",
+    highlight
+      ? "bg-[#0d0008]/60 border border-fuchsia-500/40 shadow-[0_0_30px_rgba(217,70,239,0.18)] hover:border-fuchsia-400/60 hover:shadow-[0_0_45px_rgba(217,70,239,0.30)]"
+      : "bg-[#080808]/50 border border-white/5 hover:border-fuchsia-500/30 hover:shadow-[0_0_25px_rgba(217,70,239,0.15)]"
   ]}
 >
-{img && (
-    <div
-      class="absolute inset-0 bg-cover bg-center lg:hidden rounded-xl"
-      style={`background-image: url('${img}'); opacity: 0.25;`}
-    ></div>
+  <!-- Enlace oculto que cubre toda la tarjeta -->
+  <a href={`/proyectos/${id}`} class="absolute inset-0 z-0" aria-label={`Ver detalles de ${title}`}></a>
+
+  {highlight && (
+    <div class="absolute top-3 left-3 z-20 pointer-events-none">
+      <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold bg-fuchsia-500/90 text-white backdrop-blur-sm shadow-[0_0_12px_rgba(217,70,239,0.5)]">
+        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Destacado
+      </span>
+    </div>
   )}
 
-  <div
-    class="flex sm:justify-between sm:items-center flex-col-reverse sm:flex-row gap-4 sm:gap-0 mb-4 relative z-5"
-  >
-    <h3 class="text-4xl sm:text-4xl">{title}</h3>
+  <!-- Miniatura del video (Aspect ratio 16:9) -->
+  <div class="relative w-full aspect-video bg-black rounded-t-2xl overflow-hidden border-b border-white/5 z-10 pointer-events-none">
+    {img ? (
+      <img
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        src={img}
+        alt={alt}
+      />
+    ) : (
+      <div class="w-full h-full flex items-center justify-center text-gray-500">
+        <svg class="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.5" y="4" width="19" height="14" rx="2"></rect>
+          <path d="M3.5 18.5l5.5-6 4 5.5 5-7 1.5 2.5"></path>
+          <circle cx="8.5" cy="9" r="1.2"></circle>
+        </svg>
+      </div>
+    )}
   </div>
 
-  <div class="grid w-full lg:grid-cols-2">
+  <!-- Detalles del proyecto (Debajo de la miniatura) -->
+  <div class="p-4 flex flex-col flex-grow relative z-10 pointer-events-none">
     
-    {
-      img ? (
-        <div class="hidden lg:flex h-full w-full items-center pr-6">
-          <img class="rounded-lg w-full aspect-video object-cover" src={img} alt={alt} />
-        </div>
-      ) : (
-        <div class="hidden lg:flex h-full w-full items-center pr-6">
-          <div class="rounded-lg aspect-video bg-gray-800/10 border border-white/6 flex items-center justify-center text-gray-400 w-full">
-            <!-- placeholder SVG para escritorio -->
-            <svg class="w-20 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="2.5" y="4" width="19" height="14" rx="2"></rect>
-              <path d="M3.5 18.5l5.5-6 4 5.5 5-7 1.5 2.5"></path>
-              <circle cx="8.5" cy="9" r="1.2"></circle>
-            </svg>
-          </div>
-        </div>
-      )
-    }
-      <div class="text-xl lg:flex lg:justify-center lg:items-center">
-        <div>
-          {summary && <p class="zilla-slab-regular mb-4">{summary}</p>}
-          
-          {
-            linkdescarga && (
-              <div class="text-xl my-4">
-                <BotonPrimario texto="Descargar Proyecto" enlace={linkdescarga} />
-              </div>
-            )
-          }
-          <BotonSecundario texto="Saber más" enlace={link} />
-          
-          <div id="tech-icons" class="flex sm:items-center gap-2 mt-4 ml-1">
-            {
-              tec && (
-                <div>
-                  <LenguajeLabel img={tec} />
-                  {/* <img src={tec} alt="tec" class="h-8" loading="lazy" /> */}
-                </div>
-              )
-            }
-            {
-              tec2 && (
-                <div>
-                  <LenguajeLabel img={tec2} />
-                  {/* <img src={tec2} alt="tec2" class="h-8" loading="lazy" /> */}
-                </div>
-              )
-            }
-            {
-              tec3 && (
-                <div>
-                  <LenguajeLabel img={tec3} />
-                  {/* <img src={tec3} alt="tec3" class="h-8" loading="lazy" /> */}
-                </div>
-              )
-            }
-            {
-              tec4 && (
-                <div>
-                  <LenguajeLabel img={tec4} />
-                  {/* <img src={tec4} alt="tec4" class="h-8" loading="lazy" /> */}
-                </div>
-              )
-            }
-            {
-              tec5 && (
-                <div>
-                  <LenguajeLabel img={tec5} />
-                  {/* <img src={tec5} alt="tec5" class="h-8" loading="lazy" /> */}
-                </div>
-              )
-            }
-          </div>
-
-        </div>
-      </div>
-  </div>
-
-  <div class="flex flex-col gap-4 hidden">
-    <div class="text-xl gap-8">
-      <div class="zilla-slab-regular gap-4 flex flex-col">
-        {text && <p class="zilla-slab-regular">{text}</p>}
-        {text2 && <p class="zilla-slab-regular">{text2}</p>}
-        {text3 && <p class="zilla-slab-regular">{text3}</p>}
-        {text4 && <p class="zilla-slab-regular">{text4}</p>}
-      </div>
+    <!-- Título -->
+    <h3 class="text-xl sm:text-2xl font-bold mb-2 text-white group-hover:text-fuchsia-300 transition-colors duration-300 line-clamp-2">
+      {title}
+    </h3>
+    
+    <!-- Lenguajes -->
+    <div class="flex flex-wrap gap-2 mb-3">
+      {tecnologias.map(tec => <LenguajeLabel img={tec.img} name={tec.name} />)}
     </div>
 
+    <!-- Botón de descarga al final -->
+    <div class="mt-auto pt-4 pointer-events-auto relative z-20">
+      {linkdescarga && (
+        <BotonPrimario texto="Descargar" enlace={linkdescarga} />
+      )}
+    </div>
   </div>
 </div>
-
-<style>
-  .card {
-    height: max-content;
-    width: 100%;
-    border-radius: 16px;
-    text-wrap: pretty;
-  }
-
-  @media (min-width: 1024px) {
-  .card {
-    background-image: none !important;
-  }
-}
-</style>

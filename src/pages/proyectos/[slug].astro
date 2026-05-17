@@ -1,0 +1,95 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Layouts from '../../layouts/Layout.astro';
+import BotonPrimario from '../../components/Common/BotonPrimario.astro';
+import LenguajeLabel from '../../components/Index/Proyectos/LenguajeLabel.astro';
+
+export async function getStaticPaths() {
+  const proyectos = await getCollection('proyectos');
+  return proyectos.map((proyecto) => ({
+    params: { slug: proyecto.slug },
+    props: { proyecto },
+  }));
+}
+
+type Props = { proyecto: CollectionEntry<'proyectos'> };
+
+const { proyecto } = Astro.props;
+const { Content } = await proyecto.render();
+---
+
+<Layouts title={proyecto.data.title + " | wDona"}>
+  <style is:global>
+    html, body { overflow: hidden; height: 100%; margin: 0; }
+  </style>
+
+  <div class="flex h-screen w-screen bg-[#080808]">
+
+    <!-- Imagen izquierda -->
+    <div class="w-1/2 h-full relative flex-shrink-0 bg-black animate-fade-in-up animation-delay-100">
+      {proyecto.data.img ? (
+        <img
+          src={"/" + proyecto.data.img}
+          alt={proyecto.data.title}
+          class="w-full h-full object-cover"
+        />
+      ) : (
+        <div class="w-full h-full flex items-center justify-center bg-black/30">
+          <svg class="w-24 h-24 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2.5" y="4" width="19" height="14" rx="2"></rect>
+            <path d="M3.5 18.5l5.5-6 4 5.5 5-7 1.5 2.5"></path>
+            <circle cx="8.5" cy="9" r="1.2"></circle>
+          </svg>
+        </div>
+      )}
+    </div>
+
+    <!-- Info derecha -->
+    <div class="w-1/2 h-full flex flex-col p-10 xl:p-16 border-l border-white/5">
+
+      <!-- Volver -->
+      <button
+        onclick="history.length > 1 ? history.back() : (location.href = '/#proyectos')"
+        class="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/80 transition-colors mb-8 w-fit cursor-pointer bg-transparent border-none p-0 animate-fade-in-up animation-delay-200"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 5l-7 7 7 7"/></svg>
+        Volver
+      </button>
+
+      <!-- Título -->
+      <h1 class="text-4xl xl:text-5xl font-bold zilla-slab-regular leading-tight mb-6 bg-gradient-to-r from-fuchsia-400 to-fuchsia-100 bg-clip-text text-transparent animate-fade-in-up animation-delay-300">
+        {proyecto.data.title}
+      </h1>
+
+      <!-- Tecnologías -->
+      {proyecto.data.tecnologias && proyecto.data.tecnologias.length > 0 && (
+        <div class="flex flex-wrap gap-2 mb-6 animate-fade-in-up animation-delay-400">
+          {proyecto.data.tecnologias.map(tec => <LenguajeLabel img={"/" + tec.img} name={tec.name} />)}
+        </div>
+      )}
+
+      <!-- Descripción -->
+      <div class="flex-1 overflow-y-auto text-gray-300 text-base xl:text-lg zilla-slab-regular leading-relaxed prose prose-invert max-w-none pr-2 animate-fade-in-up animation-delay-500">
+        <Content />
+      </div>
+
+      <!-- Botones -->
+      <div class="flex flex-col sm:flex-row gap-3 pt-8 border-t border-white/10 mt-6 flex-shrink-0">
+        {proyecto.data.linkdescarga && (
+          <div class="w-full sm:w-auto">
+            <BotonPrimario texto="Descargar Proyecto" enlace={proyecto.data.linkdescarga} />
+          </div>
+        )}
+        <a
+          href={proyecto.data.link}
+          target="_blank"
+          class="cursor-pointer bg-white/5 border border-white/10 text-white/90 px-6 py-2 rounded-lg hover:bg-white/10 hover:text-white hover:border-white/20 hover:-translate-y-0.5 transition-all duration-300 w-full sm:w-auto text-center font-medium backdrop-blur-sm zilla-slab-regular flex items-center justify-center gap-2"
+        >
+          Ver Repositorio
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</Layouts>

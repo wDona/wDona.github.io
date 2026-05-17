@@ -1,0 +1,14 @@
+---
+interface Props {
+  texto: string;
+}
+const { texto } = Astro.props;
+---
+
+<div class="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border border-fuchsia-500/30 bg-fuchsia-500/10 text-fuchsia-300 text-xs sm:text-sm font-medium backdrop-blur-sm shadow-[0_0_15px_rgba(217,70,239,0.15)] animate-fade-in-up">
+  <span class="relative flex h-2 w-2">
+    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-fuchsia-400 opacity-75"></span>
+    <span class="relative inline-flex rounded-full h-2 w-2 bg-fuchsia-500"></span>
+  </span>
+  {texto}
+</div>

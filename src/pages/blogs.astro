@@ -16,11 +16,11 @@ const blogs = await getCollection("blog");
     <div
       class="max-w-[900px] w-full flex flex-col justify-center items-center gap-8"
     >
-      <h1>Blogs</h1>
-      <div class="w-full flex gap-12">
-        <ul class="flex gap-6 w-full flex-col sm:flex-row flex-wrap justify-center">
-          {blogs.map((blog) => (
-            <li>
+      <h1 class="reveal">Blogs</h1>
+      <div class="w-full mt-8">
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+          {blogs.map((blog, i) => (
+            <li class="flex h-full reveal" data-reveal-delay={100 + i * 100}>
               <BotonBlog texto={blog.data.title} enlace={`/blog/${blog.id}`} />
             </li>
           ))}

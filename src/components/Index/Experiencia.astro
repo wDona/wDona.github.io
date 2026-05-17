@@ -3,13 +3,14 @@ import BotonSecundario from "../Common/BotonSecundario.astro";
 
 ---
 <section class="xl:w-[1200px] sm:w-[90%] w-[98%] py-16 flex flex-col items-center gap-8 z-10 mx-auto" id="experiencia">
-  <h2 class="text-3xl zilla-slab-regular text-center mb-2 w-full">Experiencia</h2>
+  <h2 class="text-4xl md:text-5xl zilla-slab-regular text-center mb-2 w-full tracking-tight reveal">Experiencia</h2>
 
-  <div class="relative w-full border-l border-white/10 ml-3 sm:ml-0">
+  <div class="relative w-full ml-3 sm:ml-0">
     
     <!-- Autodidacta / Inicio -->
-    <div class="mb-12 ml-6 sm:ml-8 relative">
-      <span class="absolute -left-6 sm:-left-8 top-5 w-4 h-4 rounded-full bg-white/20 border border-white/30 transform -translate-x-1/2"></span>
+    <div class="mb-12 ml-6 sm:ml-8 relative reveal" data-reveal-delay="100">
+      <div class="absolute -left-6 sm:-left-8 top-5 w-px h-[calc(100%+3rem)] bg-gradient-to-b from-white/10 to-fuchsia-400 transform -translate-x-1/2 z-0"></div>
+      <span class="absolute -left-6 sm:-left-8 top-5 w-4 h-4 rounded-full bg-[#080808] border-2 border-white/40 transform -translate-x-1/2 z-10"></span>
       <article class="relative flex flex-col gap-4 bg-white/5 border border-white/10 rounded-3xl p-6 hover:bg-white/10 transition-colors duration-300">
         <div class="border-b border-white/10 pb-3">
           <h3 class="text-xl font-medium text-white/90 zilla-slab-regular">ESO & Autodidacta</h3>
@@ -24,15 +25,15 @@ import BotonSecundario from "../Common/BotonSecundario.astro";
     </div>
 
     <!-- Grados y FEOE -->
-    <div class="mb-10 ml-6 sm:ml-8 relative">
-      <span class="absolute -left-6 sm:-left-8 top-5 w-4 h-4 rounded-full bg-fuchsia-500/50 border border-fuchsia-300 transform -translate-x-1/2 shadow-[0_0_10px_rgba(217,70,239,0.5)]"></span>
-      <article class="relative flex flex-col border border-fuchsia-500/30 bg-gradient-to-br from-fuchsia-500/5 to-transparent rounded-3xl p-6 transition-colors duration-300">
+    <div class="mb-10 ml-6 sm:ml-8 relative reveal" data-reveal-delay="100">
+      <span class="absolute -left-6 sm:-left-8 top-5 w-4 h-4 rounded-full bg-[#080808] border-2 border-fuchsia-400 transform -translate-x-1/2 shadow-[0_0_10px_rgba(217,70,239,0.5)] z-10"></span>
+      <article class="relative flex flex-col bg-white/5 border border-white/10 rounded-3xl p-6 hover:bg-white/10 transition-colors duration-300">
         
-        <div class="border-b border-fuchsia-500/20 pb-3 mb-5">
-          <h3 class="text-2xl font-medium text-fuchsia-400 zilla-slab-regular">Formación Oficial</h3>
+        <div class="border-b border-white/10 pb-3 mb-5">
+          <h3 class="text-xl font-medium text-white/90 zilla-slab-regular">Formación Oficial</h3>
           <div class="flex gap-2 mt-3">
-              <span class="bg-fuchsia-500/10 text-fuchsia-300 text-xs px-2 py-1 rounded border border-fuchsia-500/20">Grado Medio</span>
-              <span class="bg-fuchsia-500/10 text-fuchsia-300 text-xs px-2 py-1 rounded border border-fuchsia-500/20">Grado Superior</span>
+              <span class="text-xs text-white/50 bg-white/5 inline-block px-2 py-0.5 rounded shadow-sm w-max border border-white/10">Grado Medio</span>
+              <span class="text-xs text-white/50 bg-white/5 inline-block px-2 py-0.5 rounded shadow-sm w-max border border-white/10">Grado Superior</span>
           </div>
         </div>
 
@@ -68,23 +69,23 @@ import BotonSecundario from "../Common/BotonSecundario.astro";
             </div>
 
             <!-- FEOE 2 -->
-            <div class="bg-fuchsia-500/10 border border-fuchsia-500/20 rounded-xl p-4 flex flex-col justify-between">
+            <div class="bg-black/20 border border-white/10 rounded-xl p-4 flex flex-col justify-between">
                <div>
-                <h4 class="text-md font-medium text-fuchsia-300 zilla-slab-regular mb-2">2. Android (Java)</h4>
+                <h4 class="text-md font-medium text-white/90 zilla-slab-regular mb-2">2. Android (Java)</h4>
                 <p class="text-white/70 font-light leading-relaxed text-sm mb-4">
                   Apps e integración de SDKs para periféricos y control de accesos.
                 </p>
               </div>
               <div class="flex gap-2 flex-wrap">
-                  <span class="bg-fuchsia-500/20 border border-fuchsia-500/30 text-fuchsia-100 px-2 py-0.5 rounded-lg flex items-center gap-1.5 text-xs font-medium">
+                  <span class="bg-white/5 border border-white/10 text-white/90 px-2 py-0.5 rounded-lg flex items-center gap-1.5 text-xs font-medium">
                       <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path><path d="M10 6h4"></path><path d="M10 10h4"></path><path d="M10 14h4"></path><path d="M10 18h4"></path></svg>
                       WUL 4
                   </span>
-                  <span class="bg-fuchsia-500/20 border border-fuchsia-500/30 text-fuchsia-200 px-2 py-0.5 rounded-lg flex items-center gap-1.5 text-xs">
+                  <span class="bg-white/5 border border-white/10 text-white/50 px-2 py-0.5 rounded-lg flex items-center gap-1.5 text-xs">
                       <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                       5 meses
                   </span>
-                  <span class="bg-fuchsia-500/20 border border-fuchsia-500/30 text-fuchsia-200 px-2 py-0.5 rounded-lg flex items-center gap-1.5 text-xs">
+                  <span class="bg-white/5 border border-white/10 text-white/50 px-2 py-0.5 rounded-lg flex items-center gap-1.5 text-xs">
                       <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                       3 días/semana
                   </span>

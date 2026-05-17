@@ -3,11 +3,11 @@ import BirthdayBadge from './BirthdayBadge.astro';
 ---
 
 <section class="xl:w-[1200px] sm:w-[90%] w-[98%] py-16 flex flex-col gap-8 z-10 mx-auto" id="sobre-mi">
-      <h2 class="text-3xl zilla-slab-regular mb-2 text-center">Sobre Mí</h2>
+      <h2 class="text-4xl md:text-5xl zilla-slab-regular mb-2 text-center tracking-tight reveal">Sobre Mí</h2>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-5 w-full">
-    
-    <article class="col-span-1 md:col-span-2 bg-white/5 border border-white/10 rounded-3xl p-7 hover:bg-white/10 transition-colors duration-300 relative">
+
+    <article class="col-span-1 md:col-span-2 bg-white/5 border border-white/10 rounded-3xl p-7 hover:bg-white/10 transition-colors duration-300 relative reveal" data-reveal-delay="100">
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2 sm:gap-0">
         <h3 class="text-2xl zilla-slab-regular">¿Quién soy?</h3>
       </div>
@@ -16,9 +16,9 @@ import BirthdayBadge from './BirthdayBadge.astro';
       </p>
     </article>
 
-    <BirthdayBadge />
+    <div class="reveal" data-reveal-delay="200"><BirthdayBadge /></div>
 
-    <article class="col-span-1 border border-white/10 bg-white/5 rounded-3xl p-7 hover:bg-white/10 transition-colors duration-300 flex flex-col justify-center">
+    <article class="col-span-1 border border-white/10 bg-white/5 rounded-3xl p-7 hover:bg-white/10 transition-colors duration-300 flex flex-col justify-center reveal" data-reveal-delay="300">
       <h3 class="text-xl zilla-slab-regular mb-3 ">Mentalidad</h3>
       <p class="opacity-80 font-light text-md leading-relaxed">
         Me defino como una <strong>esponja de información</strong>. Adoro aprender por mi cuenta sobre <strong>tecnología, psicología y ajedrez</strong>.
@@ -26,7 +26,7 @@ import BirthdayBadge from './BirthdayBadge.astro';
     </article>
 
     <!-- Stack -->
-    <article class="col-span-1 md:col-span-2 bg-white/5 border border-white/10 rounded-3xl p-7 hover:bg-white/10 transition-colors duration-300 flex flex-col justify-center">
+    <article class="col-span-1 md:col-span-2 bg-white/5 border border-white/10 rounded-3xl p-7 hover:bg-white/10 transition-colors duration-300 flex flex-col justify-center reveal" data-reveal-delay="400">
       <h3 class="text-xl zilla-slab-regular mb-4">Mi Stack</h3>
       <a href="https://skillicons.dev" target="_blank" rel="noreferrer" class="w-full flex">
           <img src="https://skillicons.dev/icons?i=kotlin,ktor,java,mysql,git,docker,html,css" alt="Mis Skills" class="w-full max-w-[500px]" />

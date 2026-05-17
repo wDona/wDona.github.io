@@ -25,5 +25,17 @@ import '../styles/global.css';
   <body class="zilla-slab-regular">
     <slot />
     <Footer texto="Blog de wDona" />
+    <script>
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target as HTMLElement;
+          const delay = parseInt(el.dataset.revealDelay ?? '0');
+          setTimeout(() => el.classList.add('revealed'), delay);
+          io.unobserve(el);
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    </script>
   </body>
 </html>

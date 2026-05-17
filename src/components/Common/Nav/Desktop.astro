@@ -1,13 +1,16 @@
 <div class="items-center gap-8 hidden md:flex">
-  <a href="/"><img src="/img/Logo_MD.png" alt="Logo" class="w-20" /></a>
-  <div class="md:flex items-center md:gap-4">
-    <a href="/" class="hover:underline zilla-slab-regular">Inicio</a>
+  <a href="/" class="hover:scale-110 hover:drop-shadow-[0_0_15px_rgba(217,70,239,0.5)] transition-all duration-300"><img src="/img/Logo_MD.png" alt="Logo" class="w-20" /></a>
+  <div class="md:flex items-center md:gap-6">
+    <a href="/" class="transition-colors duration-300 zilla-slab-regular relative group hover:text-fuchsia-400 py-1">
+      Inicio
+      <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-fuchsia-400 transition-all duration-300 group-hover:w-full rounded-full"></span>
+    </a>
     <a
       href="/blogs"
-      class="hover:underline zilla-slab-regular"
-      target="_blank"
+      class="transition-colors duration-300 zilla-slab-regular relative group hover:text-fuchsia-400 py-1"
     >
       Blogs
+      <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-fuchsia-400 transition-all duration-300 group-hover:w-full rounded-full"></span>
     </a>
     <!--
         <a href="/sobre-mi" class="hover:underline">Sobre mí</a>
@@ -19,7 +22,7 @@
   <!-- a href="/youtube" target="_blank"
     ><img src="/img/youtube.svg" alt="YT" class="w-12" />
   </a> -->
-  <a href="/github" target="_blank"
+  <a href="/github" target="_blank" class="hover:scale-110 hover:-translate-y-1 hover:drop-shadow-[0_0_15px_rgba(217,70,239,0.5)] transition-all duration-300"
     ><img src="/img/github.svg" alt="Git" class="w-12" />
   </a>
   <!-- 

@@ -1,5 +1,6 @@
 ---
 import Head from '../components/Common/Head.astro';
+import BackgroundAnimado from '../components/Common/BackgroundAnimado.astro';
 import '../styles/global.css';
 
 
@@ -27,6 +28,20 @@ const description = Astro.props.description || "Soy un desarrollador de aplicaci
     description={description} />
   </head>
   <body>
+    <BackgroundAnimado />
     <slot />
+    <script>
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target as HTMLElement;
+          const delay = parseInt(el.dataset.revealDelay ?? '0');
+          setTimeout(() => el.classList.add('revealed'), delay);
+          io.unobserve(el);
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    </script>
   </body>
 </html>

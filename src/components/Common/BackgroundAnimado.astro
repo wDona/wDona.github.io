@@ -1,0 +1,98 @@
+<div class="bg-animado" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="blob blob-4"></div>
+  <div class="blob blob-5"></div>
+</div>
+
+<style>
+  .bg-animado {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+  }
+
+  .blob-1 {
+    width: 55vw;
+    height: 55vw;
+    background: radial-gradient(circle, rgba(217, 70, 239, 1), transparent 70%);
+    top: -20%;
+    right: -10%;
+    opacity: 0.10;
+    animation: drift1 22s ease-in-out infinite alternate;
+  }
+
+  .blob-2 {
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle, rgba(147, 51, 234, 1), transparent 70%);
+    bottom: 5%;
+    left: -15%;
+    opacity: 0.09;
+    animation: drift2 28s ease-in-out infinite alternate;
+  }
+
+  .blob-3 {
+    width: 30vw;
+    height: 30vw;
+    background: radial-gradient(circle, rgba(217, 70, 239, 1), transparent 70%);
+    top: 45%;
+    left: 35%;
+    opacity: 0.06;
+    animation: drift3 19s ease-in-out infinite alternate;
+  }
+
+  .blob-4 {
+    width: 28vw;
+    height: 28vw;
+    background: radial-gradient(circle, rgba(168, 85, 247, 1), transparent 70%);
+    bottom: -5%;
+    right: 15%;
+    opacity: 0.08;
+    animation: drift4 24s ease-in-out infinite alternate;
+  }
+
+  .blob-5 {
+    width: 20vw;
+    height: 20vw;
+    background: radial-gradient(circle, rgba(232, 121, 249, 1), transparent 70%);
+    top: 25%;
+    left: -5%;
+    opacity: 0.07;
+    animation: drift5 16s ease-in-out infinite alternate;
+  }
+
+  @keyframes drift1 {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(-9vw, 14vh) scale(1.18); }
+  }
+
+  @keyframes drift2 {
+    from { transform: translate(0, 0) scale(1.1); }
+    to   { transform: translate(12vw, -18vh) scale(0.88); }
+  }
+
+  @keyframes drift3 {
+    from { transform: translate(-6vw, -10vh) scale(1); }
+    to   { transform: translate(9vw, 12vh) scale(1.25); }
+  }
+
+  @keyframes drift4 {
+    from { transform: translate(0, 0) scale(0.9); }
+    to   { transform: translate(-14vw, -12vh) scale(1.15); }
+  }
+
+  @keyframes drift5 {
+    from { transform: translate(0, 5vh) scale(1.05); }
+    to   { transform: translate(8vw, -8vh) scale(0.85); }
+  }
+</style>

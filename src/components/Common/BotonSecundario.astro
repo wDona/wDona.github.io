@@ -12,30 +12,6 @@ const target = Astro.props.target;
 
 <a href={enlace}
    target={target || "_blank"}
-   class="gradient-border zilla-slab-regular text-xl text-white px-3 py-1 text-center hover:scale-105 transition-all duration-200">
+   class="cursor-pointer bg-fuchsia-900/20 border border-fuchsia-700/30 text-white px-6 py-2 rounded-lg hover:bg-fuchsia-800/40 hover:border-fuchsia-500/50 hover:-translate-y-1 hover:shadow-[0_0_10px_rgba(217,70,239,0.2)] transition-all duration-300 w-full sm:w-auto text-center font-medium backdrop-blur-sm">
    {texto}
 </a>
-
-<style>
-  .gradient-border {
-    position: relative;
-    display: inline-block;
-    border-radius: 0.5rem;
-    background: transparent;
-  }
-  
-  .gradient-border::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    padding: 2px;
-    border-radius: inherit;
-    background: linear-gradient(to right, #a855f7, #ec4899, #ef4444);
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
-  }
-
-</style>
