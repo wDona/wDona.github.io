@@ -20,13 +20,15 @@ const { Content } = await render(proyecto);
 
 <Layouts title={proyecto.data.title + " | wDona"}>
   <style is:global>
-    html, body { overflow: hidden; height: 100%; margin: 0; }
+    @media (min-width: 768px) {
+      html, body { overflow: hidden; height: 100%; margin: 0; }
+    }
   </style>
 
-  <div class="flex h-screen w-screen bg-[#080808]">
+  <div class="flex flex-col md:flex-row md:h-screen w-full bg-[#080808]">
 
-    <!-- Imagen izquierda -->
-    <div class="w-1/2 h-full relative flex-shrink-0 bg-black animate-fade-in-up animation-delay-100">
+    <!-- Imagen: banner arriba en mobile, columna izquierda en desktop -->
+    <div class="w-full aspect-video md:aspect-auto md:w-1/2 md:h-full relative flex-shrink-0 bg-black animate-fade-in-up animation-delay-100">
       {proyecto.data.img ? (
         <img
           src={"/" + proyecto.data.img}
@@ -44,37 +46,37 @@ const { Content } = await render(proyecto);
       )}
     </div>
 
-    <!-- Info derecha -->
-    <div class="w-1/2 h-full flex flex-col p-10 xl:p-16 border-l border-white/5">
+    <!-- Info: abajo en mobile, columna derecha en desktop -->
+    <div class="w-full md:w-1/2 md:h-full flex flex-col p-6 md:p-10 xl:p-16 border-t border-white/10 md:border-t-0 md:border-l md:border-white/5 md:overflow-y-auto">
 
       <!-- Volver -->
       <button
         onclick="history.length > 1 ? history.back() : (location.href = '/#proyectos')"
-        class="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/80 transition-colors mb-8 w-fit cursor-pointer bg-transparent border-none p-0 animate-fade-in-up animation-delay-200"
+        class="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/80 transition-colors mb-6 md:mb-8 w-fit cursor-pointer bg-transparent border-none p-0 animate-fade-in-up animation-delay-200"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 5l-7 7 7 7"/></svg>
         Volver
       </button>
 
       <!-- Título -->
-      <h1 class="text-4xl xl:text-5xl font-bold zilla-slab-regular leading-tight mb-6 bg-gradient-to-r from-fuchsia-400 to-fuchsia-100 bg-clip-text text-transparent animate-fade-in-up animation-delay-300">
+      <h1 class="text-3xl md:text-4xl xl:text-5xl font-bold zilla-slab-regular leading-tight mb-4 md:mb-6 bg-gradient-to-r from-fuchsia-400 to-fuchsia-100 bg-clip-text text-transparent animate-fade-in-up animation-delay-300">
         {proyecto.data.title}
       </h1>
 
       <!-- Tecnologías -->
       {proyecto.data.tecnologias && proyecto.data.tecnologias.length > 0 && (
-        <div class="flex flex-wrap gap-2 mb-6 animate-fade-in-up animation-delay-400">
+        <div class="flex flex-wrap gap-2 mb-4 md:mb-6 animate-fade-in-up animation-delay-400">
           {proyecto.data.tecnologias.map(tec => <LenguajeLabel img={"/" + tec.img} name={tec.name} />)}
         </div>
       )}
 
       <!-- Descripción -->
-      <div class="flex-1 overflow-y-auto text-gray-300 text-base xl:text-lg zilla-slab-regular leading-relaxed prose prose-invert max-w-none pr-2 animate-fade-in-up animation-delay-500">
+      <div class="md:flex-1 md:overflow-y-auto text-gray-300 text-base xl:text-lg zilla-slab-regular leading-relaxed prose prose-invert max-w-none md:pr-2 animate-fade-in-up animation-delay-500">
         <Content />
       </div>
 
       <!-- Botones -->
-      <div class="flex flex-col sm:flex-row gap-3 pt-8 border-t border-white/10 mt-6 flex-shrink-0">
+      <div class="flex flex-col sm:flex-row gap-3 pt-6 md:pt-8 border-t border-white/10 mt-6 md:flex-shrink-0 pb-8 md:pb-0">
         {proyecto.data.linkdescarga && (
           <div class="w-full sm:w-auto">
             <BotonPrimario texto="Descargar Proyecto" enlace={proyecto.data.linkdescarga} />
