@@ -1,34 +1,20 @@
 ---
 import BotonPrimario from "../../Common/BotonPrimario.astro";
-import BotonSecundario from "../../Common/BotonSecundario.astro";
 import LenguajeLabel from "./LenguajeLabel.astro";
 
 interface Props {
   id?: string;
   highlight?: boolean;
   title: string;
-  text?: string;
-  text2?: string;
-  text3?: string;
-  text4?: string;
   link: string;
   linkdescarga?: string;
   img?: string;
   tecnologias?: Array<{ name: string; img: string }>;
   summary?: string;
 }
+const { title, highlight, linkdescarga, img } = Astro.props;
 const id = Astro.props.id || title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-const highlight = Astro.props.highlight;
-const title = Astro.props.title;
-const text = Astro.props.text;
-const text2 = Astro.props.text2;
-const text3 = Astro.props.text3;
-const text4 = Astro.props.text4;
-const link = Astro.props.link;
-const linkdescarga = Astro.props.linkdescarga;
-const img = Astro.props.img;
 const tecnologias = Astro.props.tecnologias ?? [];
-const summary = Astro.props.summary;
 
 const alt = "Imagen de " + title.toLowerCase();
 ---
