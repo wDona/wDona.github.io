@@ -41,14 +41,19 @@ const description = Astro.props.description || "Soy un desarrollador de aplicaci
           setTimeout(() => el.classList.add('revealed'), delay);
           io.unobserve(el);
         });
-      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
 
       document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-      // Fallback: si el observer no dispara, revelar todo tras 1s
+      // Fallback: solo revela elementos ya visibles en viewport (no los de abajo del fold)
       setTimeout(() => {
-        document.querySelectorAll('.reveal:not(.revealed)').forEach(el => el.classList.add('revealed'));
-      }, 1000);
+        document.querySelectorAll('.reveal:not(.revealed)').forEach(el => {
+          const rect = (el as HTMLElement).getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            el.classList.add('revealed');
+          }
+        });
+      }, 800);
     </script>
   </body>
 </html>
