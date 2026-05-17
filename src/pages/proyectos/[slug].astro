@@ -1,5 +1,5 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 import Layouts from '../../layouts/Layout.astro';
 import BotonPrimario from '../../components/Common/BotonPrimario.astro';
 import LenguajeLabel from '../../components/Index/Proyectos/LenguajeLabel.astro';
@@ -7,7 +7,7 @@ import LenguajeLabel from '../../components/Index/Proyectos/LenguajeLabel.astro'
 export async function getStaticPaths() {
   const proyectos = await getCollection('proyectos');
   return proyectos.map((proyecto) => ({
-    params: { slug: proyecto.slug },
+    params: { slug: proyecto.id },
     props: { proyecto },
   }));
 }
@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 type Props = { proyecto: CollectionEntry<'proyectos'> };
 
 const { proyecto } = Astro.props;
-const { Content } = await proyecto.render();
+const { Content } = await render(proyecto);
 ---
 
 <Layouts title={proyecto.data.title + " | wDona"}>
