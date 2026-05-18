@@ -3,7 +3,9 @@
     "allow": [
       "PowerShell(nvm version *)",
       "Skill(caveman)",
-      "Skill(caveman:*)"
+      "Skill(caveman:*)",
+      "Bash(Select-String -Pattern \"js-ready|reveal|opacity\" -Path \"c:\\\\Users\\\\donan\\\\Documents\\\\wdona.dev\\\\MiauDona.github.io\\\\dist\\\\index.html\")",
+      "Bash(Select-Object -First 30)"
     ]
   }
 }
