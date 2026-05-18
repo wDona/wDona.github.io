@@ -6,8 +6,8 @@ import RoleBadge from "./RoleBadge.astro";
   
   <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[600px] sm:h-[600px] bg-fuchsia-600/10 rounded-full blur-[100px] sm:blur-[150px] -z-10 pointer-events-none"></div>
 
-  <div class="absolute inset-0 flex justify-center items-center opacity-[0.03] z-[-5] pointer-events-none select-none mix-blend-screen scale-[1.7] sm:scale-100">
-      <img src="img/miaudonalogocomprimido.webp" class="w-full max-w-2xl object-contain" alt="" />
+  <div class="absolute inset-0 flex justify-center items-center opacity-[0.03] dark:opacity-10 z-[-5] pointer-events-none select-none mix-blend-multiply dark:mix-blend-screen scale-[1.7] sm:scale-100">
+      <img src="img/miaudonalogocomprimido.webp" class="w-full max-w-2xl object-contain invert dark:invert-0" alt="" />
   </div>
 
   <div class="z-10 flex flex-col items-start justify-center text-left px-4 sm:px-6 w-full max-w-5xl mx-auto gap-6 sm:gap-8 mt-16 sm:mt-0">
@@ -15,9 +15,9 @@ import RoleBadge from "./RoleBadge.astro";
     
     <div class="flex flex-col items-start gap-2 max-w-4xl">
       <h2 class="text-2xl sm:text-3xl font-medium tracking-tight zilla-slab-regular animate-fade-in-up animation-delay-100">
-        <span class="bg-gradient-to-r from-fuchsia-400/80 to-fuchsia-100/80 bg-clip-text text-transparent drop-shadow-sm">wDona</span><span class="text-white drop-shadow-sm"></span>
+        <span class="bg-gradient-to-r from-fuchsia-600 to-fuchsia-400 dark:from-fuchsia-400/80 dark:to-fuchsia-100/80 bg-clip-text text-transparent drop-shadow-sm">wDona</span><span class="text-slate-800 dark:text-white drop-shadow-sm"></span>
       </h2> 
-      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight zilla-slab-regular animate-fade-in-up animation-delay-300 text-pretty">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight zilla-slab-regular animate-fade-in-up animation-delay-300 text-pretty text-slate-800 dark:text-white">
         Perfeccionista por vocación, explorador por distracción.
       </h1> 
     </div>
@@ -28,7 +28,7 @@ import RoleBadge from "./RoleBadge.astro";
   </div>
 
   <div class="absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce z-20">
-    <a href="#contacto" class="text-white/60 hover:text-fuchsia-300 hover:drop-shadow-[0_0_10px_rgba(217,70,239,0.5)] transition-all duration-300 flex flex-col items-center gap-2 group" aria-label="Ir a contacto">
+    <a href="#contacto" class="text-slate-500 dark:text-white/60 hover:text-fuchsia-600 dark:hover:text-fuchsia-300 hover:drop-shadow-[0_0_10px_rgba(217,70,239,0.2)] dark:hover:drop-shadow-[0_0_10px_rgba(217,70,239,0.5)] transition-all duration-300 flex flex-col items-center gap-2 group" aria-label="Ir a contacto">
       <span class="text-sm font-medium tracking-wide zilla-slab-regular uppercase group-hover:scale-105 transition-transform duration-300">Contactar</span>
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80">
         <path d="M12 5v14"/>

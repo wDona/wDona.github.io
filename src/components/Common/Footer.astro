@@ -8,12 +8,12 @@ interface Props {
 const { texto } = Astro.props;
 ---
 
-<footer class="w-full py-12 border-t-[1px] border-fuchsia-900/40 bg-black/40 backdrop-blur-sm" id="footer">
+<footer class="w-full py-12 border-t-[1px] border-fuchsia-200 dark:border-fuchsia-900/40 bg-white/50 dark:bg-black/40 backdrop-blur-sm" id="footer">
   <div class="lg:w-[900px] sm:w-[90%] w-[98%] mx-auto flex flex-col items-center gap-6 px-4">
     <Contacto/>
   </div>
   <div
-    class="lg:w-[900px] sm:w-[90%] w-[98%] mx-auto flex flex-col sm:flex-row justify-between items-center gap-6 px-4 mt-8 pt-8 border-t-[1px] border-white/10 reveal"
+    class="lg:w-[900px] sm:w-[90%] w-[98%] mx-auto flex flex-col sm:flex-row justify-between items-center gap-6 px-4 mt-8 pt-8 border-t-[1px] border-slate-200 dark:border-white/10 reveal"
     data-reveal-delay="200"
   >
     <p class="zilla-slab-regular text-center sm:text-left">
@@ -21,10 +21,10 @@ const { texto } = Astro.props;
     </p>
     <div class="flex gap-4">
       <a href="/github" class="hover:scale-110 hover:-translate-y-1 hover:drop-shadow-[0_0_15px_rgba(217,70,239,0.5)] transition-all duration-300"
-        ><img src="/img/github.svg" alt="GitHub" class="w-12 h-12" />
+        ><img src="/img/github.svg" alt="GitHub" class="w-12 h-12 invert dark:invert-0" />
       </a>
       <a href="/" class="hover:scale-110 hover:-translate-y-1 hover:drop-shadow-[0_0_15px_rgba(217,70,239,0.5)] transition-all duration-300"
-        ><img src="/img/Gato_D.png" alt="Web" class="w-12 h-12" />
+        ><img src="/img/Gato_D.png" alt="Web" class="w-12 h-12 invert dark:invert-0" />
       </a>
     </div>
   </div>

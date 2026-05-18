@@ -59,9 +59,13 @@ a {
   transform: translateY(0);
 }
 
-body {
-  background-color: rgb(8, 8, 8);
-  color: white;
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 transition-colors duration-300;
+  }
+  html.dark body {
+    @apply bg-[rgb(8,8,8)] text-white;
+  }
 }
 
 h1 {

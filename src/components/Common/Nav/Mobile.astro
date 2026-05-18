@@ -1,6 +1,7 @@
 ---
 import LineaSeparadoraHorizontal from "../LineaSeparadoraHorizontal.astro";
 import ItemNavMobile from "./Item/Mobile.astro";
+import ThemeToggle from "../ThemeToggle.astro";
 ---
 
 <div class="md:hidden flex items-center justify-between w-full">
@@ -11,7 +12,7 @@ import ItemNavMobile from "./Item/Mobile.astro";
       aria-controls="mobile-menu"
       aria-expanded="false"
     >
-      <img src="/img/menu.svg" alt="menú" class="w-12 md:w-20 lg:w-24" />
+      <img src="/img/menu.svg" alt="menú" class="w-12 md:w-20 lg:w-24 invert dark:invert-0" />
     </button>
   
     <div>
@@ -19,12 +20,12 @@ import ItemNavMobile from "./Item/Mobile.astro";
     </div>
   </div>
 
-  <a href="/" class="hover:scale-110 hover:drop-shadow-[0_0_15px_rgba(217,70,239,0.5)] transition-all duration-300"><img src="/img/Logo_MD.png" alt="Logo" class="w-16" /></a>
+  <a href="/" class="hover:scale-110 hover:drop-shadow-[0_0_15px_rgba(217,70,239,0.5)] transition-all duration-300"><img src="/img/Logo_MD.png" alt="Logo" class="w-16 invert dark:invert-0" /></a>
 </div>
 
 <div
   id="mobile-menu"
-  class="md:hidden w-full flex flex-col items-center gap-12 fixed top-20 z-50 h-[100vh] -translate-x-full left-0 opacity-0 transition-all duration-200"
+  class="md:hidden w-full flex flex-col items-center gap-12 fixed top-20 z-50 h-[100vh] -translate-x-full left-0 opacity-0 transition-all duration-200 bg-white/95 dark:bg-black/95 backdrop-blur-sm"
 >
   <ul class="w-full text-center">
     <LineaSeparadoraHorizontal />
@@ -32,11 +33,12 @@ import ItemNavMobile from "./Item/Mobile.astro";
     <ItemNavMobile enlace="/blogs" texto="Blogs" />
   </ul>
   <div class="flex gap-6 items-center">
+    <ThemeToggle />
     <!-- <a href="/youtube" target="_blank"
       ><img src="/img/youtube.svg" alt="YT" class="w-12" />
     </a> -->
     <a href="/github" target="_blank" class="hover:scale-110 hover:-translate-y-1 hover:drop-shadow-[0_0_15px_rgba(217,70,239,0.5)] transition-all duration-300"
-      ><img src="/img/github.svg" alt="Git" class="w-12" />
+      ><img src="/img/github.svg" alt="Git" class="w-12 invert dark:invert-0" />
     </a> 
     <!--<a href="/discord" target="_blank"
       ><img src="/img/discordlogo.webp" alt="DC" class="w-10" />
@@ -62,11 +64,6 @@ import ItemNavMobile from "./Item/Mobile.astro";
 </script>
 
 <style>
-  #mobile-menu {
-    background-color: rgba(0, 0, 0, 0.952);
-    backdrop-filter: blur(4px);
-  }
-
   p {
     margin-top: 0;
   }

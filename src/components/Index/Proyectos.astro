@@ -11,20 +11,20 @@ const allTechs = [...new Map(
 ---
 
 <section id="proyectos" class="xl:w-[1200px] sm:w-[90%] w-[98%] py-24 mx-auto">
-  <h2 class="text-4xl md:text-5xl zilla-slab-regular mb-8 text-center tracking-tight reveal">Proyectos principales</h2>
+  <h2 class="text-4xl md:text-5xl zilla-slab-regular mb-8 text-center tracking-tight reveal text-slate-800 dark:text-white">Proyectos principales</h2>
 
   <!-- Filtros -->
   <div id="tech-filters" class="flex flex-wrap gap-2 justify-center mb-10 relative z-10 reveal" data-reveal-delay="150">
     <button
       data-filter="all"
-      class="filter-btn active inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium zilla-slab-regular transition-all duration-200 bg-fuchsia-500/25 border border-fuchsia-500/50 text-fuchsia-200 cursor-pointer"
+      class="filter-btn active inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium zilla-slab-regular transition-all duration-200 bg-fuchsia-100 dark:bg-fuchsia-500/25 border border-fuchsia-400 dark:border-fuchsia-500/50 text-fuchsia-900 dark:text-fuchsia-200 cursor-pointer"
     >
       Todos
     </button>
     {allTechs.map(tec => (
       <button
         data-filter={tec.name}
-        class="filter-btn inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium zilla-slab-regular transition-all duration-200 bg-fuchsia-950/40 border border-fuchsia-500/20 text-fuchsia-200/60 hover:border-fuchsia-500/40 hover:text-fuchsia-200/90 cursor-pointer"
+        class="filter-btn inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium zilla-slab-regular transition-all duration-200 bg-slate-100 dark:bg-fuchsia-950/40 border border-slate-300 dark:border-fuchsia-500/20 text-slate-700 dark:text-fuchsia-200/60 hover:border-fuchsia-300 dark:hover:border-fuchsia-500/40 hover:text-fuchsia-700 dark:hover:text-fuchsia-200/90 cursor-pointer"
       >
         <img src={"/" + tec.img} alt={tec.name} class="w-4 h-4 object-contain" loading="lazy" />
         {tec.name}
@@ -59,19 +59,22 @@ const allTechs = [...new Map(
   const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
   const cards = document.querySelectorAll<HTMLElement>('.proyecto-item');
 
-  const activeClass = ['bg-fuchsia-500/25', 'border-fuchsia-500/50', 'text-fuchsia-200'];
-  const inactiveClass = ['bg-fuchsia-950/40', 'border-fuchsia-500/20', 'text-fuchsia-200/60'];
+  const activeClassDark = ['dark:bg-fuchsia-500/25', 'dark:border-fuchsia-500/50', 'dark:text-fuchsia-200'];
+  const inactiveClassDark = ['dark:bg-fuchsia-950/40', 'dark:border-fuchsia-500/20', 'dark:text-fuchsia-200/60'];
+
+  const activeClassLight = ['bg-fuchsia-100', 'border-fuchsia-400', 'text-fuchsia-900'];
+  const inactiveClassLight = ['bg-slate-100', 'border-slate-300', 'text-slate-700'];
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const filter = btn.dataset.filter!;
 
       filterBtns.forEach(b => {
-        b.classList.remove(...activeClass);
-        b.classList.add(...inactiveClass);
+        b.classList.remove(...activeClassDark, ...activeClassLight);
+        b.classList.add(...inactiveClassDark, ...inactiveClassLight);
       });
-      btn.classList.remove(...inactiveClass);
-      btn.classList.add(...activeClass);
+      btn.classList.remove(...inactiveClassDark, ...inactiveClassLight);
+      btn.classList.add(...activeClassDark, ...activeClassLight);
 
       cards.forEach(card => {
         if (filter === 'all') {

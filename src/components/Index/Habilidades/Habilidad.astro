@@ -11,5 +11,5 @@ const title = Astro.props.title;
     <div class = "w-full h-full flex items-center justify-center">
         <img src={img} alt={title} class="w-full h-full object-contain" loading="lazy"/>
     </div>
-    {title && <p class="text-center text-sm mt-2">{title}</p>}
+    {title && <p class="text-center text-sm mt-2 text-slate-700 dark:text-white/80 font-medium dark:font-normal">{title}</p>}
 </div>
