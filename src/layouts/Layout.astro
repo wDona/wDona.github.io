@@ -9,13 +9,13 @@ interface Props {
   keywords?: string | undefined;
   titlePestana?: string;
   description?: string;
-
+  image?: string;
 }
 const title = Astro.props.title;
 const keywords = Astro.props.keywords || "desarrollador, aplicaciones multiplataforma, portfolio, Astro, programación, frontend, backend, wdona, dona, miaudona, kotlin, jetpack compose, kmp";
 const titlePestana = Astro.props.titlePestana || "wDona | Desarrollador de aplicaciones multiplataforma";
 const description = Astro.props.description || "Soy un desarrollador de aplicaciones multiplataforma, al que desde pequeño siempre le apasionaba la tecnología y siempre le han atraído los desafíos y las cosas difíciles.";
-
+const image = Astro.props.image;
 ---
 
 <!doctype html>
@@ -25,7 +25,8 @@ const description = Astro.props.description || "Soy un desarrollador de aplicaci
     title={title}
     titlePestana={titlePestana} 
     keywords={keywords} 
-    description={description} />
+    description={description}
+    image={image} />
   </head>
   <body>
     <BackgroundAnimado />

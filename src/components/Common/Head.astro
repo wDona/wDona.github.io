@@ -6,9 +6,10 @@ interface Props {
     titlePestana: string;
     keywords?: string;
     description?: string;
+    image?: string;
 }
 
-const { title, titlePestana, keywords, description } = Astro.props;
+const { title, titlePestana, keywords, description, image = "/img/Gato_D.png" } = Astro.props;
 ---
 
 <meta charset="UTF-8" />
@@ -27,7 +28,7 @@ const { title, titlePestana, keywords, description } = Astro.props;
       property="og:description"
       content={description}
     />
-    <meta property="og:image" content="/img/Gato_D.png" />
+    <meta property="og:image" content={image} />
     <meta property="og:url" content="https://wdona.dev/" />
     <meta property="og:type" content="website" />
 
@@ -40,7 +41,7 @@ const { title, titlePestana, keywords, description } = Astro.props;
       name="twitter:description"
       content={description}
     />
-    <meta name="twitter:image" content="/img/Gato_D.png" />
+    <meta name="twitter:image" content={image} />
 
     <!-- JSON-LD PARA GOOGLE -->
     <script is:inline type="application/ld+json">
