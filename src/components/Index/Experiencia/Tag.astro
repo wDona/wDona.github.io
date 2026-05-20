@@ -1,0 +1,17 @@
+---
+interface Props {
+  color?: 'indigo' | 'emerald' | 'slate';
+}
+
+const { color = 'slate' } = Astro.props;
+
+const colorClasses = {
+  indigo: "bg-indigo-50 dark:bg-white/5 border-indigo-200 dark:border-white/10 text-indigo-700 dark:text-white/90 font-medium",
+  emerald: "bg-emerald-50 dark:bg-white/5 border-emerald-200 dark:border-white/10 text-emerald-700 dark:text-white/90 font-medium",
+  slate: "bg-slate-100 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-600 dark:text-white/50"
+};
+---
+
+<span class={`border px-2 py-0.5 rounded-lg flex items-center gap-1.5 text-xs ${colorClasses[color]}`}>
+  <slot />
+</span>

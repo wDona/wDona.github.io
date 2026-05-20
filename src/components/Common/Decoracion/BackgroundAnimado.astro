@@ -1,0 +1,44 @@
+<div class="bg-animado" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+</div>
+
+<style>
+  .bg-animado {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    background: transparent;
+  }
+
+  .blob {
+    position: absolute;
+    width: 40vw;
+    height: 40vw;
+    top: 50%;
+    left: 50%;
+    margin-top: -20vw;
+    margin-left: -20vw;
+    border-radius: 50%;
+    will-change: transform;
+    opacity: 0.15;
+  }
+
+  .blob-1 { 
+    background: radial-gradient(circle, rgba(217,70,239,1), transparent 70%); 
+    animation: orbit 30s linear infinite; 
+  }
+  
+  .blob-2 { 
+    background: radial-gradient(circle, rgba(147,51,234,1), transparent 70%); 
+    animation: orbit 30s linear infinite; 
+    animation-delay: -15s; /* Exactamente a la inversa en el circulo (delay de la mitad de 30s) */
+  }
+
+  @keyframes orbit {
+    0% { transform: rotate(0deg) translate3d(13vw, 0, 0); }
+    100% { transform: rotate(360deg) translate3d(13vw, 0, 0); }
+  }
+</style>
