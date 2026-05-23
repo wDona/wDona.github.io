@@ -1,6 +1,6 @@
 ---
 title: "El Impostor (juego de palabras)"
-img: "img/burntoutlogo.png"
+img: "img/impostor.webp"
 summary: "Juego viral del juego de las palabras conocido como el impostor."
 link: "https://github.com/wDona/VibeImpostor"
 linkdescarga: "https://impostor.wdona.dev"
