@@ -1,0 +1,73 @@
+---
+interface ChessStats {
+  chess_rapid?: {
+    last: { rating: number };
+    record: { rating: number };
+  };
+  chess_blitz?: {
+    last: { rating: number };
+    record: { rating: number };
+  };
+  chess_bullet?: {
+    last: { rating: number };
+    record: { rating: number };
+  };
+}
+
+interface ChessProfile {
+  avatar?: string;
+  url: string;
+  username: string;
+  followers: number;
+}
+
+let profile: ChessProfile | null = null;
+let stats: ChessStats | null = null;
+
+try {
+  const headers = { "User-Agent": "me@wdona.dev" };
+  const [profileRes, statsRes] = await Promise.all([
+    fetch("https://api.chess.com/pub/player/wdonaa", { headers }),
+    fetch("https://api.chess.com/pub/player/wdonaa/stats", { headers })
+  ]);
+
+  if (profileRes.ok && statsRes.ok) {
+    profile = await profileRes.json();
+    stats = await statsRes.json();
+  }
+} catch (e) {
+  console.error("Error fetching chess.com data", e);
+}
+---
+
+{profile && stats && (
+  <a 
+    href={profile.url} 
+    target="_blank" 
+    rel="noopener noreferrer"
+    class="flex flex-col gap-3 bg-zinc-900 border border-zinc-800 p-5 rounded-2xl hover:border-zinc-600 transition-colors w-full h-full text-zinc-200 decoration-transparent"
+  >
+    <div class="flex items-center gap-4">
+      <img src={profile.avatar || "/img/default-avatar.png"} alt={`${profile.username} chess profile`} class="w-14 h-14 rounded-lg object-cover" />
+      <div class="flex flex-col">
+        <span class="font-bold text-lg text-white">Chess.com</span>
+        <span class="text-sm text-zinc-400">@{profile.username}</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3 mt-2">
+      {stats.chess_rapid && (
+        <div class="flex flex-col bg-zinc-800/50 p-3 rounded-xl border border-zinc-800">
+          <span class="text-xs text-zinc-400 font-medium">Rapid</span>
+          <span class="text-xl font-bold text-emerald-400">{stats.chess_rapid.last.rating}</span>
+        </div>
+      )}
+      {stats.chess_blitz && (
+        <div class="flex flex-col bg-zinc-800/50 p-3 rounded-xl border border-zinc-800">
+          <span class="text-xs text-zinc-400 font-medium">Blitz</span>
+          <span class="text-xl font-bold text-amber-400">{stats.chess_blitz.last.rating}</span>
+        </div>
+      )}
+    </div>
+  </a>
+)}
