@@ -12,6 +12,10 @@ interface ChessStats {
     last: { rating: number };
     record: { rating: number };
   };
+  tactics?: {
+    highest: { rating: number };
+    lowest: { rating: number };
+  };
 }
 
 interface ChessProfile {
@@ -55,7 +59,7 @@ try {
       </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-3 mt-2">
+    <div class="grid grid-cols-3 gap-3 mt-2">
       {stats.chess_rapid && (
         <div class="flex flex-col bg-zinc-800/50 p-3 rounded-xl border border-zinc-800">
           <span class="text-xs text-zinc-400 font-medium">Rapid</span>
@@ -66,6 +70,12 @@ try {
         <div class="flex flex-col bg-zinc-800/50 p-3 rounded-xl border border-zinc-800">
           <span class="text-xs text-zinc-400 font-medium">Blitz</span>
           <span class="text-xl font-bold text-amber-400">{stats.chess_blitz.last.rating}</span>
+        </div>
+      )}
+      {stats.tactics && (
+        <div class="flex flex-col bg-zinc-800/50 p-3 rounded-xl border border-zinc-800">
+          <span class="text-xs text-zinc-400 font-medium">Máx. Problemas</span>
+          <span class="text-xl font-bold text-sky-400">{stats.tactics.highest.rating}</span>
         </div>
       )}
     </div>
