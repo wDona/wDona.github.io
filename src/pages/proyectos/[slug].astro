@@ -50,13 +50,23 @@ const { Content } = await render(proyecto);
     <div class="w-full md:w-1/2 md:h-full flex flex-col p-6 md:p-10 xl:p-16 border-t border-white/10 md:border-t-0 md:border-l md:border-white/5 md:overflow-y-auto">
 
       <!-- Volver -->
-      <button
-        onclick="history.length > 1 ? history.back() : (location.href = '/#proyectos')"
-        class="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/80 transition-colors mb-6 md:mb-8 w-fit cursor-pointer bg-transparent border-none p-0 animate-fade-in-up animation-delay-200"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 5l-7 7 7 7"/></svg>
-        Volver
-      </button>
+      <div class="flex flex-wrap items-center gap-3 mb-6 md:mb-8 animate-fade-in-up animation-delay-200">
+        <button
+          onclick="history.length > 1 ? history.back() : (location.href = '/#proyectos')"
+          class="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/80 transition-colors w-fit cursor-pointer bg-transparent border-none p-0"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 5l-7 7 7 7"/></svg>
+          Volver
+        </button>
+
+        <a
+          href="/#proyectos"
+          class="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors w-fit"
+        >
+          Ir a wdona.dev
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+        </a>
+      </div>
 
       <!-- Título -->
       <h1 class="text-3xl md:text-4xl xl:text-5xl font-bold zilla-slab-regular leading-tight mb-4 md:mb-6 bg-gradient-to-r from-fuchsia-400 to-fuchsia-100 bg-clip-text text-transparent animate-fade-in-up animation-delay-300">
