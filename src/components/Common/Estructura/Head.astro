@@ -2,88 +2,91 @@
 import '../../../styles/global.css';
 
 interface Props {
-    title: string;
     titlePestana: string;
     keywords?: string;
     description?: string;
     image?: string;
 }
 
-const { title, titlePestana, keywords, description, image = "/img/Gato_D.png" } = Astro.props;
+const { titlePestana, keywords, description, image = "/img/Gato_D.png" } = Astro.props;
+const canonicalURL = `https://wdona.dev${Astro.url.pathname}`;
+const absoluteImage = image.startsWith('http') ? image : `https://wdona.dev${image}`;
 ---
 
 <meta charset="UTF-8" />
-    <meta name="author" content="wDona" />
-    <meta
-      name="keywords"
-      content={keywords}
-    />
-    <meta name="robots" content="index, follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="wDona" />
+<meta name="keywords" content={keywords} />
+<meta name="robots" content="index, follow, max-snippet:150, max-image-preview:large" />
+<meta name="description" content={description} />
+<meta name="theme-color" content="#d946ef" />
 
-    <meta
-      property="og:title"
-      content={title}
-    />
-    <meta
-      property="og:description"
-      content={description}
-    />
-    <meta property="og:image" content={image} />
-    <meta property="og:url" content="https://wdona.dev/" />
-    <meta property="og:type" content="website" />
+<link rel="canonical" href={canonicalURL} />
+<link rel="icon" type="image/png" href="/img/Gato_D.png" />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content={title}
-    />
-    <meta
-      name="twitter:description"
-      content={description}
-    />
-    <meta name="twitter:image" content={image} />
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="wDona" />
+<meta property="og:title" content={titlePestana} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={absoluteImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:locale" content="es_ES" />
 
-    <!-- JSON-LD PARA GOOGLE -->
-    <script is:inline type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Fernando M. de Cisneros González",
-        "alternateName": ["wDona", "MiauDona", "YoSoyDona", "Dona"],
-        "url": "https://wdona.dev/",
-        "image": "/img/Gato_D.png",
-        "jobTitle": "Desarrollador de aplicaciones multiplataforma",
-        "description": "Portfolio de proyectos personales y profesionales en desarrollo multiplataforma.",
-        "sameAs": ["https://github.com/MiauDona"]
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={titlePestana} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={absoluteImage} />
+
+<!-- JSON-LD -->
+<script is:inline type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Fernando M. de Cisneros González",
+    "alternateName": ["wDona", "MiauDona", "YoSoyDona", "Dona"],
+    "url": "https://wdona.dev/",
+    "image": "https://wdona.dev/img/Gato_D.png",
+    "jobTitle": "Desarrollador de aplicaciones multiplataforma",
+    "description": "Portfolio de proyectos personales y profesionales en desarrollo multiplataforma. Especializado en Kotlin, Java y frameworks modernos.",
+    "sameAs": [
+      "https://github.com/MiauDona",
+      "https://www.linkedin.com/in/wdona"
+    ],
+    "knowsAbout": ["Kotlin", "Java", "Jetpack Compose", "Ktor", "Android Development", "Web Development"],
+    "hasOccupation": {
+      "@type": "Occupation",
+      "name": "Desarrollador de aplicaciones multiplataforma",
+      "occupationLocation": {
+        "@type": "Country",
+        "name": "España"
       }
-    </script>
+    }
+  }
+</script>
 
-    <meta
-      name="description"
-      content={description}
-    />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/png" href="/img/Gato_D.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300;400&display=swap" rel="stylesheet">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jaini&family=Mitr:wght@200&family=Zilla+Slab:wght@300;400&display=swap" rel="stylesheet">
-    
-    <script is:inline>
-      const theme = (() => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
-        }
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          return 'dark';
-        }
-        return 'light';
-      })();
+<script is:inline>
+  const theme = (() => {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+      return localStorage.getItem('theme');
+    }
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
+  })();
 
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    </script>
-    <title>{titlePestana}</title>
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+</script>
+<title>{titlePestana}</title>

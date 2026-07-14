@@ -1,26 +1,29 @@
 ---
 import BotonSecundario from "../Common/Botones/BotonSecundario.astro";
+import SectionBlobs from "../Common/Decoracion/SectionBlobs.astro";
 const EMAIL = "me@wdona.dev";
 const LINKEDIN = "/linkedin";
 ---
-<section class="w-full flex flex-col items-center gap-6 py-6" id="contacto">
-  <div class="flex flex-col items-center gap-2 text-center reveal">
-        <h2 class="text-3xl sm:text-4xl font-bold zilla-slab-regular text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-700 to-fuchsia-900 dark:from-fuchsia-400 dark:to-fuchsia-100">¿Hablamos?</h2>
+<section class="relative w-full flex flex-col items-center gap-6 py-6" id="contacto" aria-labelledby="contacto-titulo">
+  <SectionBlobs variant="fuchsia" />
+
+  <div class="flex flex-col items-center gap-3 text-center reveal relative z-10">
+    <h2 id="contacto-titulo" class="text-3xl sm:text-4xl font-bold zilla-slab-regular gradient-text-animated">¿Hablamos?</h2>
     <p class="text-slate-600 dark:text-white/70 max-w-lg zilla-slab-regular text-sm sm:text-base">Siempre estoy abierto a nuevas oportunidades y colaboraciones. Si tienes algún proyecto en mente o simplemente quieres saludar, no dudes en contactarme.</p>
   </div>
 
-  <div class="flex flex-col sm:flex-row gap-4 justify-center items-center font-sans tracking-wide reveal" data-reveal-delay="150">
-    <a id="copyEmail" role="button" aria-live="polite"
-       class="cursor-pointer bg-fuchsia-50 dark:bg-fuchsia-900/40 border-[1px] border-fuchsia-300 dark:border-fuchsia-700/50 text-fuchsia-800 dark:text-white px-6 py-2 rounded-lg hover:bg-fuchsia-100 dark:hover:bg-fuchsia-800 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(134,25,143,0.2)] dark:hover:shadow-[0_0_15px_rgba(134,25,143,0.4)] transition-all duration-300 w-full sm:w-auto text-center font-medium backdrop-blur-sm">
+  <div class="flex flex-col sm:flex-row gap-4 justify-center items-center font-sans tracking-wide reveal relative z-10" data-reveal-delay="150">
+    <button id="copyEmail" type="button" aria-live="polite"
+       class="cursor-pointer bg-fuchsia-50 dark:bg-fuchsia-900/40 border-[1px] border-fuchsia-300 dark:border-fuchsia-700/50 text-fuchsia-800 dark:text-white px-6 py-2 rounded-lg hover:bg-fuchsia-100 dark:hover:bg-fuchsia-800 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(134,25,143,0.25)] dark:hover:shadow-[0_0_20px_rgba(134,25,143,0.45)] transition-all duration-300 w-full sm:w-auto text-center font-medium backdrop-blur-sm">
        Copiar correo
-    </a>
+    </button>
 
     <BotonSecundario texto="Enviar correo" enlace={`mailto:${EMAIL}`} />
 
     <BotonSecundario texto="LinkedIn" enlace={LINKEDIN} />
   </div>
 
-  <p id="copyHint" class="text-sm font-medium zilla-slab-regular text-fuchsia-400 opacity-0 transition-opacity duration-300 h-2 -mt-2">¡Correo copiado al portapapeles!</p>
+  <p id="copyHint" role="status" class="text-sm font-medium zilla-slab-regular text-fuchsia-400 opacity-0 transition-opacity duration-300 h-2 -mt-2 relative z-10">¡Correo copiado al portapapeles!</p>
 </section>
 
 <script is:inline type="module">
@@ -33,26 +36,24 @@ const LINKEDIN = "/linkedin";
       try {
         await navigator.clipboard.writeText(email);
         
-        // Efecto visual
         const originalText = "Copiar correo";
         copyBtn.innerText = "¡Copiado!";
         copyBtn.classList.replace("bg-fuchsia-50", "bg-green-100");
         copyBtn.classList.replace("dark:bg-fuchsia-900/40", "dark:bg-green-700/60");
         copyBtn.classList.replace("border-fuchsia-300", "border-green-400");
         copyBtn.classList.replace("dark:border-fuchsia-700/50", "dark:border-green-500/50");
-        copyBtn.style.pointerEvents = "none";
+        copyBtn.disabled = true;
         
         hint.classList.remove("opacity-0");
         hint.classList.add("opacity-100");
 
-        // Restaurar estado después de 2.5 segundos
         setTimeout(() => {
           copyBtn.innerText = originalText;
           copyBtn.classList.replace("bg-green-100", "bg-fuchsia-50");
           copyBtn.classList.replace("dark:bg-green-700/60", "dark:bg-fuchsia-900/40");
           copyBtn.classList.replace("border-green-400", "border-fuchsia-300");
           copyBtn.classList.replace("dark:border-green-500/50", "dark:border-fuchsia-700/50");
-          copyBtn.style.pointerEvents = "auto";
+          copyBtn.disabled = false;
 
           hint.classList.remove("opacity-100");
           hint.classList.add("opacity-0");
@@ -66,27 +67,3 @@ const LINKEDIN = "/linkedin";
     });
   }
 </script>
-
-<style>
-    .gradient-border {
-    position: relative;
-    display: inline-block;
-    border-radius: 0.5rem;
-    background: transparent;
-  }
-  
-  .gradient-border::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    padding: 2px;
-    border-radius: inherit;
-    background: linear-gradient(to right, #a855f7, #ec4899, #ef4444);
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
-  }
-
-</style>

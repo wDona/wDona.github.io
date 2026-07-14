@@ -5,13 +5,11 @@ import '../styles/global.css';
 
 
 interface Props {
-  title: string;
   keywords?: string | undefined;
   titlePestana?: string;
   description?: string;
   image?: string;
 }
-const title = Astro.props.title;
 const keywords = Astro.props.keywords || "desarrollador, aplicaciones multiplataforma, portfolio, Astro, programación, frontend, backend, wdona, dona, miaudona, kotlin, jetpack compose, kmp";
 const titlePestana = Astro.props.titlePestana || "wDona | Desarrollador de aplicaciones multiplataforma";
 const description = Astro.props.description || "Soy un desarrollador de aplicaciones multiplataforma, al que desde pequeño siempre le apasionaba la tecnología y siempre le han atraído los desafíos y las cosas difíciles.";
@@ -22,18 +20,22 @@ const image = Astro.props.image;
 <html lang="es">
   <head>
     <Head 
-    title={title}
     titlePestana={titlePestana} 
     keywords={keywords} 
     description={description}
     image={image} />
   </head>
   <body>
+    <!-- Skip link para accesibilidad -->
+    <a href="#contenido-principal" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-fuchsia-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-fuchsia-400 focus:ring-offset-2">
+      Saltar al contenido principal
+    </a>
     <BackgroundAnimado />
     <slot />
     <script>
       document.documentElement.classList.add('js-ready');
 
+      // Intersection Observer for reveal animations
       const io = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
@@ -46,7 +48,7 @@ const image = Astro.props.image;
 
       document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-      // Fallback: solo revela elementos ya visibles en viewport (no los de abajo del fold)
+      // Fallback: reveal elements already in viewport
       setTimeout(() => {
         document.querySelectorAll('.reveal:not(.revealed)').forEach(el => {
           const rect = (el as HTMLElement).getBoundingClientRect();
@@ -55,6 +57,30 @@ const image = Astro.props.image;
           }
         });
       }, 800);
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+          if (href && href !== '#') {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+              target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+              // Update URL without jumping
+              history.pushState(null, '', href);
+            }
+          }
+        });
+      });
+
+      // Add loading state for page transitions
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('loaded');
+      });
     </script>
   </body>
 </html>

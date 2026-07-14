@@ -1,9 +1,11 @@
 ---
 import ChessCard from "./ChessCard.astro";
+import SectionBlobs from "../Common/Decoracion/SectionBlobs.astro";
 
 ---
-<section class="w-full flex flex-col gap-6" id="actividad">
-  <h2 class="text-3xl font-bold text-white mb-2">Actividad</h2>
+<section class="relative xl:w-[1200px] sm:w-[90%] w-[98%] py-12 mx-auto" id="actividad" aria-labelledby="actividad-titulo">
+  <SectionBlobs variant="purple" />
+  <h2 id="actividad-titulo" class="text-3xl md:text-4xl zilla-slab-regular mb-4 text-center tracking-tight reveal text-slate-800 dark:text-white">Actividad</h2>
   
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
     <ChessCard />

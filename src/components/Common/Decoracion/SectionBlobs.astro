@@ -1,0 +1,33 @@
+---
+interface Props {
+  variant?: 'fuchsia' | 'purple' | 'mixed' | 'blue';
+}
+
+const { variant = 'fuchsia' } = Astro.props;
+
+const variants = {
+  fuchsia: {
+    a: 'bg-fuchsia-400/10 dark:bg-fuchsia-500/15 top-[8%] right-[3%] w-80 h-80',
+    b: 'bg-purple-400/8 dark:bg-purple-500/12 bottom-[5%] left-[8%] w-96 h-96',
+  },
+  purple: {
+    a: 'bg-purple-400/10 dark:bg-purple-500/15 top-[3%] left-[10%] w-72 h-72',
+    b: 'bg-fuchsia-400/8 dark:bg-fuchsia-500/12 bottom-[8%] right-[5%] w-96 h-96',
+  },
+  mixed: {
+    a: 'bg-fuchsia-400/10 dark:bg-fuchsia-500/14 top-[10%] left-[2%] w-80 h-80',
+    b: 'bg-indigo-400/8 dark:bg-indigo-500/12 bottom-[5%] right-[8%] w-80 h-80',
+  },
+  blue: {
+    a: 'bg-indigo-400/10 dark:bg-indigo-500/14 top-[5%] right-[8%] w-72 h-72',
+    b: 'bg-purple-400/8 dark:bg-purple-500/12 bottom-[10%] left-[3%] w-96 h-96',
+  }
+};
+
+const v = variants[variant];
+---
+
+<div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+  <div class={`absolute rounded-full blur-[100px] ${v.a}`}></div>
+  <div class={`absolute rounded-full blur-[120px] ${v.b}`}></div>
+</div>

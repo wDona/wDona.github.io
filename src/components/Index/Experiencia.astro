@@ -2,75 +2,63 @@
 import ExperienciaItem from "./Experiencia/ExperienciaItem.astro";
 import EmpresaCard from "./Experiencia/EmpresaCard.astro";
 import Tag from "./Experiencia/Tag.astro";
+import SectionBlobs from "../Common/Decoracion/SectionBlobs.astro";
 ---
-<section class="xl:w-[1200px] sm:w-[90%] w-[98%] py-16 flex flex-col items-center gap-8 z-10 mx-auto" id="experiencia">
-  <h2 class="text-4xl md:text-5xl zilla-slab-regular text-center mb-2 w-full tracking-tight reveal text-slate-800 dark:text-white">Experiencia</h2>
 
-  <div class="relative w-full ml-3 sm:ml-0">
-    
-    <!-- Autodidacta / Inicio -->
+<section class="relative w-full max-w-5xl px-4 sm:px-6 py-16 mx-auto z-10" id="experiencia" aria-labelledby="experiencia-titulo">
+  <SectionBlobs variant="fuchsia" />
+  <h2 id="experiencia-titulo" class="text-4xl md:text-5xl zilla-slab-regular text-center mb-12 tracking-tight reveal text-slate-800 dark:text-white">Experiencia</h2>
+
+  <div class="flex flex-col relative">
+
+    <!-- Softtek — Actual -->
     <ExperienciaItem 
-      title="Autodidacta" 
-      timeRange="+1.5 años" 
-      showLine={true}
+      title="Investigador de IA" 
+      timeRange="Actual"
+      isLast={false}
+      accent="active"
     >
-      <p class="text-slate-600 dark:text-white/80 font-light leading-relaxed text-sm lg:text-base">
-        Mis primeros pasos en la informática. Desarrollo de proyectos personales, automatización de tareas y gestión de servidores por puro entretenimiento.
-      </p>
+      <Tag color="fuchsia">Softtek</Tag>
     </ExperienciaItem>
 
-    <!-- Grados y FEOE -->
+    <!-- Formación Oficial -->
     <ExperienciaItem 
       title="Formación Oficial" 
       tags={["Grado Medio", "Grado Superior"]}
-      isLast={true}
+      accent="past"
     >
-      <div class="flex flex-col gap-5">
-        <p class="text-slate-600 dark:text-white/80 font-light leading-relaxed text-sm lg:text-base">
-          Durante el Grado Superior (Desarrollo de Aplicaciones Multiplataforma), completé estas formaciones en empresa, en las que he trabajado y aportado ideas en 3 proyectos que estarán en producción y he desarrollado proyectos internos:
+      <div class="flex flex-col gap-4">
+        <p class="text-slate-600 dark:text-white/60 font-light leading-relaxed text-lg">
+          Formaciones en empresa durante el Grado Superior — 3 proyectos en producción + proyectos internos:
         </p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
-          
-          <!-- FEOE 1 -->
-          <EmpresaCard 
-            title="1. Web & Wordpress" 
-            description="Desarrollo de aplicaciones web y creación de plugins en código."
-          >
-            <Tag color="indigo">
-              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path><path d="M10 6h4"></path><path d="M10 10h4"></path><path d="M10 14h4"></path><path d="M10 18h4"></path></svg>
-              Valentina System
-            </Tag>
-            <Tag color="slate">
-              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-              3 meses
-            </Tag>
-            <Tag color="slate">
-              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              3 días/semana
-            </Tag>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <EmpresaCard title="Web & Wordpress">
+            <Tag color="indigo">Valentina System</Tag>
+            <Tag color="slate">3 meses</Tag>
+            <Tag color="slate">3 días/semana</Tag>
           </EmpresaCard>
 
-          <!-- FEOE 2 -->
-          <EmpresaCard 
-            title="2. Android (Java)" 
-            description="Apps e integración de SDKs para periféricos y control de accesos."
-          >
-            <Tag color="emerald">
-              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path><path d="M10 6h4"></path><path d="M10 10h4"></path><path d="M10 14h4"></path><path d="M10 18h4"></path></svg>
-              WUL 4
-            </Tag>
-            <Tag color="slate">
-              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-              5 meses
-            </Tag>
-            <Tag color="slate">
-              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              3 días/semana
-            </Tag>
+          <EmpresaCard title="Android (Java)">
+            <Tag color="emerald">WUL 4</Tag>
+            <Tag color="slate">5 meses</Tag>
+            <Tag color="slate">3 días/semana</Tag>
           </EmpresaCard>
         </div>
       </div>
     </ExperienciaItem>
-<!-- <BotonSecundario texto="Contactar" enlace="#footer" target="_self"/> -->
+
+    <!-- Autodidacta -->
+    <ExperienciaItem 
+      title="Autodidacta" 
+      timeRange="+1.5 años"
+      isLast={true}
+      accent="past"
+    >
+      <p class="text-slate-600 dark:text-white/60 font-light leading-relaxed text-lg">
+        Proyectos personales, automatización y gestión de servidores.
+      </p>
+    </ExperienciaItem>
+
+  </div>
 </section>

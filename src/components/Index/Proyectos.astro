@@ -1,17 +1,19 @@
 ---
 import { getCollection } from 'astro:content';
 import ProyectoCard from "./Proyectos/ProyectoCard.astro";
+import SectionBlobs from "../Common/Decoracion/SectionBlobs.astro";
 
 const proyectos = (await getCollection('proyectos'))
-  .sort((a, b) => (b.data.highlight ? 1 : 0) - (a.data.highlight ? 1 : 0));
+  .filter(p => !p.data.highlight);
 
 const allTechs = [...new Map(
   proyectos.flatMap(p => p.data.tecnologias ?? []).map(t => [t.name, t])
 ).values()];
 ---
 
-<section id="proyectos" class="xl:w-[1200px] sm:w-[90%] w-[98%] py-24 mx-auto">
-  <h2 class="text-4xl md:text-5xl zilla-slab-regular mb-8 text-center tracking-tight reveal text-slate-800 dark:text-white">Proyectos principales</h2>
+<section id="proyectos" class="relative xl:w-[1200px] sm:w-[90%] w-[98%] py-16 mx-auto" aria-labelledby="proyectos-titulo">
+  <SectionBlobs variant="mixed" />
+  <h2 id="proyectos-titulo" class="text-3xl md:text-4xl zilla-slab-regular mb-8 text-center tracking-tight reveal text-slate-800 dark:text-white">Más proyectos</h2>
 
   <!-- Filtros -->
   <div id="tech-filters" class="flex flex-wrap gap-2 justify-center mb-10 relative z-10 reveal" data-reveal-delay="150">
@@ -48,7 +50,6 @@ const allTechs = [...new Map(
           linkdescarga={proyecto.data.linkdescarga}
           tecnologias={proyecto.data.tecnologias}
           summary={proyecto.data.summary}
-          highlight={proyecto.data.highlight}
         />
       </div>
     ))}

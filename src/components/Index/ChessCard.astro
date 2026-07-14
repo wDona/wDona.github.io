@@ -49,33 +49,33 @@ try {
     href={profile.url} 
     target="_blank" 
     rel="noopener noreferrer"
-    class="flex flex-col gap-3 bg-zinc-900 border border-zinc-800 p-5 rounded-2xl hover:border-zinc-600 transition-colors w-full h-full text-zinc-200 decoration-transparent"
+    class="flex flex-col gap-3 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-5 rounded-2xl hover:border-fuchsia-300 dark:hover:border-fuchsia-500/30 hover:shadow-[0_4px_24px_rgba(217,70,239,0.1)] transition-all duration-300 w-full h-full text-zinc-200 decoration-transparent hover:-translate-y-0.5"
   >
     <div class="flex items-center gap-4">
       <img src={profile.avatar || "/img/default-avatar.png"} alt={`${profile.username} chess profile`} class="w-14 h-14 rounded-lg object-cover" />
       <div class="flex flex-col">
-        <span class="font-bold text-lg text-white">Chess.com</span>
-        <span class="text-sm text-zinc-400">@{profile.username}</span>
+        <span class="font-bold text-lg text-slate-800 dark:text-white">Chess.com</span>
+        <span class="text-sm text-slate-500 dark:text-white/50">@{profile.username}</span>
       </div>
     </div>
 
     <div class="grid grid-cols-3 gap-3 mt-2">
       {stats.chess_rapid && (
-        <div class="flex flex-col bg-zinc-800/50 p-3 rounded-xl border border-zinc-800">
-          <span class="text-xs text-zinc-400 font-medium">Rapid</span>
-          <span class="text-xl font-bold text-emerald-400">{stats.chess_rapid.last.rating}</span>
+        <div class="flex flex-col bg-slate-50 dark:bg-white/5 p-3 rounded-xl border border-slate-200 dark:border-white/10">
+          <span class="text-xs text-slate-500 dark:text-white/50 font-medium">Rapid</span>
+          <span class="text-xl font-bold text-emerald-500 dark:text-emerald-400">{stats.chess_rapid.last.rating}</span>
         </div>
       )}
       {stats.chess_blitz && (
-        <div class="flex flex-col bg-zinc-800/50 p-3 rounded-xl border border-zinc-800">
-          <span class="text-xs text-zinc-400 font-medium">Blitz</span>
-          <span class="text-xl font-bold text-amber-400">{stats.chess_blitz.last.rating}</span>
+        <div class="flex flex-col bg-slate-50 dark:bg-white/5 p-3 rounded-xl border border-slate-200 dark:border-white/10">
+          <span class="text-xs text-slate-500 dark:text-white/50 font-medium">Blitz</span>
+          <span class="text-xl font-bold text-amber-500 dark:text-amber-400">{stats.chess_blitz.last.rating}</span>
         </div>
       )}
       {stats.tactics && (
-        <div class="flex flex-col bg-zinc-800/50 p-3 rounded-xl border border-zinc-800">
-          <span class="text-xs text-zinc-400 font-medium">Máx. Problemas</span>
-          <span class="text-xl font-bold text-sky-400">{stats.tactics.highest.rating}</span>
+        <div class="flex flex-col bg-slate-50 dark:bg-white/5 p-3 rounded-xl border border-slate-200 dark:border-white/10">
+          <span class="text-xs text-slate-500 dark:text-white/50 font-medium">Máx. Problemas</span>
+          <span class="text-xl font-bold text-sky-500 dark:text-sky-400">{stats.tactics.highest.rating}</span>
         </div>
       )}
     </div>

@@ -18,7 +18,7 @@ const { proyecto } = Astro.props;
 const { Content } = await render(proyecto);
 ---
 
-<Layouts title={proyecto.data.title + " | wDona"}>
+<Layouts titlePestana={proyecto.data.title + " | wDona"}>
   <style is:global>
     @media (min-width: 768px) {
       html, body { overflow: hidden; height: 100%; margin: 0; }

@@ -1,9 +1,12 @@
 ---
 import BirthdayBadge from './SobreMi/BirthdayBadge.astro';
+import SectionBlobs from "../Common/Decoracion/SectionBlobs.astro";
 ---
 
-<section class="xl:w-[1200px] sm:w-[90%] w-[98%] py-16 flex flex-col gap-8 z-10 mx-auto" id="sobre-mi">
-      <h2 class="text-4xl md:text-5xl zilla-slab-regular mb-2 text-center tracking-tight reveal text-slate-800 dark:text-white">Sobre Mí</h2>
+<section class="relative xl:w-[1200px] sm:w-[90%] w-[98%] py-16 flex flex-col gap-8 z-10 mx-auto" id="sobre-mi" aria-labelledby="sobre-mi-titulo">
+  <SectionBlobs variant="blue" />
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-fuchsia-400/6 dark:bg-fuchsia-500/8 rounded-full blur-[110px] pointer-events-none" aria-hidden="true"></div>
+      <h2 id="sobre-mi-titulo" class="text-4xl md:text-5xl zilla-slab-regular mb-2 text-center tracking-tight reveal text-slate-800 dark:text-white">Sobre Mí</h2>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-5 w-full">
 
@@ -29,7 +32,7 @@ import BirthdayBadge from './SobreMi/BirthdayBadge.astro';
     <article class="col-span-1 md:col-span-2 bg-white dark:bg-white/5 shadow-sm dark:shadow-none border border-slate-200 dark:border-white/10 rounded-3xl p-7 hover:bg-slate-50 dark:hover:bg-white/10 transition-colors duration-300 flex flex-col justify-center reveal" data-reveal-delay="400">
       <h3 class="text-xl zilla-slab-regular mb-4 text-slate-800 dark:text-white">Mi Stack</h3>
       <a href="https://skillicons.dev" target="_blank" rel="noreferrer" class="w-full flex">
-          <img src="https://skillicons.dev/icons?i=kotlin,ktor,java,mysql,git,docker,html,css" alt="Mis Skills" class="w-full max-w-[500px]" />
+          <img src="https://skillicons.dev/icons?i=kotlin,ktor,java,mysql,git,docker,html,css" alt="Mis Skills" class="w-full max-w-[500px]" loading="lazy" />
       </a>
       <p class="text-[13px] text-slate-500 dark:text-white/40 mt-4 font-light italic">
         * Principalmente backend. Abierto a nuevos lenguajes (Rust como preferencia para bajo nivel).

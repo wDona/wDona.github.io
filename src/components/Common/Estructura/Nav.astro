@@ -6,7 +6,9 @@ import BotonSubir from "../Botones/BotonSubir.astro";
 ---
 
 <nav
-  class="text-slate-900 dark:text-white text-xl sm:text-2xl h-20 fixed top-0 w-full z-50 flex items-center justify-center flex-col px-4 animate-fade-in-up animation-delay-300 bg-white/75 dark:bg-black/75 backdrop-blur-sm"
+  aria-label="Navegación principal"
+  id="main-nav"
+  class="text-slate-900 dark:text-white text-xl sm:text-2xl h-20 fixed top-0 w-full z-50 flex items-center justify-center flex-col px-4 animate-fade-in-up animation-delay-300 transition-all duration-500 bg-white/80 dark:bg-black/80 backdrop-blur-md"
 >
   <div class="lg:flex lg:justify-center items-center w-full">
     <div
@@ -16,17 +18,33 @@ import BotonSubir from "../Botones/BotonSubir.astro";
       <MobileNav />
     </div>
   </div>
-
-  
 </nav>
-<div class="fixed top-20 w-full z-50 opacity-20 animate-fade-in-up animation-delay-300">
+<div class="fixed top-20 w-full z-50 animate-fade-in-up animation-delay-300">
   <LineaSeparadoraHorizontal />
 </div>
 
 <BotonSubir />
 
+<script is:inline>
+  (function() {
+    const nav = document.getElementById('main-nav');
+    if (!nav) return;
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y > 50) {
+        nav.classList.add('nav-scrolled');
+      } else {
+        nav.classList.remove('nav-scrolled');
+      }
+    }, { passive: true });
+  })();
+</script>
+
 <style>
-  p {
-    margin-top: 0;
+  :global(.nav-scrolled) {
+    box-shadow: 0 1px 20px rgba(217, 70, 239, 0.08);
+  }
+  :global(html.dark) :global(.nav-scrolled) {
+    box-shadow: 0 1px 20px rgba(217, 70, 239, 0.12);
   }
 </style>
