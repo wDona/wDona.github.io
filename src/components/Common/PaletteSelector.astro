@@ -59,7 +59,7 @@ const paletas = [
 </style>
 
 <script>
-  type ThemeWindow = { wdApplyTheme: () => void; wdTransition: (e: MouseEvent, fn: () => void) => void };
+  type ThemeWindow = { wdApplyTheme: () => void; wdTransition: (e: MouseEvent, fn: () => void, kind?: string) => void };
   const w = window as unknown as ThemeWindow;
 
   // Nav persists across pages, so one set of listeners covers every instance

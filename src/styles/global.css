@@ -467,22 +467,18 @@ html[data-palette="mono"] .group:hover .project-img-mono {
 html[data-palette="mono"] .project-tint { display: none; }
 .group:hover .project-tint { opacity: 0; }
 
-/* ── Theme/palette switch: circular reveal ───── */
-/* Capture the page as one layer: a separately-named nav loses its backdrop blur */
-html.theme-vt * {
-  view-transition-name: none !important;
+/* ── Theme/palette switch ─────────────────────── */
+/* No CSS colour transitions while switching (they'd flicker mid-animation) */
+html.theme-vt *,
+html.theme-vt *::before,
+html.theme-vt *::after {
+  transition: none !important;
 }
-html.theme-vt::view-transition-old(root),
-html.theme-vt::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-html.theme-vt::view-transition-new(root) {
-  animation: themeReveal 0.75s cubic-bezier(0.65, 0, 0.35, 1);
-}
-@keyframes themeReveal {
-  from { clip-path: circle(0 at var(--vt-x) var(--vt-y)); }
-  to   { clip-path: circle(var(--vt-r) at var(--vt-x) var(--vt-y)); }
+.theme-wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
 }
 
 /* ── Nav logo: white cats, outlined so they read on light backgrounds ── */

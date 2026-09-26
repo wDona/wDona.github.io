@@ -85,18 +85,45 @@ const absoluteImage = image.startsWith('http') ? image : `https://wdona.dev${ima
     if (doc === document) document.dispatchEvent(new CustomEvent('themechange', { detail: { dark, palette } }));
   }
   window.wdApplyTheme = () => applyTheme(document);
-  // Run a theme/palette change with a circular reveal from the click point
-  window.wdTransition = (event, change) => {
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!document.startViewTransition || reduce || !event) { change(); return; }
-    const x = event.clientX || innerWidth / 2, y = event.clientY || 0;
+  // Theme/palette change with an overlay animation from the click point.
+  // No View Transitions: page snapshots flickered in Firefox/Zen.
+  window.wdTransition = (event, change, kind) => {
     const root = document.documentElement;
-    root.style.setProperty('--vt-x', x + 'px');
-    root.style.setProperty('--vt-y', y + 'px');
-    root.style.setProperty('--vt-r', Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)) + 'px');
-    root.classList.add('theme-vt');
-    document.startViewTransition(change).finished.finally(() => root.classList.remove('theme-vt'));
+    // Apply instantly with per-element colour transitions disabled
+    const apply = () => {
+      root.classList.add('theme-vt');
+      change();
+      requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove('theme-vt')));
+    };
+    if (!event || matchMedia('(prefers-reduced-motion: reduce)').matches) { apply(); return; }
+
+    const x = event.clientX || innerWidth / 2, y = event.clientY || 0;
+    const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    const wipe = document.createElement('div');
+    wipe.className = 'theme-wipe';
+    const circle = (radius) => `circle(${radius}px at ${x}px ${y}px)`;
+
+    if (kind === 'theme') {
+      // Curtain in the new background colour; switch underneath, then fade it out
+      wipe.style.background = root.classList.contains('dark') ? '#fbfbfd' : 'rgb(5, 5, 8)';
+      document.body.appendChild(wipe);
+      wipe.animate([{ clipPath: circle(0) }, { clipPath: circle(r) }], { duration: 550, easing: 'cubic-bezier(0.65, 0, 0.35, 1)', fill: 'forwards' })
+        .finished
+        .then(() => { apply(); return wipe.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, easing: 'ease-out', fill: 'forwards' }).finished; })
+        .finally(() => wipe.remove());
+    } else {
+      // Palette: switch now, a soft ripple of the new accent spreads from the click
+      apply();
+      const c = getComputedStyle(root).getPropertyValue('--c-fuchsia-500').trim();
+      wipe.style.background = `rgb(${c} / 0.22)`;
+      document.body.appendChild(wipe);
+      wipe.animate(
+        [{ clipPath: circle(0), opacity: 1 }, { clipPath: circle(r), opacity: 0 }],
+        { duration: 800, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }
+      ).finished.finally(() => wipe.remove());
+    }
   };
+
   applyTheme(document);
   // Keep theme when the client router swaps in a new page
   document.addEventListener('astro:before-swap', (e) => applyTheme(e.newDocument));

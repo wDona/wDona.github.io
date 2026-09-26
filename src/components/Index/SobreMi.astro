@@ -124,8 +124,8 @@ const setup = [
       <ul class="stack-grid grid grid-cols-5 gap-x-3 gap-y-2 w-full max-w-md" aria-label="Mis Skills">
         {stack.map((t, i) => (
           <li class="stack-tile group/tile flex flex-col items-center gap-1" style={`--c:${t.color};--i:${i}`}>
-            <img src={`/img/stack/${t.id}-light.svg`} alt="" class="stack-icon block dark:hidden h-12 w-12 sm:h-[52px] sm:w-[52px]" loading="lazy" aria-hidden="true" />
-            <img src={`/img/stack/${t.id}.svg`} alt="" class="stack-icon hidden dark:block h-12 w-12 sm:h-[52px] sm:w-[52px]" loading="lazy" aria-hidden="true" />
+            <img src={`/img/stack/${t.id}-light.svg`} alt="" class="stack-icon block dark:hidden h-12 w-12 sm:h-[52px] sm:w-[52px]" aria-hidden="true" />
+            <img src={`/img/stack/${t.id}.svg`} alt="" class="stack-icon hidden dark:block h-12 w-12 sm:h-[52px] sm:w-[52px]" aria-hidden="true" />
             <span class="text-xs sm:text-sm leading-none text-slate-600 dark:text-white/60 transition-colors duration-300 group-hover/tile:text-slate-900 dark:group-hover/tile:text-white">{t.label}</span>
           </li>
         ))}
