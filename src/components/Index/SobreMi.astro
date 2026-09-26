@@ -124,7 +124,8 @@ const setup = [
       <ul class="stack-grid grid grid-cols-5 gap-x-3 gap-y-2 w-full max-w-md" aria-label="Mis Skills">
         {stack.map((t, i) => (
           <li class="stack-tile group/tile flex flex-col items-center gap-1" style={`--c:${t.color};--i:${i}`}>
-            <img src={`/img/stack/${t.id}.svg`} alt="" class="stack-icon block h-12 w-12 sm:h-[52px] sm:w-[52px]" loading="lazy" aria-hidden="true" />
+            <img src={`/img/stack/${t.id}-light.svg`} alt="" class="stack-icon block dark:hidden h-12 w-12 sm:h-[52px] sm:w-[52px]" loading="lazy" aria-hidden="true" />
+            <img src={`/img/stack/${t.id}.svg`} alt="" class="stack-icon hidden dark:block h-12 w-12 sm:h-[52px] sm:w-[52px]" loading="lazy" aria-hidden="true" />
             <span class="text-xs sm:text-sm leading-none text-slate-600 dark:text-white/60 transition-colors duration-300 group-hover/tile:text-slate-900 dark:group-hover/tile:text-white">{t.label}</span>
           </li>
         ))}
@@ -180,11 +181,10 @@ const setup = [
   /* Setup icons pop one after another on card hover */
   /* Brand colours: always in dark mode; in light (monochrome) only on hover */
   .setup-icon { color: var(--brand); }
-  :global(html:not(.dark)) .setup-icon { color: #27272a; }
-  :global(html:not(.dark)) .group:hover .setup-icon { color: var(--brand); }
-  :global(html:not(.dark)) .stack-icon { filter: grayscale(1); }
-  :global(html:not(.dark)) .stack-tile:hover .stack-icon { filter: grayscale(0) drop-shadow(0 8px 16px var(--c)); }
-
+  :global(html[data-palette="mono"]:not(.dark)) .setup-icon { color: #27272a; }
+  :global(html.dark[data-palette="mono"]) .setup-icon { color: #e4e4e7; }
+  :global(html[data-palette="mono"]) .group:hover .setup-icon { color: var(--brand); }
+  
   .setup-icon {
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--d), filter 0.5s ease var(--d), color 0.4s ease var(--d);
   }

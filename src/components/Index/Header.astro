@@ -103,6 +103,14 @@ import SectionBlobs from "../Common/Decoracion/SectionBlobs.astro";
   :global(html:not(.dark)) .hero-aurora {
     opacity: 0.3;
   }
+  :global(html:not(.dark):not([data-palette="mono"])) .hero-grid {
+    background-image:
+      linear-gradient(to right, rgb(var(--c-fuchsia-500) / 0.09) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--c-fuchsia-500) / 0.09) 1px, transparent 1px);
+  }
+  :global(html:not(.dark):not([data-palette="mono"])) .hero-aurora {
+    opacity: 0.75;
+  }
   @keyframes auroraSpin {
     to { rotate: 360deg; }
   }

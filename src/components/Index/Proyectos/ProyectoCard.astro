@@ -10,12 +10,12 @@ interface Props {
   link: string;
   linkdescarga?: string;
   img?: string;
-  imgLight?: string;
+  cover?: "chat" | "interprete" | "todo";
   tecnologias?: Array<{ name: string; img: string }>;
   summary?: string;
   plataformas?: Array<"linux" | "windows" | "android" | "ios" | "web">;
 }
-const { title, linkdescarga, img, imgLight, plataformas } = Astro.props;
+const { title, linkdescarga, img, cover, plataformas } = Astro.props;
 const id = Astro.props.id || title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 const tecnologias = Astro.props.tecnologias ?? [];
 
@@ -29,8 +29,8 @@ const alt = "Imagen de " + title.toLowerCase();
 >
   <!-- Image -->
   <div class="relative w-full aspect-video bg-white dark:bg-black overflow-hidden border-b border-slate-100 dark:border-transparent">
-    {img ? (
-      <ProjectImage img={img} imgLight={imgLight} alt={alt} class="w-full h-full object-cover will-change-transform transition-[transform,filter] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105" />
+    {img || cover ? (
+      <ProjectImage img={img} cover={cover} alt={alt} class="w-full h-full object-cover will-change-transform transition-[transform,filter] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105" />
     ) : (
       <div class="w-full h-full flex items-center justify-center bg-slate-100 dark:bg-white/5">
         <svg class="w-16 h-16 text-slate-300 dark:text-white/10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

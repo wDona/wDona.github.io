@@ -2,6 +2,7 @@
 import LineaSeparadoraHorizontal from "../../Decoracion/LineaSeparadoraHorizontal.astro";
 import ItemNavMobile from "./Item/Mobile.astro";
 import ThemeToggle from "../../ThemeToggle.astro";
+import PaletteSelector from "../../PaletteSelector.astro";
 ---
 
 <div class="md:hidden flex items-center justify-between w-full">
@@ -22,7 +23,7 @@ import ThemeToggle from "../../ThemeToggle.astro";
   </div>
 
   <a href="/" class="hover:scale-110 hover:drop-shadow-[0_0_15px_rgb(var(--c-fuchsia-500)/0.5)] transition-all duration-300" aria-label="Ir al inicio">
-    <img src="/img/Logo_MD.png" alt="" class="w-16 invert dark:invert-0" aria-hidden="true" />
+    <img src="/img/Logo_MD.png" alt="" class="w-16 logo-cats" aria-hidden="true" />
   </a>
 </div>
 
@@ -39,12 +40,13 @@ import ThemeToggle from "../../ThemeToggle.astro";
     <ItemNavMobile enlace="/blogs" texto="Blogs" />
   </ul>
   <div class="flex gap-6 items-center">
-    <ThemeToggle />
+    <PaletteSelector />
+  <ThemeToggle />
     <!-- <a href="/youtube" target="_blank"
       ><img src="/img/youtube.svg" alt="YT" class="w-12" />
     </a> -->
     <a href="/github" target="_blank" class="hover:scale-110 hover:-translate-y-1 hover:drop-shadow-[0_0_15px_rgb(var(--c-fuchsia-500)/0.5)] transition-all duration-300"
-      ><img src="/img/github.svg" alt="Git" class="w-12 brightness-0 dark:brightness-100" />
+      ><img src="/img/github.svg" alt="Git" class="w-12 brightness-0 dark:invert" />
     </a> 
     <!--<a href="/discord" target="_blank"
       ><img src="/img/discordlogo.webp" alt="DC" class="w-10" />

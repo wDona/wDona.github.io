@@ -5,10 +5,82 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Accent palette ─────────────────────────────
-   Tailwind's fuchsia/purple/indigo point at these variables.
-   Light mode: monochrome (zinc). Dark mode: the original colours. */
-:root {
+/* ── Accent palettes ────────────────────────────
+   Tailwind's fuchsia/purple/indigo resolve through these variables.
+   <html data-palette="mono|fucsia|sky"> is set by the theme script in Head.astro
+   (default when the visitor hasn't chosen: mono in light, fucsia in dark). */
+:root,
+html[data-palette="fucsia"] {
+  --c-fuchsia-50: 253 244 255;
+  --c-fuchsia-100: 250 232 255;
+  --c-fuchsia-200: 245 208 254;
+  --c-fuchsia-300: 240 171 252;
+  --c-fuchsia-400: 232 121 249;
+  --c-fuchsia-500: 217 70 239;
+  --c-fuchsia-600: 192 38 211;
+  --c-fuchsia-700: 162 28 175;
+  --c-fuchsia-800: 134 25 143;
+  --c-fuchsia-900: 112 26 117;
+  --c-fuchsia-950: 74 4 78;
+  --c-purple-50: 250 245 255;
+  --c-purple-100: 243 232 255;
+  --c-purple-200: 233 213 255;
+  --c-purple-300: 216 180 254;
+  --c-purple-400: 192 132 252;
+  --c-purple-500: 168 85 247;
+  --c-purple-600: 147 51 234;
+  --c-purple-700: 126 34 206;
+  --c-purple-800: 107 33 168;
+  --c-purple-900: 88 28 135;
+  --c-purple-950: 59 7 100;
+  --c-indigo-50: 238 242 255;
+  --c-indigo-100: 224 231 255;
+  --c-indigo-200: 199 210 254;
+  --c-indigo-300: 165 180 252;
+  --c-indigo-400: 129 140 248;
+  --c-indigo-500: 99 102 241;
+  --c-indigo-600: 79 70 229;
+  --c-indigo-700: 67 56 202;
+  --c-indigo-800: 55 48 163;
+  --c-indigo-900: 49 46 129;
+  --c-indigo-950: 30 27 75;
+}
+html[data-palette="sky"] {
+  --c-fuchsia-50: 240 249 255;
+  --c-fuchsia-100: 224 242 254;
+  --c-fuchsia-200: 186 230 253;
+  --c-fuchsia-300: 125 211 252;
+  --c-fuchsia-400: 56 189 248;
+  --c-fuchsia-500: 14 165 233;
+  --c-fuchsia-600: 2 132 199;
+  --c-fuchsia-700: 3 105 161;
+  --c-fuchsia-800: 7 89 133;
+  --c-fuchsia-900: 12 74 110;
+  --c-fuchsia-950: 8 47 73;
+  --c-purple-50: 239 246 255;
+  --c-purple-100: 219 234 254;
+  --c-purple-200: 191 219 254;
+  --c-purple-300: 147 197 253;
+  --c-purple-400: 96 165 250;
+  --c-purple-500: 59 130 246;
+  --c-purple-600: 37 99 235;
+  --c-purple-700: 29 78 216;
+  --c-purple-800: 30 64 175;
+  --c-purple-900: 30 58 138;
+  --c-purple-950: 23 37 84;
+  --c-indigo-50: 238 242 255;
+  --c-indigo-100: 224 231 255;
+  --c-indigo-200: 199 210 254;
+  --c-indigo-300: 165 180 252;
+  --c-indigo-400: 129 140 248;
+  --c-indigo-500: 99 102 241;
+  --c-indigo-600: 79 70 229;
+  --c-indigo-700: 67 56 202;
+  --c-indigo-800: 55 48 163;
+  --c-indigo-900: 49 46 129;
+  --c-indigo-950: 30 27 75;
+}
+html[data-palette="mono"]:not(.dark) {
   --c-fuchsia-50: 244 244 245;
   --c-fuchsia-100: 228 228 231;
   --c-fuchsia-200: 212 212 216;
@@ -43,40 +115,54 @@
   --c-indigo-900: 24 24 27;
   --c-indigo-950: 9 9 11;
 }
-html.dark {
-  --c-fuchsia-50: 253 244 255;
-  --c-fuchsia-100: 250 232 255;
-  --c-fuchsia-200: 245 208 254;
-  --c-fuchsia-300: 240 171 252;
-  --c-fuchsia-400: 232 121 249;
-  --c-fuchsia-500: 217 70 239;
-  --c-fuchsia-600: 192 38 211;
-  --c-fuchsia-700: 162 28 175;
-  --c-fuchsia-800: 134 25 143;
-  --c-fuchsia-900: 112 26 117;
-  --c-fuchsia-950: 74 4 78;
-  --c-purple-50: 250 245 255;
-  --c-purple-100: 243 232 255;
-  --c-purple-200: 233 213 255;
-  --c-purple-300: 216 180 254;
-  --c-purple-400: 192 132 252;
-  --c-purple-500: 168 85 247;
-  --c-purple-600: 147 51 234;
-  --c-purple-700: 126 34 206;
-  --c-purple-800: 107 33 168;
-  --c-purple-900: 88 28 135;
-  --c-purple-950: 59 7 100;
-  --c-indigo-50: 238 242 255;
-  --c-indigo-100: 224 231 255;
-  --c-indigo-200: 199 210 254;
-  --c-indigo-300: 165 180 252;
-  --c-indigo-400: 129 140 248;
-  --c-indigo-500: 99 102 241;
-  --c-indigo-600: 79 70 229;
-  --c-indigo-700: 67 56 202;
-  --c-indigo-800: 55 48 163;
-  --c-indigo-900: 49 46 129;
-  --c-indigo-950: 30 27 75;
+html.dark[data-palette="mono"] {
+  --c-fuchsia-50: 250 250 250;
+  --c-fuchsia-100: 244 244 245;
+  --c-fuchsia-200: 228 228 231;
+  --c-fuchsia-300: 212 212 216;
+  --c-fuchsia-400: 212 212 216;
+  --c-fuchsia-500: 113 113 122;
+  --c-fuchsia-600: 82 82 91;
+  --c-fuchsia-700: 63 63 70;
+  --c-fuchsia-800: 39 39 42;
+  --c-fuchsia-900: 24 24 27;
+  --c-fuchsia-950: 9 9 11;
+  --c-purple-50: 250 250 250;
+  --c-purple-100: 244 244 245;
+  --c-purple-200: 228 228 231;
+  --c-purple-300: 212 212 216;
+  --c-purple-400: 161 161 170;
+  --c-purple-500: 113 113 122;
+  --c-purple-600: 82 82 91;
+  --c-purple-700: 63 63 70;
+  --c-purple-800: 39 39 42;
+  --c-purple-900: 24 24 27;
+  --c-purple-950: 9 9 11;
+  --c-indigo-50: 250 250 250;
+  --c-indigo-100: 244 244 245;
+  --c-indigo-200: 228 228 231;
+  --c-indigo-300: 212 212 216;
+  --c-indigo-400: 161 161 170;
+  --c-indigo-500: 113 113 122;
+  --c-indigo-600: 82 82 91;
+  --c-indigo-700: 63 63 70;
+  --c-indigo-800: 39 39 42;
+  --c-indigo-900: 24 24 27;
+  --c-indigo-950: 9 9 11;
+}
+/* Mono dark: light accents on dark need their own gradients */
+html.dark[data-palette="mono"] .gradient-text-animated {
+  background-image: linear-gradient(135deg, #fafafa, #a1a1aa, #e4e4e7, #fafafa, #d4d4d8);
+}
+html.dark[data-palette="mono"] .btn-primary {
+  color: #09090b;
+  background-image: linear-gradient(120deg, #ffffff, #e4e4e7 50%, #d4d4d8);
+  box-shadow: 0 8px 24px -8px rgba(255, 255, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+html.dark[data-palette="mono"] .section-title::after,
+html.dark[data-palette="mono"] #scroll-progress {
+  background: linear-gradient(90deg, #fafafa, #a1a1aa);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
 }
 
 html {
@@ -363,12 +449,49 @@ html {
 }
 
 /* ── Project images in light mode (monochrome theme) ── */
-html:not(.dark) .project-img-mono {
+html[data-palette="mono"] .project-img-mono {
   filter: grayscale(1) brightness(1.06) contrast(1.05);
 }
-html:not(.dark) .group:hover .project-img-mono {
+html[data-palette="mono"] .group:hover .project-img-mono {
   filter: none;
 }
+.project-tint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: rgb(var(--c-fuchsia-500));
+  mix-blend-mode: color;
+  opacity: 0.35;
+  transition: opacity 0.5s ease;
+}
+html[data-palette="mono"] .project-tint { display: none; }
+.group:hover .project-tint { opacity: 0; }
+
+/* ── Theme/palette switch: circular reveal ───── */
+/* Capture the page as one layer: a separately-named nav loses its backdrop blur */
+html.theme-vt * {
+  view-transition-name: none !important;
+}
+html.theme-vt::view-transition-old(root),
+html.theme-vt::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+html.theme-vt::view-transition-new(root) {
+  animation: themeReveal 0.75s cubic-bezier(0.65, 0, 0.35, 1);
+}
+@keyframes themeReveal {
+  from { clip-path: circle(0 at var(--vt-x) var(--vt-y)); }
+  to   { clip-path: circle(var(--vt-r) at var(--vt-x) var(--vt-y)); }
+}
+
+/* ── Nav logo: white cats, outlined so they read on light backgrounds ── */
+html:not(.dark) .logo-cats {
+  filter: drop-shadow(1px 0 0 #18181b) drop-shadow(-1px 0 0 #18181b)
+          drop-shadow(0 1px 0 #18181b) drop-shadow(0 -1px 0 #18181b);
+}
+
+html[data-palette="mono"]:not(.dark) .section-blob { opacity: 0.4; }
 
 /* ── Chips (filters, tech labels) ─────────────── */
 .chip {

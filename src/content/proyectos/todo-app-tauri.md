@@ -1,7 +1,6 @@
 ---
 title: "To-Do App"
-img: "img/todotauricover.svg"
-imgLight: "img/todotauricover-light.svg"
+cover: "todo"
 summary: "Gestor de tareas de escritorio con Tauri: interfaz en TypeScript y persistencia en Rust."
 link: "https://github.com/wDona/todo-app-tauri"
 plataformas: ["linux", "windows"]

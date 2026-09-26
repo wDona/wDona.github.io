@@ -30,8 +30,8 @@ const { Content } = await render(proyecto);
 
     <!-- Imagen: banner arriba en mobile, columna izquierda en desktop -->
     <div class="w-full aspect-video md:aspect-auto md:w-1/2 md:h-full relative flex-shrink-0 bg-white dark:bg-black animate-fade-in-up animation-delay-100">
-      {proyecto.data.img ? (
-        <ProjectImage img={proyecto.data.img} imgLight={proyecto.data.imgLight} alt={proyecto.data.title} class="w-full h-full object-cover project-hero-img" loading="eager" />
+      {proyecto.data.img || proyecto.data.cover ? (
+        <ProjectImage img={proyecto.data.img} cover={proyecto.data.cover} alt={proyecto.data.title} class="w-full h-full object-cover project-hero-img" loading="eager" />
       ) : (
         <div class="w-full h-full flex items-center justify-center bg-black/30">
           <svg class="w-24 h-24 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

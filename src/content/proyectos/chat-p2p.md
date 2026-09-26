@@ -1,7 +1,6 @@
 ---
 title: "Chat P2P"
-img: "img/chatp2pcover.svg"
-imgLight: "img/chatp2pcover-light.svg"
+cover: "chat"
 summary: "Chat de escritorio peer-to-peer, sin servidor central, hecho con Rust y Tauri."
 link: "https://github.com/wDona/chat-p2p-rust"
 highlight: true

@@ -1,7 +1,6 @@
 ---
 title: "Intérprete en Rust"
-img: "img/interpretecover.svg"
-imgLight: "img/interpretecover-light.svg"
+cover: "interprete"
 summary: "Intérprete para un lenguaje propio (.wdona) escrito desde cero en Rust. En desarrollo."
 link: "https://github.com/wDona/interprete-rust"
 tecnologias:

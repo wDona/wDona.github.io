@@ -17,7 +17,7 @@ const proyectosCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     img: z.string().optional(),
-    imgLight: z.string().optional(),
+    cover: z.enum(['chat', 'interprete', 'todo']).optional(),
     summary: z.string().optional(),
     link: z.string(),
     linkdescarga: z.string().optional(),

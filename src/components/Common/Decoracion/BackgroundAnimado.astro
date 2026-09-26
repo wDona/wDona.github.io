@@ -63,6 +63,10 @@
   :global(html:not(.dark)) .orb-a { background: radial-gradient(closest-side, rgb(var(--c-fuchsia-500) / 0.07), transparent); }
   :global(html:not(.dark)) .orb-b { background: radial-gradient(closest-side, rgb(var(--c-indigo-500) / 0.07), transparent); }
   :global(html:not(.dark)) .orb-c { background: radial-gradient(closest-side, rgba(113, 113, 122, 0.05), transparent); }
+  /* Colour palettes in light mode: a clearly visible atmosphere (mono stays subtle) */
+  :global(html:not(.dark):not([data-palette="mono"])) .orb-a { background: radial-gradient(closest-side, rgb(var(--c-fuchsia-400) / 0.22), transparent); }
+  :global(html:not(.dark):not([data-palette="mono"])) .orb-b { background: radial-gradient(closest-side, rgb(var(--c-indigo-400) / 0.2), transparent); }
+  :global(html:not(.dark):not([data-palette="mono"])) .orb-c { background: radial-gradient(closest-side, rgb(var(--c-purple-400) / 0.14), transparent); }
 
   /* ── Star layers: tiled, drifting upward at different speeds (parallax) ── */
   .stars {

@@ -74,11 +74,29 @@ const absoluteImage = image.startsWith('http') ? image : `https://wdona.dev${ima
 <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300;400&display=swap" rel="stylesheet">
 
 <script is:inline>
+  // Theme (light/dark) + accent palette (mono/fucsia/sky). First visit: dark + fucsia.
+  // Without a stored palette: mono in light mode, fucsia in dark mode.
   function applyTheme(doc) {
     const stored = localStorage.getItem('theme');
-    const dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    const dark = stored ? stored === 'dark' : true; // first visit: dark
+    const palette = localStorage.getItem('palette') || (dark ? 'fucsia' : 'mono');
     doc.documentElement.classList.toggle('dark', dark);
+    doc.documentElement.dataset.palette = palette;
+    if (doc === document) document.dispatchEvent(new CustomEvent('themechange', { detail: { dark, palette } }));
   }
+  window.wdApplyTheme = () => applyTheme(document);
+  // Run a theme/palette change with a circular reveal from the click point
+  window.wdTransition = (event, change) => {
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!document.startViewTransition || reduce || !event) { change(); return; }
+    const x = event.clientX || innerWidth / 2, y = event.clientY || 0;
+    const root = document.documentElement;
+    root.style.setProperty('--vt-x', x + 'px');
+    root.style.setProperty('--vt-y', y + 'px');
+    root.style.setProperty('--vt-r', Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)) + 'px');
+    root.classList.add('theme-vt');
+    document.startViewTransition(change).finished.finally(() => root.classList.remove('theme-vt'));
+  };
   applyTheme(document);
   // Keep theme when the client router swaps in a new page
   document.addEventListener('astro:before-swap', (e) => applyTheme(e.newDocument));

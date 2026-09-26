@@ -1,22 +1,26 @@
 ---
-// Project image that follows the theme: an optional light-mode variant,
-// otherwise the image is shown in greyscale in light mode (colour on hover).
+// Project image that follows the active palette:
+// - drawn covers are inline SVG coloured by the palette variables
+// - photos are greyscale in the mono palette and tinted with the accent otherwise
+//   (original colours on card hover)
+import ProjectCover from "./ProjectCover.astro";
+
 interface Props {
-  img: string;
-  imgLight?: string;
+  img?: string;
+  cover?: "chat" | "interprete" | "todo";
   alt: string;
   class?: string;
   loading?: "lazy" | "eager";
 }
-const { img, imgLight, alt, class: cls = "", loading = "lazy" } = Astro.props;
+const { img, cover, alt, class: cls = "", loading = "lazy" } = Astro.props;
 const src = (p: string) => (p.startsWith("/") || p.startsWith("http") ? p : "/" + p);
 ---
 
-{imgLight ? (
+{cover ? (
+  <ProjectCover name={cover} class={cls} />
+) : img && (
   <>
-    <img src={src(imgLight)} alt={alt} class={`project-img dark:hidden ${cls}`} loading={loading} />
-    <img src={src(img)} alt={alt} class={`project-img hidden dark:block ${cls}`} loading={loading} />
+    <img src={src(img)} alt={alt} class={`project-img-mono ${cls}`} loading={loading} />
+    <span class="project-tint" aria-hidden="true"></span>
   </>
-) : (
-  <img src={src(img)} alt={alt} class={`project-img project-img-mono ${cls}`} loading={loading} />
 )}
