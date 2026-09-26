@@ -1,42 +1,134 @@
 ---
 import BirthdayBadge from './SobreMi/BirthdayBadge.astro';
 import SectionBlobs from "../Common/Decoracion/SectionBlobs.astro";
+import { getCollection } from "astro:content";
+import { getRepos } from "../../lib/github";
+
+const numProyectos = (await getCollection("proyectos")).length;
+
+const numRepos = (await getRepos()).length;
+
+// Icon paths: simple-icons (brands) and lucide (interests)
+const stack = [
+  { id: "kotlin", label: "Kotlin", color: "#7F52FF" },
+  { id: "ktor", label: "Ktor", color: "#087CFA" },
+  { id: "java", label: "Java", color: "#E76F00" },
+  { id: "rust", label: "Rust", color: "#DEA584" },
+  { id: "tauri", label: "Tauri", color: "#FFC131" },
+  { id: "mysql", label: "MySQL", color: "#00758F" },
+  { id: "git", label: "Git", color: "#F05032" },
+  { id: "docker", label: "Docker", color: "#2496ED" },
+  { id: "html", label: "HTML", color: "#E34F26" },
+  { id: "css", label: "CSS", color: "#1572B6" },
+];
+
+const intereses = [
+  { label: "Tecnología", svg: `<path d="M12 20v2" />  <path d="M12 2v2" />  <path d="M17 20v2" />  <path d="M17 2v2" />  <path d="M2 12h2" />  <path d="M2 17h2" />  <path d="M2 7h2" />  <path d="M20 12h2" />  <path d="M20 17h2" />  <path d="M20 7h2" />  <path d="M7 20v2" />  <path d="M7 2v2" />  <rect x="4" y="4" width="16" height="16" rx="2" />  <rect x="8" y="8" width="8" height="8" rx="1" />` },
+  { label: "Psicología", svg: `<path d="M12 18V5" />  <path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4" />  <path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5" />  <path d="M17.997 5.125a4 4 0 0 1 2.526 5.77" />  <path d="M18 18a4 4 0 0 0 2-7.464" />  <path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517" />  <path d="M6 18a4 4 0 0 1-2-7.464" />  <path d="M6.003 5.125a4 4 0 0 0-2.526 5.77" />` },
+  { label: "Ajedrez", svg: `<path d="M5 20a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z" />  <path d="M16.5 18c1-2 2.5-5 2.5-9a7 7 0 0 0-7-7H6.635a1 1 0 0 0-.768 1.64L7 5l-2.32 5.802a2 2 0 0 0 .95 2.526l2.87 1.456" />  <path d="m15 5 1.425-1.425" />  <path d="m17 8 1.53-1.53" />  <path d="M9.713 12.185 7 18" />` },
+];
+
+const setup = [
+  { label: "Arch Linux", color: "#1793D1", d: "M11.39.605C10.376 3.092 9.764 4.72 8.635 7.132c.693.734 1.543 1.589 2.923 2.554-1.484-.61-2.496-1.224-3.252-1.86C6.86 10.842 4.596 15.138 0 23.395c3.612-2.085 6.412-3.37 9.021-3.862a6.61 6.61 0 01-.171-1.547l.003-.115c.058-2.315 1.261-4.095 2.687-3.973 1.426.12 2.534 2.096 2.478 4.409a6.52 6.52 0 01-.146 1.243c2.58.505 5.352 1.787 8.914 3.844-.702-1.293-1.33-2.459-1.929-3.57-.943-.73-1.926-1.682-3.933-2.713 1.38.359 2.367.772 3.137 1.234-6.09-11.334-6.582-12.84-8.67-17.74zM22.898 21.36v-.623h-.234v-.084h.562v.084h-.234v.623h.331v-.707h.142l.167.5.034.107a2.26 2.26 0 01.038-.114l.17-.493H24v.707h-.091v-.593l-.206.593h-.084l-.205-.602v.602h-.091" },
+  { label: "Hyprland", color: "#58E1FF", d: "M13.0998.001c.071.0753.1162.1116.1476.1576.5693.8424 1.13 1.691 1.7078 2.5277.3326.4816.6866.9486 1.0416 1.4141.3433.451.7058.8869 1.0494 1.3378.3975.5215.8003 1.0402 1.1696 1.5813.473.6933.9496 1.388 1.3588 2.1188.348.6213.626 1.285.8919 1.9477.1882.4691.3144.9646.4491 1.4537.0624.2267.0799.4659.1163.6994.0449.2858.1211.5717.1258.8583.0125.7465.0773 1.4954-.0528 2.2386-.1433.8195-.3832 1.6041-.74 2.3609-.3607.7646-.7978 1.4708-1.3328 2.1241-.4848.5921-1.054 1.0812-1.6697 1.5296-.452.329-.93.6085-1.4387.8306-.4577.1996-.9293.3597-1.4148.4951-1.0961.3052-2.2076.3722-3.3269.2934-.6747-.0474-1.3574-.1301-2-.3729-.5284-.1996-1.0606-.3967-1.5657-.6462-.3988-.1968-.781-.4435-1.131-.7183-.4591-.3604-.9097-.7418-1.3072-1.167-.356-.3808-.6644-.8153-.941-1.2587-.2916-.468-.5486-.9629-.7693-1.4687-.2385-.546-.3925-1.121-.518-1.71-.1953-.9164-.1322-1.8336-.0923-2.748.0229-.525.1615-1.0504.2945-1.5634.14-.541.3094-1.0786.5147-1.5983.2057-.5205.4445-1.0324.718-1.5204.3432-.6124.7218-1.2066 1.1121-1.7905.3543-.5304.7372-1.0423 1.1218-1.5513.3098-.41.6477-.7988.9614-1.206.3172-.4116.6224-.8326.9293-1.2522.3247-.4441.652-.8865.9656-1.3385.3979-.5728.781-1.156 1.1753-1.7314.0563-.0823.1383-.1475.2082-.2206.0139.0078.0278.0157.042.0235.003.0631.0082.1262.0082.1893.0004.9386.0053 1.8771-.006 2.8157-.0019.1376-.0578.2905-.1327.4085-.303.4795-.6127.9553-.9403 1.4184-.3105.4388-.6459.8601-.9703 1.289-.2673.3532-.5336.7068-.8027 1.0587-.1868.2441-.3829.4812-.5654.7286-.2552.3465-.5115.6933-.7496 1.0515-.2873.432-.57.8684-.828 1.3179-.1847.3215-.3302.6662-.4845 1.0041-.0856.1875-.1644.3793-.2267.5754-.1105.3479-.199.7026-.3094 1.0505-.3109.9774-.245 1.983-.1754 2.9764.0353.5044.2178 1.0035.3707 1.4933.2142.6858.5817 1.294.9963 1.88.283.4003.6042.762.9675 1.0822.299.263.6238.5051.9649.71.3882.2332.7924.4553 1.2163.6085.4523.1637.9303.2849 1.4073.3451.5678.0717 1.1464.0563 1.72.0834.5325.025 1.049-.0816 1.5659-.1832.6562-.129 1.2558-.412 1.8386-.7222.6969-.3707 1.2826-.8958 1.7955-1.4875.5244-.605.9646-1.285 1.2448-2.0319.2955-.7878.5418-1.603.5044-2.4688-.0203-.468.0053-.939-.0378-1.4041-.0317-.3426-.129-.6813-.2196-1.016-.1062-.3932-.215-.7878-.3622-1.1667-.1465-.3775-.3336-.7396-.5175-1.1014-.163-.3205-.3323-.6388-.5226-.9432a16.5743 16.5743 0 0 0-.7372-1.0848c-.3939-.5311-.8106-1.0451-1.2088-1.5727-.4662-.6177-.9314-1.2362-1.382-1.8654-.3889-.5425-.7596-1.0982-1.1303-1.6536-.0595-.0891-.107-.2064-.108-.3108-.0082-1.0156-.0053-2.0312-.0046-3.0467 0-.0339.0086-.0681.0206-.1583z" },
+  { label: "Quickshell (Qt)", color: "#41CD52", d: "M21.693 3.162H3.33L0 6.49v14.348h20.671L24 17.51V3.162zM12.785 18.4l-1.562.728-1.35-2.217c-.196.057-.499.09-.924.09-1.579 0-2.683-.425-3.305-1.276-.622-.85-.932-2.2-.932-4.033 0-1.84.319-3.206.949-4.098.63-.892 1.726-1.341 3.288-1.341 1.562 0 2.658.441 3.28 1.333.63.883.94 2.25.94 4.098 0 1.219-.13 2.2-.384 2.945-.261.752-.679 1.325-1.268 1.718zm4.736-1.587c-.858 0-1.447-.196-1.766-.59-.32-.392-.483-1.136-.483-2.232v-3.534H14.11V9.051h1.162V6.843h1.644V9.05h2.094v1.415h-2.094v3.346c0 .622.05 1.03.14 1.227.09.204.326.303.695.303l1.243-.05.073 1.326c-.67.13-1.186.196-1.546.196zm-8.58-9.08c-.95 0-1.604.311-1.963.94-.352.63-.532 1.629-.532 3.011 0 1.374.172 2.364.515 2.953.344.589 1.006.892 1.98.892.973 0 1.628-.295 1.971-.876.335-.58.507-1.57.507-2.953 0-1.39-.172-2.396-.523-3.026-.352-.63-1.006-.94-1.955-.94Z" },
+  { label: "Zsh", color: "#F15A24", d: "M11.415 5.038a.58.58 0 0 0-.543.197L.135 18.021a.58.58 0 0 0 .071.814.58.58 0 0 0 .815-.07L11.757 5.979a.58.58 0 0 0-.07-.815.6.6 0 0 0-.272-.126m-8.113.317a3.133 3.133 0 0 0-3.12 3.12 3.13 3.13 0 0 0 3.12 3.119A3.133 3.133 0 0 0 6.42 8.475a3.13 3.13 0 0 0-3.119-3.119m0 1.806a1.3 1.3 0 0 1 1.314 1.313 1.3 1.3 0 0 1-1.314 1.312A1.3 1.3 0 0 1 1.99 8.475a1.3 1.3 0 0 1 1.312-1.314m5.253 5.253a3.13 3.13 0 0 0-3.119 3.119 3.13 3.13 0 0 0 3.12 3.118 3.133 3.133 0 0 0 3.118-3.12 3.133 3.133 0 0 0-3.119-3.118m0 1.805a1.3 1.3 0 0 1 1.313 1.314c0 .735-.577 1.312-1.312 1.312a1.3 1.3 0 0 1-1.314-1.312 1.3 1.3 0 0 1 1.313-1.314m7.201 3.276a.58.58 0 0 0-.578.578.58.58 0 0 0 .578.578h7.666a.58.58 0 0 0 .579-.578.58.58 0 0 0-.579-.578Z" },
+  { label: "Starship", color: "#DD0B78", d: "M15.521 9.62a1.057 1.057 0 11-2.115 0 1.057 1.057 0 012.115 0zM24 12c0 6.627-5.373 12-12 12-.35 0-.697-.015-1.04-.044 2.019-1.89 2.548-5.061 2.548-5.061l-3.226-1.053s-1.499 3.23-5.599 3.67A11.98 11.98 0 010 12C0 5.373 5.373 0 12 0s12 5.373 12 12zM8.628 6.606c-1.23-.13-1.885-.83-2.03-2.031-.142 1.159-.77 1.88-2.032 2.031 1.168.227 1.83.918 2.031 2.032-.02-1.154.666-1.825 2.031-2.032zm7.786 5.207c1.11-2.483.392-4.252-1.233-6.246-2.043 1.5-3.759 3.023-3.636 5.149-1.375.675-2.261 1.206-3.147 2.289l2.779 1.103-.368 1.267 3.637 1.062.443-1.181 2.825.651c.014-1.496-.38-3.097-1.3-4.094z" },
+  { label: "Ghostty", color: "#3551F3", d: "M12 0C6.7 0 2.4 4.3 2.4 9.6v11.146c0 1.772 1.45 3.267 3.222 3.254a3.18 3.18 0 0 0 1.955-.686 1.96 1.96 0 0 1 2.444 0 3.18 3.18 0 0 0 1.976.686c.75 0 1.436-.257 1.98-.686.715-.563 1.71-.587 2.419-.018.59.476 1.355.743 2.182.699 1.705-.094 3.022-1.537 3.022-3.244V9.601C21.6 4.3 17.302 0 12 0M6.069 6.562a1 1 0 0 1 .46.131l3.578 2.065v.002a.974.974 0 0 1 0 1.687L6.53 12.512a.975.975 0 0 1-.976-1.687L7.67 9.602 5.553 8.38a.975.975 0 0 1 .515-1.818m7.438 2.063h4.7a.975.975 0 1 1 0 1.95h-4.7a.975.975 0 0 1 0-1.95" },
+];
 ---
 
 <section class="relative xl:w-[1200px] sm:w-[90%] w-[98%] py-16 flex flex-col gap-8 z-10 mx-auto" id="sobre-mi" aria-labelledby="sobre-mi-titulo">
   <SectionBlobs variant="blue" />
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-fuchsia-400/6 dark:bg-fuchsia-500/8 rounded-full blur-[110px] pointer-events-none" aria-hidden="true"></div>
-      <h2 id="sobre-mi-titulo" class="text-4xl md:text-5xl zilla-slab-regular mb-2 text-center tracking-tight reveal text-slate-800 dark:text-white">Sobre Mí</h2>
+  <h2 id="sobre-mi-titulo" class="section-title reveal">Sobre Mí</h2>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-5 w-full">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 w-full">
 
-    <article class="col-span-1 md:col-span-2 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-3xl p-7 shadow-sm dark:shadow-none hover:bg-slate-50 dark:hover:bg-white/10 transition-colors duration-300 relative reveal" data-reveal-delay="100">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2 sm:gap-0">
-        <h3 class="text-2xl zilla-slab-regular text-slate-800 dark:text-white">¿Quién soy?</h3>
-      </div>
-      <p class="text-lg text-slate-600 dark:text-white/90 font-light leading-relaxed">
+    <!-- ¿Quién soy? (big tile) -->
+    <article class="card md:col-span-2 lg:row-span-2 p-7 sm:p-8 flex flex-col items-center justify-center gap-4 text-center reveal" data-reveal-delay="100">
+      <h3 class="text-2xl sm:text-3xl zilla-slab-regular text-slate-800 dark:text-white">¿Quién soy?</h3>
+      <p class="text-lg sm:text-xl text-slate-600 dark:text-white/90 font-light leading-relaxed">
         Tengo <strong id="dynamic-age" class="dark:font-bold">19</strong><strong class="dark:font-bold"> años</strong> y una meta clara: <strong class="dark:font-bold">hacer feliz</strong> a la gente creando <strong class="dark:font-bold">soluciones de software</strong>. La informática para mí no es la simple rutina de <em>"hacer mis horas e irme"</em>, es mi <strong class="dark:font-bold">estilo de vida</strong>.
       </p>
     </article>
 
-    <div class="reveal" data-reveal-delay="200"><BirthdayBadge /></div>
+    <!-- Cifras -->
+    <article class="card md:col-span-2 px-6 py-6 flex items-center justify-evenly gap-6 reveal" data-reveal-delay="200">
+      <div class="flex flex-col items-center text-center gap-1">
+        <span class="text-4xl sm:text-5xl font-bold tabular-nums gradient-text-animated" data-count={numProyectos}>{numProyectos}</span>
+        <span class="text-sm text-slate-500 dark:text-white/50">Proyectos</span>
+      </div>
+      {numRepos > 0 && (
+        <div class="flex flex-col items-center text-center gap-1">
+          <span class="text-4xl sm:text-5xl font-bold tabular-nums gradient-text-animated" data-count={numRepos}>{numRepos}</span>
+          <span class="text-sm text-slate-500 dark:text-white/50">Repos en GitHub</span>
+        </div>
+      )}
+      <div class="flex flex-col items-center text-center gap-1">
+        <span class="text-4xl sm:text-5xl font-bold tabular-nums gradient-text-animated">2021</span>
+        <span class="text-sm text-slate-500 dark:text-white/50">Programando desde</span>
+      </div>
+    </article>
 
-    <article class="col-span-1 border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 shadow-sm dark:shadow-none rounded-3xl p-7 hover:bg-slate-50 dark:hover:bg-white/10 transition-colors duration-300 flex flex-col justify-center reveal" data-reveal-delay="300">
-      <h3 class="text-xl zilla-slab-regular mb-3 text-slate-800 dark:text-white">Mentalidad</h3>
-      <p class="text-slate-600 dark:text-white/80 font-light text-md leading-relaxed">
-        Me defino como una <strong class="dark:font-bold">esponja de información</strong>. Adoro aprender por mi cuenta sobre <strong class="dark:font-bold">tecnología, psicología y ajedrez</strong>.
+    <div class="reveal" data-reveal-delay="300"><BirthdayBadge /></div>
+
+    <!-- Mentalidad -->
+    <article class="card p-7 flex flex-col items-center justify-center text-center reveal" data-reveal-delay="400">
+      <h3 class="text-xl zilla-slab-regular mb-2 text-slate-800 dark:text-white">Curiosidad</h3>
+      <p class="text-slate-600 dark:text-white/80 font-light text-base mb-5">
+        Aprendo por mi cuenta sobre:
+      </p>
+      <svg width="0" height="0" class="absolute" aria-hidden="true">
+        <defs>
+          <linearGradient id="interes-grad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="24" y2="24">
+            <stop offset="0" style="stop-color:rgb(var(--c-fuchsia-500))" />
+            <stop offset="0.5" style="stop-color:rgb(var(--c-purple-500))" />
+            <stop offset="1" style="stop-color:rgb(var(--c-indigo-500))" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <ul class="grid grid-cols-3 gap-2 w-full">
+        {intereses.map(it => (
+          <li class="group/int flex flex-col items-center gap-2 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="interes-icon block h-9 w-9" fill="none" stroke="url(#interes-grad)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={it.svg} />
+            <span class="text-sm text-slate-600 dark:text-white/70">{it.label}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-4 flex items-baseline justify-center gap-[3px] text-sm text-slate-400 dark:text-white/40">
+        y más<span class="sr-only">...</span>
+        <span class="more-dot" aria-hidden="true"></span>
+        <span class="more-dot" aria-hidden="true" style="animation-delay:0.2s"></span>
+        <span class="more-dot" aria-hidden="true" style="animation-delay:0.4s"></span>
       </p>
     </article>
 
+
+    <!-- Mi setup -->
+    <article class="card group md:col-span-2 p-6 sm:p-7 flex flex-col items-center justify-center gap-6 text-center reveal" data-reveal-delay="100">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="arch-watermark pointer-events-none absolute -bottom-10 -right-8 h-52 w-52 text-slate-900 dark:text-[#1793D1] opacity-[0.05] dark:opacity-[0.09]" fill="currentColor" aria-hidden="true"><path d={setup[0].d} /></svg>
+      <h3 class="relative text-2xl leading-none zilla-slab-regular text-slate-800 dark:text-white">"I use arch btw"</h3>
+      <ul class="relative flex flex-wrap items-center justify-center gap-5">
+        {setup.map((t, i) => (
+          <li title={t.label}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label={t.label}
+              class="setup-icon block h-11 w-11" style={`--brand:${t.color};--d:${i * 50}ms`} fill="currentColor"><path d={t.d} /></svg>
+          </li>
+        ))}
+      </ul>
+    </article>
+
     <!-- Stack -->
-    <article class="col-span-1 md:col-span-2 bg-white dark:bg-white/5 shadow-sm dark:shadow-none border border-slate-200 dark:border-white/10 rounded-3xl p-7 hover:bg-slate-50 dark:hover:bg-white/10 transition-colors duration-300 flex flex-col justify-center reveal" data-reveal-delay="400">
-      <h3 class="text-xl zilla-slab-regular mb-4 text-slate-800 dark:text-white">Mi Stack</h3>
-      <a href="https://skillicons.dev" target="_blank" rel="noreferrer" class="w-full flex">
-          <img src="https://skillicons.dev/icons?i=kotlin,ktor,java,mysql,git,docker,html,css" alt="Mis Skills" class="w-full max-w-[500px]" loading="lazy" />
-      </a>
-      <p class="text-[13px] text-slate-500 dark:text-white/40 mt-4 font-light italic">
-        * Principalmente backend. Abierto a nuevos lenguajes (Rust como preferencia para bajo nivel).
-      </p>
+    <article class="card md:col-span-2 p-6 sm:p-7 flex flex-col items-center justify-center text-center reveal" data-reveal-delay="200">
+      <h3 class="text-2xl leading-none zilla-slab-regular mb-4 text-slate-800 dark:text-white">Mi Stack</h3>
+      <ul class="stack-grid grid grid-cols-5 gap-x-3 gap-y-2 w-full max-w-md" aria-label="Mis Skills">
+        {stack.map((t, i) => (
+          <li class="stack-tile group/tile flex flex-col items-center gap-1" style={`--c:${t.color};--i:${i}`}>
+            <img src={`/img/stack/${t.id}.svg`} alt="" class="stack-icon block h-12 w-12 sm:h-[52px] sm:w-[52px]" loading="lazy" aria-hidden="true" />
+            <span class="text-xs sm:text-sm leading-none text-slate-600 dark:text-white/60 transition-colors duration-300 group-hover/tile:text-slate-900 dark:group-hover/tile:text-white">{t.label}</span>
+          </li>
+        ))}
+      </ul>
     </article>
 
   </div>
@@ -60,5 +152,96 @@ import SectionBlobs from "../Common/Decoracion/SectionBlobs.astro";
     }
   }
 
-  updateAge();
+  document.addEventListener('astro:page-load', updateAge);
+
+  // Count-up for the figures tile, triggered when it scrolls into view
+  const countIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target as HTMLElement;
+      const target = Number(el.dataset.count);
+      const start = performance.now();
+      const step = (now: number) => {
+        const t = Math.min((now - start) / 1200, 1);
+        el.textContent = String(Math.round(target * (1 - Math.pow(1 - t, 3))));
+        if (t < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+      countIO.unobserve(el);
+    });
+  }, { threshold: 0.6 });
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll<HTMLElement>('[data-count]').forEach(el => countIO.observe(el));
+  });
 </script>
+
+
+<style>
+  /* Setup icons pop one after another on card hover */
+  /* Brand colours: always in dark mode; in light (monochrome) only on hover */
+  .setup-icon { color: var(--brand); }
+  :global(html:not(.dark)) .setup-icon { color: #27272a; }
+  :global(html:not(.dark)) .group:hover .setup-icon { color: var(--brand); }
+  :global(html:not(.dark)) .stack-icon { filter: grayscale(1); }
+  :global(html:not(.dark)) .stack-tile:hover .stack-icon { filter: grayscale(0) drop-shadow(0 8px 16px var(--c)); }
+
+  .setup-icon {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--d), filter 0.5s ease var(--d), color 0.4s ease var(--d);
+  }
+  /* Stack tiles: staggered pop-in on reveal, brand-colour glow on hover */
+  .stack-icon {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+  }
+  .stack-tile:hover .stack-icon {
+    transform: translateY(-4px) scale(1.1);
+    filter: drop-shadow(0 8px 16px var(--c));
+  }
+  :global(.js-ready) .stack-grid .stack-tile {
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-delay: calc(var(--i) * 60ms + 200ms);
+  }
+  :global(.js-ready) .revealed .stack-grid .stack-tile {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .stack-grid .stack-tile { opacity: 1 !important; transform: none !important; }
+  }
+
+  /* Interest icons: quick lift + glow on hover, same feel as the stack */
+  .interes-icon {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+  }
+  .group\/int:hover .interes-icon {
+    transform: translateY(-3px) scale(1.1);
+    filter: drop-shadow(0 6px 12px rgb(var(--c-fuchsia-500) / 0.45));
+  }
+
+  /* "y más" ellipsis: dots on the text baseline, soft typing pulse */
+  .more-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 9999px;
+    background: currentColor;
+    animation: moreDot 1.4s ease-in-out infinite;
+  }
+  .more-dot:first-of-type { margin-left: 1px; }
+  @keyframes moreDot {
+    0%, 80%, 100% { opacity: 0.35; }
+    40% { opacity: 1; }
+  }
+
+  .arch-watermark {
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .group:hover .arch-watermark {
+    transform: rotate(-12deg) scale(1.08);
+  }
+
+  .group:hover .setup-icon {
+    transform: translateY(-4px) scale(1.08);
+    filter: drop-shadow(0 6px 12px currentColor);
+  }
+</style>

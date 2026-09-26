@@ -17,6 +17,9 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # Authenticated GitHub API calls at build time (repos/languages cards); avoids shared-runner rate limits
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4

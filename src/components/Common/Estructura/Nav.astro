@@ -5,10 +5,12 @@ import DesktopNav from "./Nav/Desktop.astro";
 import BotonSubir from "../Botones/BotonSubir.astro";
 ---
 
+<div id="scroll-progress" aria-hidden="true" transition:persist="scroll-progress"></div>
 <nav
   aria-label="Navegación principal"
   id="main-nav"
-  class="text-slate-900 dark:text-white text-xl sm:text-2xl h-20 fixed top-0 w-full z-50 flex items-center justify-center flex-col px-4 animate-fade-in-up animation-delay-300 transition-all duration-500 bg-white/80 dark:bg-black/80 backdrop-blur-md"
+  transition:persist="main-nav"
+  class="text-slate-900 dark:text-white text-xl sm:text-2xl h-20 fixed top-0 w-full z-50 flex items-center justify-center flex-col px-4 animate-fade-in-up animation-delay-300 transition-all duration-500 bg-white/70 dark:bg-black/80 backdrop-blur-xl"
 >
   <div class="lg:flex lg:justify-center items-center w-full">
     <div
@@ -19,32 +21,23 @@ import BotonSubir from "../Botones/BotonSubir.astro";
     </div>
   </div>
 </nav>
-<div class="fixed top-20 w-full z-50 animate-fade-in-up animation-delay-300">
+<div class="fixed top-20 w-full z-50 animate-fade-in-up animation-delay-300" transition:persist="nav-line">
   <LineaSeparadoraHorizontal />
 </div>
 
 <BotonSubir />
 
-<script is:inline>
-  (function() {
-    const nav = document.getElementById('main-nav');
-    if (!nav) return;
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      if (y > 50) {
-        nav.classList.add('nav-scrolled');
-      } else {
-        nav.classList.remove('nav-scrolled');
-      }
-    }, { passive: true });
-  })();
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('main-nav')?.classList.toggle('nav-scrolled', window.scrollY > 50);
+  }, { passive: true });
 </script>
 
 <style>
   :global(.nav-scrolled) {
-    box-shadow: 0 1px 20px rgba(217, 70, 239, 0.08);
+    box-shadow: 0 1px 20px rgb(var(--c-fuchsia-500) / 0.08);
   }
   :global(html.dark) :global(.nav-scrolled) {
-    box-shadow: 0 1px 20px rgba(217, 70, 239, 0.12);
+    box-shadow: 0 1px 20px rgb(var(--c-fuchsia-500) / 0.12);
   }
 </style>

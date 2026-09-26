@@ -5,6 +5,7 @@ summary: "Trello gamificado que fomenta trabajo en equipo y evita el Sindrome de
 link: "https://github.com/wDona/Burnt-out"
 linkdescarga: "https://wdona.dev/burnt-out"
 highlight: true
+plataformas: ["linux", "windows", "android"]
 tecnologias:
   - name: "Kotlin"
     img: "img/kotlinlogo.webp"
@@ -12,6 +13,8 @@ tecnologias:
     img: "img/jetpackcomposelogo.webp"
   - name: "Ktor"
     img: "img/ktorlogo.webp"
+  - name: "SQLite"
+    img: "img/sqlitelogo.svg"
 ---
 
 Aplicación móvil y desktop para la asignación y seguimiento de tareas en equipos de trabajo mientras se fomenta el bienestar, orientado a evitar sindrome de Burnout.

@@ -1,6 +1,7 @@
 ---
 import BotonPrimario from "../components/Common/Botones/BotonPrimario.astro";
 import Footer from "../components/Common/Estructura/Footer.astro";
+import BackgroundAnimado from "../components/Common/Decoracion/BackgroundAnimado.astro";
 import Head from "../components/Common/Estructura/Head.astro";
 import Nav from "../components/Common/Estructura/Nav.astro";
 import '../styles/global.css';
@@ -25,6 +26,7 @@ const { title, description, keywords, footerText } = Astro.props;
     />
   </head>
   <body>
+    <BackgroundAnimado />
     <Nav />
     <main>
       <slot />

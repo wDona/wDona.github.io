@@ -10,18 +10,26 @@ interface Props {
 const { title, timeRange, tags, isLast = false, accent = 'past' } = Astro.props;
 
 const accentBar = accent === 'active'
-  ? 'bg-fuchsia-500 dark:bg-fuchsia-400 shadow-[0_0_10px_rgba(217,70,239,0.3)] dark:shadow-[0_0_14px_rgba(217,70,239,0.4)]'
+  ? 'bg-fuchsia-500 dark:bg-fuchsia-400 shadow-[0_0_10px_rgb(var(--c-fuchsia-500)/0.3)] dark:shadow-[0_0_14px_rgb(var(--c-fuchsia-500)/0.4)]'
   : 'bg-slate-300 dark:bg-white/15';
+
+const dot = accent === 'active'
+  ? 'bg-fuchsia-500 dark:bg-fuchsia-400 ring-4 ring-fuchsia-500/20'
+  : 'bg-white dark:bg-[rgb(5,5,8)] border-2 border-slate-300 dark:border-white/25';
 
 const marginBottom = isLast ? 'mb-0' : 'mb-6';
 ---
 
-<article class={`relative pl-6 ${marginBottom} reveal`} data-reveal-delay="100">
-  <div class={`absolute left-0 top-1.5 w-[2px] h-[calc(100%-0.75rem)] rounded-full ${accentBar}`}></div>
+<article class={`group relative pl-8 ${marginBottom} reveal`} data-reveal-delay="100">
+  {!isLast && <div class={`absolute left-[5px] top-6 w-[2px] h-[calc(100%-0.5rem)] rounded-full ${accentBar}`} aria-hidden="true"></div>}
+  <span class="absolute left-0 top-3 flex h-3 w-3" aria-hidden="true">
+    {accent === 'active' && <span class="absolute inline-flex h-full w-full rounded-full bg-fuchsia-400 opacity-60 animate-ping"></span>}
+    <span class={`relative inline-flex h-3 w-3 rounded-full transition-transform duration-300 group-hover:scale-125 ${dot}`}></span>
+  </span>
 
   <div class="flex flex-col gap-1.5">
     <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-      <h3 class="text-3xl font-semibold text-slate-800 dark:text-white/90 tracking-tight">{title}</h3>
+      <h3 class="text-3xl font-semibold text-slate-800 dark:text-white/90 tracking-tight transition-colors duration-300 group-hover:text-fuchsia-600 dark:group-hover:text-fuchsia-300">{title}</h3>
       {timeRange && (
         <span class="text-base text-fuchsia-600 dark:text-fuchsia-400">{timeRange}</span>
       )}

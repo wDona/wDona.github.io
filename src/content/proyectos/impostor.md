@@ -5,6 +5,7 @@ summary: "Juego viral del juego de las palabras conocido como el impostor."
 link: "https://github.com/wDona/VibeImpostor"
 linkdescarga: "https://impostor.wdona.dev"
 highlight: true
+plataformas: ["web"]
 tecnologias:
   - name: "Kotlin"
     img: "img/kotlinlogo.webp"
@@ -12,6 +13,12 @@ tecnologias:
     img: "img/jetpackcomposelogo.webp"
   - name: "Ktor"
     img: "img/ktorlogo.webp"
+  - name: "Svelte"
+    img: "img/sveltelogo.svg"
+  - name: "TypeScript"
+    img: "img/typescriptlogo.svg"
+  - name: "Tailwind"
+    img: "img/tailwindlogo.svg"
 ---
 
 Es un juego en el que originalmente hay una palabra que todo el mundo sabe, excepto una persona (el impostor). 

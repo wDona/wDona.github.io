@@ -7,7 +7,7 @@ const img = Astro.props.img;
 const title = Astro.props.title;
 ---
 
-<div class="h-16 p-1 sm:w-20 sm:h-20 sm:p-2 mb-4 flex flex-col items-center justify-center mx-auto rounded-xl hover:scale-110 hover:shadow-[0_0_25px_rgba(217,70,239,0.25)] dark:hover:shadow-[0_0_25px_rgba(217,70,239,0.35)] transition-all duration-300 cursor-default group">
+<div class="h-16 p-1 sm:w-20 sm:h-20 sm:p-2 mb-4 flex flex-col items-center justify-center mx-auto rounded-xl hover:scale-110 hover:shadow-[0_0_25px_rgb(var(--c-fuchsia-500)/0.25)] dark:hover:shadow-[0_0_25px_rgb(var(--c-fuchsia-500)/0.35)] transition-all duration-300 cursor-default group">
     <div class="w-full h-full flex items-center justify-center">
         <img src={img} alt={title} class="w-full h-full object-contain transition-all duration-300 group-hover:brightness-110" loading="lazy"/>
     </div>

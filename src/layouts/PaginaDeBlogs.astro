@@ -1,5 +1,6 @@
 ---
 import Footer from "../components/Common/Estructura/Footer.astro";
+import BackgroundAnimado from "../components/Common/Decoracion/BackgroundAnimado.astro";
 import Head from "../components/Common/Estructura/Head.astro";
 import '../styles/global.css';
 
@@ -22,30 +23,8 @@ import '../styles/global.css';
     </style>
   </head>
   <body class="zilla-slab-regular">
+    <BackgroundAnimado />
     <slot />
     <Footer texto="Blog de wDona" />
-    <script>
-      document.documentElement.classList.add('js-ready');
-
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          const el = entry.target as HTMLElement;
-          const delay = parseInt(el.dataset.revealDelay ?? '0');
-          setTimeout(() => el.classList.add('revealed'), delay);
-          io.unobserve(el);
-        });
-      }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
-      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-      setTimeout(() => {
-        document.querySelectorAll('.reveal:not(.revealed)').forEach(el => {
-          const rect = (el as HTMLElement).getBoundingClientRect();
-          if (rect.top < window.innerHeight && rect.bottom > 0) {
-            el.classList.add('revealed');
-          }
-        });
-      }, 800);
-    </script>
   </body>
 </html>

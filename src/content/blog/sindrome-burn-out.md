@@ -1,31 +1,31 @@
 ---
-title: "Sindrome de Burn out"
+title: "Síndrome de burn out"
 description: "El burnout es un estado de agotamiento crónico causado principalmente por el estrés sostenido en el trabajo. Afecta a nivel emocional, actitudinal y a la percepción de logro personal. En muchos casos sus síntomas pasan desapercibidos hasta que están muy avanzados."
 keywords: "sindrome, sindromes, burn out, burnout, estres, quemado, trabajador, apatia, depresion, ansiedad, agotamiento, cinismo, despersonalizacion, salud mental, tdah, autismo, hipersensibilidad, España, estadisticas, prevencion, recuperacion, actividad fisica, maslach burnout inventory, mbi, procrastinar, procrastinacion, saturacion, sueño, despersonalizacion, "
 footerText: "Actualizado el 16/05/2026"
 ---
 
-# Síndrome de Burn Out
+# Síndrome de burn out
 
 El burnout, o síndrome de "estar quemado", se define según la Organización Mundial de la Salud (OMS) como un fenómeno ocupacional resultante de un estrés laboral crónico que no ha sido gestionado de forma satisfactoria. Aunque a menudo se confunde con el estrés común, el burnout es un agotamiento multidimensional que abarca las esferas física, emocional y mental.
 
-## Dimensiones y Sintomatología
+## Dimensiones y sintomatología
 
 El síndrome se manifiesta a través de tres pilares fundamentales que afectan la relación del individuo con su trabajo:
 
 * **Agotamiento emocional:** Una sensación persistente de falta de energía y recursos emocionales.
-* **Cinismo o Despersonalización:** Un aumento de la distancia mental con respecto al trabajo, acompañado de sentimientos de negativismo hacia las tareas o las personas del entorno laboral.
+* **Cinismo o despersonalización:** Un aumento de la distancia mental con respecto al trabajo, acompañado de sentimientos de negativismo hacia las tareas o las personas del entorno laboral.
 * **Eficacia profesional reducida:** Una disminución en la capacidad para realizar las tareas laborales y una valoración negativa de los propios logros.
 
 A nivel físico y mental, los síntomas incluyen problemas de sueño (insomnio o hipersomnia), cambios en el apetito, fatiga severa, irritabilidad, falta de concentración y sentimientos de inutilidad. En casos graves, puede derivar en hipertensión, enfermedades cardíacas, ansiedad y depresión.
 
-## La Estrecha Relación con la Depresión y la Ansiedad
+## La estrecha relación con la depresión y la ansiedad
 
 Existe una controversia científica sobre si el burnout es una entidad independiente o un tipo de depresión, ya que comparten una base biológica y síntomas como la anhedonia (pérdida de interés o placer). A nivel epigenético, se sugiere que el estrés crónico del entorno laboral puede causar cambios químicos en el ADN (metilación), actuando como un marcador biológico de estos trastornos.
 
 En cuanto a la ansiedad, se ha observado que las personas con mayores niveles de ansiedad social o "ansiedad rasgo" (una tendencia natural a percibir situaciones como amenazantes) tienen más probabilidades de desarrollar burnout. El cansancio emocional y el cinismo alimentan estados de ansiedad que, a su vez, agravan el agotamiento.
 
-## Causas, Fases y Factores de Riesgo
+## Causas, fases y factores de riesgo
 
 El burnout no ocurre de forma repentina; es un proceso que suele atravesar cuatro etapas:
 
@@ -36,13 +36,13 @@ El burnout no ocurre de forma repentina; es un proceso que suele atravesar cuatr
 
 Las causas principales suelen ser la sobrecarga de responsabilidades, la percepción de un trato injusto, el aislamiento laboral o la falta de planes de bienestar en la empresa. Además, se han identificado dos formas de afrontarlo: el burnout activo, donde el individuo lucha intensamente contra el problema, y el burnout pasivo, donde se pierde gradualmente el interés y el vínculo con la organización.
 
-## Grupos de Riesgo y Contextos Específicos
+## Grupos de riesgo y contextos específicos
 
 El burnout puede coexistir con condiciones neuropsicológicas como el TDAH o el autismo, lo que complica el diagnóstico debido a la frustración que genera la hipersensibilidad sensorial o la dificultad para encajar en entornos sociales complejos. Además del ámbito laboral, el síndrome puede presentarse en cuidadores, deportistas, estudiantes y padres (burnout parental).
 
-## Estadísticas y Realidad Laboral en España
+## Estadísticas y realidad laboral en España
 
-Según una encuesta realizada a 1,500 trabajadores en España, el panorama es preocupante:
+Según una encuesta realizada a 1500 trabajadores en España, el panorama es preocupante:
 
 * El 41% sufre de estrés laboral.
 * Un 55% admite haber sentido agotamiento total alguna vez.
@@ -50,7 +50,7 @@ Según una encuesta realizada a 1,500 trabajadores en España, el panorama es pr
 * Este estrés afecta especialmente a los jóvenes de entre 25 y 44 años (cerca del 45% de ellos se estresan habitualmente), una etapa de vida marcada por decisiones cruciales como la compra de viviendas, la formación de familias o el inicio de carreras profesionales.
 * A pesar de que el 24% se ha planteado dejar su empleo por este motivo, solo el 12% busca ayuda profesional, lo que refleja una tendencia cultural a soportar la presión en silencio.
 
-## Estrategias de Intervención y Recuperación
+## Estrategias de intervención y recuperación
 
 Para frenar el avance del burnout y revertir sus efectos, es fundamental aplicar un enfoque que combine la salud física con la reestructuración de los hábitos diarios. No se trata solo de "descansar", sino de implementar cambios profundos en la rutina:
 
@@ -59,7 +59,7 @@ Para frenar el avance del burnout y revertir sus efectos, es fundamental aplicar
 * **Reorganización del entorno:** Es necesario identificar y eliminar los "estresores" innecesarios, aprendiendo a delegar o a decir "no" a responsabilidades que exceden la capacidad real de gestión.
 * **Apoyo profesional:** En etapas avanzadas, donde el agotamiento ha derivado en cuadros de ansiedad o depresión, la intervención psicoterapéutica y, en ocasiones, farmacológica, es esencial para estabilizar el sistema nervioso.
 
-## Herramientas de Diagnóstico y Señales Visuales
+## Herramientas de diagnóstico y señales visuales
 
 La detección temprana es la clave para evitar el colapso total. Para medir la gravedad del síndrome, se utiliza el [Maslach Burnout Inventory (MBI)](https://estadisticando.blogspot.com/2016/04/escala-maslach-burnout-inventory-mbi.html), un sistema de evaluación que puntúa tres niveles: la frecuencia e intensidad del agotamiento, la despersonalización y la pérdida de realización personal.
 

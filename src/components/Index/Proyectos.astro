@@ -13,20 +13,22 @@ const allTechs = [...new Map(
 
 <section id="proyectos" class="relative xl:w-[1200px] sm:w-[90%] w-[98%] py-16 mx-auto" aria-labelledby="proyectos-titulo">
   <SectionBlobs variant="mixed" />
-  <h2 id="proyectos-titulo" class="text-3xl md:text-4xl zilla-slab-regular mb-8 text-center tracking-tight reveal text-slate-800 dark:text-white">Más proyectos</h2>
+  <h2 id="proyectos-titulo" class="section-title reveal">Más proyectos</h2>
 
   <!-- Filtros -->
   <div id="tech-filters" class="flex flex-wrap gap-2 justify-center mb-10 relative z-10 reveal" data-reveal-delay="150">
     <button
       data-filter="all"
-      class="filter-btn active inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium zilla-slab-regular transition-all duration-200 bg-fuchsia-100 dark:bg-fuchsia-500/25 border border-fuchsia-400 dark:border-fuchsia-500/50 text-fuchsia-900 dark:text-fuchsia-200 cursor-pointer"
+      class="filter-btn chip active"
+      aria-pressed="true"
     >
       Todos
     </button>
     {allTechs.map(tec => (
       <button
         data-filter={tec.name}
-        class="filter-btn inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium zilla-slab-regular transition-all duration-200 bg-slate-100 dark:bg-fuchsia-950/40 border border-slate-300 dark:border-fuchsia-500/20 text-slate-700 dark:text-fuchsia-200/60 hover:border-fuchsia-300 dark:hover:border-fuchsia-500/40 hover:text-fuchsia-700 dark:hover:text-fuchsia-200/90 cursor-pointer"
+        class="filter-btn chip"
+        aria-pressed="false"
       >
         <img src={"/" + tec.img} alt={tec.name} class="w-4 h-4 object-contain" loading="lazy" />
         {tec.name}
@@ -35,10 +37,10 @@ const allTechs = [...new Map(
   </div>
 
   <!-- Grid de proyectos -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 zilla-slab-regular relative">
+  <div class="flex flex-wrap justify-center gap-8 zilla-slab-regular relative">
     {proyectos.map((proyecto, i) => (
       <div
-        class="proyecto-item reveal"
+        class="proyecto-item reveal w-full md:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)]"
         data-techs={JSON.stringify(proyecto.data.tecnologias?.map(t => t.name) ?? [])}
         data-reveal-delay={200 + i * 150}
       >
@@ -46,121 +48,118 @@ const allTechs = [...new Map(
           id={proyecto.id}
           title={proyecto.data.title}
           img={proyecto.data.img}
+          imgLight={proyecto.data.imgLight}
           link={proyecto.data.link}
           linkdescarga={proyecto.data.linkdescarga}
           tecnologias={proyecto.data.tecnologias}
           summary={proyecto.data.summary}
+          plataformas={proyecto.data.plataformas}
         />
       </div>
     ))}
   </div>
 
   <div id="pagination-controls" class="flex justify-center items-center gap-4 mt-12 hidden relative z-10 zilla-slab-regular">
-    <button id="prev-page" class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-gray-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
+    <button id="prev-page" class="chip disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0">
       Anterior
     </button>
     <span id="page-info" class="text-slate-800 dark:text-gray-300 font-medium">
       Página 1 de X
     </span>
-    <button id="next-page" class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-gray-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
+    <button id="next-page" class="chip disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0">
       Siguiente
     </button>
   </div>
 </section>
 
 <script>
-  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
-  const cards = document.querySelectorAll<HTMLElement>('.proyecto-item');
-  const paginationControls = document.getElementById('pagination-controls');
-  const prevPageBtn = document.getElementById('prev-page') as HTMLButtonElement;
-  const nextPageBtn = document.getElementById('next-page') as HTMLButtonElement;
-  const pageInfo = document.getElementById('page-info');
+  document.addEventListener('astro:page-load', () => {
+    if (!document.getElementById('tech-filters')) return;
+    const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const cards = document.querySelectorAll<HTMLElement>('.proyecto-item');
+    const paginationControls = document.getElementById('pagination-controls');
+    const prevPageBtn = document.getElementById('prev-page') as HTMLButtonElement;
+    const nextPageBtn = document.getElementById('next-page') as HTMLButtonElement;
+    const pageInfo = document.getElementById('page-info');
 
-  const activeClassDark = ['dark:bg-fuchsia-500/25', 'dark:border-fuchsia-500/50', 'dark:text-fuchsia-200'];
-  const inactiveClassDark = ['dark:bg-fuchsia-950/40', 'dark:border-fuchsia-500/20', 'dark:text-fuchsia-200/60'];
+    let currentPage = 1;
+    const itemsPerPage = 6;
+    let currentFilter = 'all';
 
-  const activeClassLight = ['bg-fuchsia-100', 'border-fuchsia-400', 'text-fuchsia-900'];
-  const inactiveClassLight = ['bg-slate-100', 'border-slate-300', 'text-slate-700'];
-
-  let currentPage = 1;
-  const itemsPerPage = 6;
-  let currentFilter = 'all';
-
-  function updatePagination() {
-    const visibleCards = Array.from(cards).filter(card => {
-      if (currentFilter === 'all') return true;
-      const techs: string[] = JSON.parse(card.dataset.techs || '[]');
-      return techs.includes(currentFilter);
-    });
-
-    const totalPages = Math.ceil(visibleCards.length / itemsPerPage);
-
-    cards.forEach(card => card.style.display = 'none');
-
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-
-    visibleCards.slice(startIndex, endIndex).forEach(card => {
-      card.style.display = '';
-    });
-
-    // Resetear las clases 'reveal' para la nueva página se anime de nuevo (opcional para smooth feel)
-    visibleCards.slice(startIndex, endIndex).forEach((card, index) => {
-       card.classList.remove('revealed');
-       // Asignar nuevos delays
-       card.dataset.revealDelay = String(200 + index * 100);
-       setTimeout(() => card.classList.add('revealed'), 50);
-    });
-
-    if (totalPages > 1) {
-      paginationControls?.classList.remove('hidden');
-      if (pageInfo) pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
-      if (prevPageBtn) prevPageBtn.disabled = currentPage === 1;
-      if (nextPageBtn) nextPageBtn.disabled = currentPage === totalPages;
-    } else {
-      paginationControls?.classList.add('hidden');
-    }
-  }
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      currentFilter = btn.dataset.filter!;
-      currentPage = 1; 
-
-      filterBtns.forEach(b => {
-        b.classList.remove(...activeClassDark, ...activeClassLight);
-        b.classList.add(...inactiveClassDark, ...inactiveClassLight);
+    function updatePagination() {
+      const visibleCards = Array.from(cards).filter(card => {
+        if (currentFilter === 'all') return true;
+        const techs: string[] = JSON.parse(card.dataset.techs || '[]');
+        return techs.includes(currentFilter);
       });
-      btn.classList.remove(...inactiveClassDark, ...inactiveClassLight);
-      btn.classList.add(...activeClassDark, ...activeClassLight);
 
-      updatePagination();
-    });
-  });
+      const totalPages = Math.ceil(visibleCards.length / itemsPerPage);
 
-  prevPageBtn?.addEventListener('click', () => {
-    if (currentPage > 1) {
-      currentPage--;
-      updatePagination();
-      document.getElementById('proyectos')?.scrollIntoView({ behavior: 'smooth' });
+      cards.forEach(card => card.style.display = 'none');
+
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+
+      visibleCards.slice(startIndex, endIndex).forEach(card => {
+        card.style.display = '';
+      });
+
+      // Resetear las clases 'reveal' para la nueva página se anime de nuevo (opcional para smooth feel)
+      visibleCards.slice(startIndex, endIndex).forEach((card, index) => {
+         card.classList.remove('revealed');
+         // Asignar nuevos delays
+         card.dataset.revealDelay = String(200 + index * 100);
+         setTimeout(() => card.classList.add('revealed'), 50);
+      });
+
+      if (totalPages > 1) {
+        paginationControls?.classList.remove('hidden');
+        if (pageInfo) pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+        if (prevPageBtn) prevPageBtn.disabled = currentPage === 1;
+        if (nextPageBtn) nextPageBtn.disabled = currentPage === totalPages;
+      } else {
+        paginationControls?.classList.add('hidden');
+      }
     }
-  });
 
-  nextPageBtn?.addEventListener('click', () => {
-    const visibleCards = Array.from(cards).filter(card => {
-      if (currentFilter === 'all') return true;
-      const techs: string[] = JSON.parse(card.dataset.techs || '[]');
-      return techs.includes(currentFilter);
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentFilter = btn.dataset.filter!;
+        currentPage = 1; 
+
+        filterBtns.forEach(b => {
+          b.classList.toggle('active', b === btn);
+          b.setAttribute('aria-pressed', String(b === btn));
+        });
+
+        updatePagination();
+      });
     });
-    const totalPages = Math.ceil(visibleCards.length / itemsPerPage);
 
-    if (currentPage < totalPages) {
-      currentPage++;
-      updatePagination();
-      document.getElementById('proyectos')?.scrollIntoView({ behavior: 'smooth' });
-    }
-  });
+    prevPageBtn?.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        updatePagination();
+        document.getElementById('proyectos')?.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
 
-  // Init
-  updatePagination();
+    nextPageBtn?.addEventListener('click', () => {
+      const visibleCards = Array.from(cards).filter(card => {
+        if (currentFilter === 'all') return true;
+        const techs: string[] = JSON.parse(card.dataset.techs || '[]');
+        return techs.includes(currentFilter);
+      });
+      const totalPages = Math.ceil(visibleCards.length / itemsPerPage);
+
+      if (currentPage < totalPages) {
+        currentPage++;
+        updatePagination();
+        document.getElementById('proyectos')?.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    // Init
+    updatePagination();
+});
 </script>

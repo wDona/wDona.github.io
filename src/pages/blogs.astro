@@ -10,12 +10,12 @@ const blogs = await getCollection("blog");
 <PaginaDeBlogs>
   <Nav />
   <main
-    class="flex flex-col items-center mt-28 mb-24 px-4 h-[100vh]"
+    class="flex flex-col items-center mt-28 mb-24 px-4 min-h-[70vh]"
   >
     <div
       class="max-w-[900px] w-full flex flex-col justify-center items-center gap-8"
     >
-      <h1 class="reveal">Blogs</h1>
+      <h1 class="reveal gradient-text-animated pb-2">Blogs</h1>
       <div class="w-full mt-8">
         <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           {blogs.map((blog, i) => (

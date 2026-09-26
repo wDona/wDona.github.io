@@ -17,10 +17,12 @@ const proyectosCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     img: z.string().optional(),
+    imgLight: z.string().optional(),
     summary: z.string().optional(),
     link: z.string(),
     linkdescarga: z.string().optional(),
     highlight: z.boolean().optional(),
+    plataformas: z.array(z.enum(['linux', 'windows', 'android', 'ios', 'web'])).optional(),
     tecnologias: z.array(
       z.object({
         name: z.string(),

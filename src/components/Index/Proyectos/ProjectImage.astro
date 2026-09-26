@@ -1,0 +1,22 @@
+---
+// Project image that follows the theme: an optional light-mode variant,
+// otherwise the image is shown in greyscale in light mode (colour on hover).
+interface Props {
+  img: string;
+  imgLight?: string;
+  alt: string;
+  class?: string;
+  loading?: "lazy" | "eager";
+}
+const { img, imgLight, alt, class: cls = "", loading = "lazy" } = Astro.props;
+const src = (p: string) => (p.startsWith("/") || p.startsWith("http") ? p : "/" + p);
+---
+
+{imgLight ? (
+  <>
+    <img src={src(imgLight)} alt={alt} class={`project-img dark:hidden ${cls}`} loading={loading} />
+    <img src={src(img)} alt={alt} class={`project-img hidden dark:block ${cls}`} loading={loading} />
+  </>
+) : (
+  <img src={src(img)} alt={alt} class={`project-img project-img-mono ${cls}`} loading={loading} />
+)}

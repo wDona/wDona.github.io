@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#f4f4f5"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.25" cy="0.3" r="0.6">
+      <stop offset="0" stop-color="#a1a1aa" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#a1a1aa" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.8" cy="0.8" r="0.55">
+      <stop offset="0" stop-color="#a1a1aa" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#a1a1aa" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.4" fill="#18181b" fill-opacity="0.06"/>
+    </pattern>
+    <linearGradient id="stroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#18181b"/>
+      <stop offset="0.5" stop-color="#3f3f46"/>
+      <stop offset="1" stop-color="#71717a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect width="1280" height="720" fill="url(#glowA)"/>
+  <rect width="1280" height="720" fill="url(#glowB)"/>
+  <rect width="1280" height="720" fill="url(#dots)"/>
+  <g fill="none" stroke="url(#stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    
+    <rect x="390" y="170" width="500" height="400" rx="40"/>
+    <path d="M450 270l30 30 55-60M450 370l30 30 55-60" />
+    <path d="M580 280h240M580 380h240M580 480h180" stroke-opacity="0.6"/>
+    <rect x="450" y="460" width="45" height="45" rx="10" stroke-opacity="0.6"/>
+
+  </g>
+  
+</svg>

@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import '../../../styles/global.css';
 
 interface Props {
@@ -19,7 +20,7 @@ const absoluteImage = image.startsWith('http') ? image : `https://wdona.dev${ima
 <meta name="keywords" content={keywords} />
 <meta name="robots" content="index, follow, max-snippet:150, max-image-preview:large" />
 <meta name="description" content={description} />
-<meta name="theme-color" content="#d946ef" />
+<meta name="theme-color" content="rgb(var(--c-fuchsia-500))" />
 
 <link rel="canonical" href={canonicalURL} />
 <link rel="icon" type="image/png" href="/img/Gato_D.png" />
@@ -73,20 +74,53 @@ const absoluteImage = image.startsWith('http') ? image : `https://wdona.dev${ima
 <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300;400&display=swap" rel="stylesheet">
 
 <script is:inline>
-  const theme = (() => {
-    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-      return localStorage.getItem('theme');
-    }
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    return 'light';
-  })();
-
-  if (theme === 'dark') {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
+  function applyTheme(doc) {
+    const stored = localStorage.getItem('theme');
+    const dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    doc.documentElement.classList.toggle('dark', dark);
   }
+  applyTheme(document);
+  // Keep theme when the client router swaps in a new page
+  document.addEventListener('astro:before-swap', (e) => applyTheme(e.newDocument));
 </script>
+<ClientRouter />
 <title>{titlePestana}</title>
+
+<script>
+  document.documentElement.classList.add('js-ready');
+
+  // Reveal on scroll (re-armed on every client-side navigation)
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target as HTMLElement;
+      setTimeout(() => el.classList.add('revealed'), parseInt(el.dataset.revealDelay ?? '0'));
+      io.unobserve(el);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.addEventListener('astro:before-swap', (e) => {
+    e.newDocument.documentElement.classList.add('js-ready');
+  });
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll('.reveal:not(.revealed)').forEach(el => io.observe(el));
+  });
+
+  // Cursor spotlight on cards
+  document.addEventListener('pointermove', (e) => {
+    const card = (e.target as HTMLElement).closest?.('.card, .spotlight') as HTMLElement | null;
+    if (!card) return;
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    card.style.setProperty('--my', `${e.clientY - r.top}px`);
+  }, { passive: true });
+
+  // Scroll progress bar
+  const updateProgress = () => {
+    const bar = document.getElementById('scroll-progress');
+    if (!bar) return;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+  };
+  addEventListener('scroll', updateProgress, { passive: true });
+  document.addEventListener('astro:page-load', updateProgress);
+</script>

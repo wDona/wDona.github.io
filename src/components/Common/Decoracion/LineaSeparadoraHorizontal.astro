@@ -2,7 +2,8 @@
 ---
 <div class="nav-line-wrapper" aria-hidden="true">
   <div class="nav-line"></div>
-  <div class="nav-line-shimmer"></div>
+  <div class="nav-line-shimmer shimmer-left"></div>
+  <div class="nav-line-shimmer shimmer-right"></div>
 </div>
 
 <style>
@@ -16,57 +17,70 @@
   .nav-line {
     position: absolute;
     inset: 0;
+    transform-origin: center;
+    animation: growFromCenter 1s cubic-bezier(0.16, 1, 0.3, 1) both;
     background: linear-gradient(
       90deg,
       transparent 0%,
-      rgba(217, 70, 239, 0.15) 15%,
-      rgba(217, 70, 239, 0.6) 40%,
-      rgba(168, 85, 247, 0.8) 50%,
-      rgba(217, 70, 239, 0.6) 60%,
-      rgba(217, 70, 239, 0.15) 85%,
+      rgb(var(--c-fuchsia-500) / 0.15) 15%,
+      rgb(var(--c-fuchsia-500) / 0.6) 40%,
+      rgb(var(--c-purple-500) / 0.8) 50%,
+      rgb(var(--c-fuchsia-500) / 0.6) 60%,
+      rgb(var(--c-fuchsia-500) / 0.15) 85%,
       transparent 100%
     );
   }
 
+  @keyframes growFromCenter {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+
+  /* Two shimmers born in the middle, travelling outwards */
   .nav-line-shimmer {
     position: absolute;
     top: 0;
-    left: -100%;
-    width: 60%;
+    width: 30%;
     height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.7),
-      transparent
-    );
-    animation: shimmer 3s ease-in-out infinite;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+    animation-duration: 3s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+    animation-iteration-count: infinite;
+  }
+  .shimmer-right {
+    left: 35%;
+    animation-name: shimmerRight;
+  }
+  .shimmer-left {
+    left: 35%;
+    animation-name: shimmerLeft;
   }
 
-  @keyframes shimmer {
-    0% { left: -60%; }
-    100% { left: 160%; }
+  @keyframes shimmerRight {
+    0%   { transform: translateX(0);    opacity: 0; }
+    15%  { opacity: 1; }
+    100% { transform: translateX(260%); opacity: 1; }
+  }
+  @keyframes shimmerLeft {
+    0%   { transform: translateX(0);     opacity: 0; }
+    15%  { opacity: 1; }
+    100% { transform: translateX(-260%); opacity: 1; }
   }
 
   :global(html.dark) .nav-line {
     background: linear-gradient(
       90deg,
       transparent 0%,
-      rgba(217, 70, 239, 0.1) 15%,
-      rgba(217, 70, 239, 0.5) 40%,
-      rgba(168, 85, 247, 0.7) 50%,
-      rgba(217, 70, 239, 0.5) 60%,
-      rgba(217, 70, 239, 0.1) 85%,
+      rgb(var(--c-fuchsia-500) / 0.1) 15%,
+      rgb(var(--c-fuchsia-500) / 0.5) 40%,
+      rgb(var(--c-purple-500) / 0.7) 50%,
+      rgb(var(--c-fuchsia-500) / 0.5) 60%,
+      rgb(var(--c-fuchsia-500) / 0.1) 85%,
       transparent 100%
     );
   }
 
   :global(html.dark) .nav-line-shimmer {
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(217, 70, 239, 0.5),
-      transparent
-    );
+    background: linear-gradient(90deg, transparent, rgb(var(--c-fuchsia-500) / 0.5), transparent);
   }
 </style>

@@ -21,7 +21,7 @@ import ThemeToggle from "../../ThemeToggle.astro";
     </div>
   </div>
 
-  <a href="/" class="hover:scale-110 hover:drop-shadow-[0_0_15px_rgba(217,70,239,0.5)] transition-all duration-300" aria-label="Ir al inicio">
+  <a href="/" class="hover:scale-110 hover:drop-shadow-[0_0_15px_rgb(var(--c-fuchsia-500)/0.5)] transition-all duration-300" aria-label="Ir al inicio">
     <img src="/img/Logo_MD.png" alt="" class="w-16 invert dark:invert-0" aria-hidden="true" />
   </a>
 </div>
@@ -43,8 +43,8 @@ import ThemeToggle from "../../ThemeToggle.astro";
     <!-- <a href="/youtube" target="_blank"
       ><img src="/img/youtube.svg" alt="YT" class="w-12" />
     </a> -->
-    <a href="/github" target="_blank" class="hover:scale-110 hover:-translate-y-1 hover:drop-shadow-[0_0_15px_rgba(217,70,239,0.5)] transition-all duration-300"
-      ><img src="/img/github.svg" alt="Git" class="w-12 invert dark:invert-0" />
+    <a href="/github" target="_blank" class="hover:scale-110 hover:-translate-y-1 hover:drop-shadow-[0_0_15px_rgb(var(--c-fuchsia-500)/0.5)] transition-all duration-300"
+      ><img src="/img/github.svg" alt="Git" class="w-12 brightness-0 dark:brightness-100" />
     </a> 
     <!--<a href="/discord" target="_blank"
       ><img src="/img/discordlogo.webp" alt="DC" class="w-10" />
@@ -52,48 +52,40 @@ import ThemeToggle from "../../ThemeToggle.astro";
   </div>
 </div>
 
-<script is:inline>
-  const toggleButton = document.getElementById("menu-toggle");
-  const menu = document.getElementById("mobile-menu");
+<script>
+  const toggleButton = document.getElementById("menu-toggle")!;
+  const menu = document.getElementById("mobile-menu")!;
+  const isOpen = () => menu.classList.contains("translate-x-0");
 
-  function toggleMenu() {
-    const isOpen = menu.classList.contains("translate-x-0");
-    
-    if (isOpen) {
-      menu.classList.remove("translate-x-0", "opacity-100");
-      menu.classList.add("-translate-x-full", "opacity-0");
-      toggleButton.setAttribute("aria-expanded", "false");
-      toggleButton.setAttribute("aria-label", "Abrir menú de navegación");
-      document.body.style.overflow = "";
-    } else {
-      menu.classList.remove("-translate-x-full", "opacity-0");
-      menu.classList.add("translate-x-0", "opacity-100");
-      toggleButton.setAttribute("aria-expanded", "true");
-      toggleButton.setAttribute("aria-label", "Cerrar menú de navegación");
-      document.body.style.overflow = "hidden";
-      
-      // Focus first link in menu
-      const firstLink = menu.querySelector("a");
-      if (firstLink) firstLink.focus();
-    }
+  function setMenu(open: boolean) {
+    menu.classList.toggle("translate-x-0", open);
+    menu.classList.toggle("opacity-100", open);
+    menu.classList.toggle("-translate-x-full", !open);
+    menu.classList.toggle("opacity-0", !open);
+    toggleButton.setAttribute("aria-expanded", String(open));
+    toggleButton.setAttribute("aria-label", open ? "Cerrar menú de navegación" : "Abrir menú de navegación");
+    document.body.style.overflow = open ? "hidden" : "";
+    if (open) menu.querySelector("a")?.focus();
   }
 
-  toggleButton.addEventListener("click", toggleMenu);
+  toggleButton.addEventListener("click", () => setMenu(!isOpen()));
 
-  // Close menu with Escape key
+  // Close with Escape
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && menu.classList.contains("translate-x-0")) {
-      toggleMenu();
+    if (e.key === "Escape" && isOpen()) {
+      setMenu(false);
       toggleButton.focus();
     }
   });
 
-  // Close menu when clicking outside
+  // Close when clicking outside
   document.addEventListener("click", (e) => {
-    if (!menu.contains(e.target) && !toggleButton.contains(e.target) && menu.classList.contains("translate-x-0")) {
-      toggleMenu();
-    }
+    const t = e.target as Node;
+    if (isOpen() && !menu.contains(t) && !toggleButton.contains(t)) setMenu(false);
   });
+
+  // Nav persists across pages: close the menu after navigating
+  document.addEventListener("astro:after-swap", () => { if (isOpen()) setMenu(false); });
 </script>
 
 <style>

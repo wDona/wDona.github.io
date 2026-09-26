@@ -10,7 +10,7 @@ const text = Astro.props.name ?? derivedText;
 const alt = Astro.props.alt ?? text;
 ---
 <span
-  class="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium zilla-slab-regular bg-slate-100 dark:bg-fuchsia-950/40 border border-slate-300 dark:border-fuchsia-500/20 text-slate-700 dark:text-fuchsia-200/80"
+  class="chip !px-3 !py-1.5"
 >
   {img ? (
     <img src={img} alt={alt} class="w-5 h-5 object-contain flex-shrink-0" loading="lazy" />
