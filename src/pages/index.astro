@@ -8,6 +8,13 @@ import ProyectosDestacados from "../components/Index/ProyectosDestacados.astro";
 import SobreMi from "../components/Index/SobreMi.astro";
 import Experiencia from "../components/Index/Experiencia.astro";
 import Actividad from "../components/Index/Actividad.astro";
+import { getLastUpdate } from "../lib/github";
+
+const lastUpdate = await getLastUpdate();
+const mes = (locale: string) => {
+  const m = lastUpdate.toLocaleDateString(locale, { month: "long" });
+  return `${m[0].toUpperCase()}${m.slice(1)} ${lastUpdate.getFullYear()}`;
+};
 ---
 
 <Layout titlePestana="wDona" description="Me llamo Fernando. Soy un desarrollador backend centrado en Java y Kotlin. Revisa mis proyectos en esta web. Te invito a que entres a mi GitHub.">
@@ -25,5 +32,5 @@ import Actividad from "../components/Index/Actividad.astro";
     </div>
   </main>
 
-  <Footer texto="Ultima actualización: Mayo 2026 - wDona" textoEn="Last updated: May 2026 - wDona" />
+  <Footer texto={`Última actualización: ${mes("es-ES")} - wDona`} textoEn={`Last updated: ${mes("en-US")} - wDona`} />
 </Layout>

@@ -32,3 +32,10 @@ export function getRepos(): Promise<Repo[]> {
   })();
   return cache;
 }
+
+// Last push to this site's repo; falls back to the build date if the API failed.
+// The site is rebuilt on every push to main, so the build date is the same thing.
+export async function getLastUpdate(): Promise<Date> {
+  const repo = (await getRepos()).find(r => r.name === "wDona.github.io");
+  return repo ? new Date(repo.pushed_at) : new Date();
+}
