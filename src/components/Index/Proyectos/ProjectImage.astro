@@ -1,13 +1,10 @@
 ---
-// Project image that follows the active palette:
-// - drawn covers are inline SVG coloured by the palette variables
-// - photos are greyscale in the mono palette and tinted with the accent otherwise
-//   (original colours on card hover)
+// Project picture inside a thin frame: drawn cover, screenshot, or an empty frame.
 import ProjectCover from "./ProjectCover.astro";
 
 interface Props {
   img?: string;
-  cover?: "chat" | "interprete" | "todo";
+  cover?: "chat" | "interprete" | "todo" | "impostor" | "burntout";
   alt: string;
   class?: string;
   loading?: "lazy" | "eager";
@@ -16,11 +13,6 @@ const { img, cover, alt, class: cls = "", loading = "lazy" } = Astro.props;
 const src = (p: string) => (p.startsWith("/") || p.startsWith("http") ? p : "/" + p);
 ---
 
-{cover ? (
-  <ProjectCover name={cover} class={cls} />
-) : img && (
-  <>
-    <img src={src(img)} alt={alt} class={`project-img-mono ${cls}`} loading={loading} />
-    <span class="project-tint" aria-hidden="true"></span>
-  </>
-)}
+<span class={`frame ${cls}`}>
+  {cover ? <ProjectCover name={cover} /> : img && <img src={src(img)} alt={alt} loading={loading} />}
+</span>

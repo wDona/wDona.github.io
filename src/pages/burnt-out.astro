@@ -9,28 +9,23 @@ import Layout from "../layouts/Layout.astro"
     titlePestana="Burn't out App"
     image="/img/burntoutlogo.jpg"
 >
-  <div class="flex items-center justify-center min-h-screen bg-[#080808]">
-    <div class="text-white/80 text-xl animate-pulse font-sans">
-      <T es="Redirigiendo a la última versión..." en="Redirecting to the latest version..." />
-    </div>
-  </div>
+  <main class="wrap min-h-screen grid place-items-center">
+    <p class="meta">
+      <T es="Redirigiendo a la última versión…" en="Redirecting to the latest version…" />
+      <a href="https://github.com/wDona/Burnt-out/releases"><T es="Abrir a mano" en="Open manually" /></a>
+    </p>
+  </main>
 
   <script>
     async function redirectLatestRelease() {
+      let url = "https://github.com/wDona/Burnt-out/releases";
       try {
-        const response = await fetch("https://api.github.com/repos/wDona/Burnt-out/releases", { cache: "no-store" });
-        const releases = await response.json();
-        
-        let url = "https://github.com/wDona/Burnt-out/releases";
-        if (releases && releases.length > 0) {
-          url = releases[0].html_url;
-        }
-        
-        window.location.replace(url);
+        const releases = await (await fetch("https://api.github.com/repos/wDona/Burnt-out/releases", { cache: "no-store" })).json();
+        if (Array.isArray(releases) && releases.length > 0) url = releases[0].html_url;
       } catch (error) {
         console.error("Error al obtener la release:", error);
-        window.location.replace("https://github.com/wDona/Burnt-out/releases");
       }
+      window.location.replace(url);
     }
 
     redirectLatestRelease();

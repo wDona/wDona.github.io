@@ -7,17 +7,9 @@ interface Props {
   target?: string;
   id?: string;
 }
-const { texto, textoEn } = Astro.props;
-const enlace = Astro.props.enlace;
-const target = Astro.props.target || "_blank";
-const id = Astro.props.id;
+const { texto, textoEn, enlace, id, target = "_blank" } = Astro.props;
 ---
 
-<a
-  href={enlace}
-  id={id}
-  class="btn btn-primary w-full"
-  target={target}
->
+<a href={enlace} id={id} class="btn" target={target} rel={target === "_blank" ? "noopener noreferrer" : undefined}>
   <T es={texto} en={textoEn} />
 </a>

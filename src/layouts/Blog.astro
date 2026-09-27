@@ -1,11 +1,9 @@
 ---
-import BotonPrimario from "../components/Common/Botones/BotonPrimario.astro";
+import T from "../components/Common/T.astro";
 import Footer from "../components/Common/Estructura/Footer.astro";
-import BackgroundAnimado from "../components/Common/Decoracion/BackgroundAnimado.astro";
 import Head from "../components/Common/Estructura/Head.astro";
 import Nav from "../components/Common/Estructura/Nav.astro";
 import '../styles/global.css';
-
 
 interface Props {
   title: string;
@@ -20,31 +18,16 @@ const { title, description, keywords, footerText, footerTextEn } = Astro.props;
 <!doctype html>
 <html lang="es">
   <head>
-    <Head
-      titlePestana={title}
-      keywords={keywords}
-      description={description}
-    />
+    <Head titlePestana={title} keywords={keywords} description={description} />
   </head>
   <body>
-    <BackgroundAnimado />
     <Nav />
-    <main>
-      <slot />
+    <main id="contenido-principal" class="wrap py-10 md:py-14">
+      <a href="/blogs" class="meta plain"><T es="← Todas las entradas" en="← All posts" /></a>
+      <div class="mt-6">
+        <slot />
+      </div>
     </main>
-    <div class="flex justify-center items-center fit-content mt-6 md:mt-12 px-4 sm:px-0">
-        <BotonPrimario texto="Volver a blogs" textoEn="Back to blog" enlace="/blogs" target="_self"/>
-    </div>
-    <Footer texto={footerText + ' x wDona'} textoEn={footerTextEn && footerTextEn + ' x wDona'} />
+    <Footer texto={footerText + ' · wDona'} textoEn={footerTextEn && footerTextEn + ' · wDona'} />
   </body>
 </html>
-<style is:global>
-  @import url("https://fonts.googleapis.com/css2?family=Jaini&family=Mitr:wght@200&family=Zilla+Slab:wght@300;400&display=swap");
-
-  main {
-    max-width: 700px;
-    margin: 0 auto;
-    min-height: 90vh;
-    @apply px-4 sm:px-12 md:px-4 pt-28;
-  }
-</style>

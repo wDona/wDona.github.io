@@ -1,12 +1,9 @@
 ---
 import T from "../components/Common/T.astro";
-import BotonPrimario from "../components/Common/Botones/BotonPrimario.astro";
 import Footer from "../components/Common/Estructura/Footer.astro";
-import BackgroundAnimado from "../components/Common/Decoracion/BackgroundAnimado.astro";
 import Head from "../components/Common/Estructura/Head.astro";
 import Nav from "../components/Common/Estructura/Nav.astro";
 import '../styles/global.css';
-
 
 interface Props {
   title: string;
@@ -21,32 +18,15 @@ const { title, description, keywords, footerText, footerTextEn } = Astro.props;
 <!doctype html>
 <html lang="es">
   <head>
-    <Head
-      titlePestana={title}
-      keywords={keywords}
-      description={description}
-    />
+    <Head titlePestana={title} keywords={keywords} description={description} />
   </head>
   <body>
-    <BackgroundAnimado />
     <Nav />
-    <main>
-      <h2><T es="Error 404 - Página no encontrada" en="Error 404 - Page not found" /></h2>
-      <p class="mt-4"><T es="Lo siento, la página que buscas no existe." en="Sorry, the page you are looking for doesn't exist." /></p>
-      <div class="w-content mt-6 md:mt-12 px-4 sm:px-0">
-          <BotonPrimario texto="Volver a la página principal" textoEn="Back to the home page" enlace="/" target="_self"/>
-      </div>
+    <main id="contenido-principal" class="wrap py-16 md:py-24 min-h-[60vh]">
+      <h1 class="text-5xl md:text-6xl font-medium">Miau.</h1>
+      <p class="meta mt-3"><T es="404 · esta página no existe" en="404 · this page doesn't exist" /></p>
+      <p class="mt-8"><a href="/" class="btn"><T es="Ir al inicio" en="Go to the home page" /></a></p>
     </main>
     <Footer texto={footerText} textoEn={footerTextEn} />
   </body>
 </html>
-<style is:global>
-  @import url("https://fonts.googleapis.com/css2?family=Jaini&family=Mitr:wght@200&family=Zilla+Slab:wght@300;400&display=swap");
-
-  main {
-    max-width: 900px;
-    margin: 0 auto;
-    min-height: 90vh;
-    @apply px-4 sm:px-12 md:px-4 pt-28;
-  }
-</style>

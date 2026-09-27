@@ -17,10 +17,10 @@ const iconos: Record<Plataforma, { label: string; d: string; outline?: boolean }
 ---
 
 {plataformas.length > 0 && (
-  <ul class="flex items-center gap-2.5 text-slate-400 dark:text-white/40" aria-label="Disponible en" data-en-aria-label="Available on">
+  <ul class="flex items-center gap-2 muted" aria-label="Disponible en" data-en-aria-label="Available on">
     {plataformas.map(p => (
-      <li title={iconos[p].label} class="transition-colors duration-300 group-hover:text-fuchsia-500 dark:group-hover:text-fuchsia-300">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" role="img" aria-label={iconos[p].label}
+      <li title={iconos[p].label}>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4" role="img" aria-label={iconos[p].label}
           fill={iconos[p].outline ? "none" : "currentColor"}
           stroke={iconos[p].outline ? "currentColor" : "none"}
           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

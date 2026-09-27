@@ -1,32 +1,30 @@
 ---
 import Nav from "../components/Common/Estructura/Nav.astro";
-import BotonBlog from "../components/PaginaDeBlogs/BotonBlog.astro";
 import PaginaDeBlogs from "../layouts/PaginaDeBlogs.astro";
 import { getCollection } from "astro:content";
 import T from "../components/Common/T.astro";
 
-const blogs = await getCollection("blog");
+const blogs = (await getCollection("blog"))
+  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0));
 const en = new Map((await getCollection("blogEn")).map(e => [e.id, e.data]));
+const fecha = (d: Date, locale: string) => d.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
 ---
 
 <PaginaDeBlogs>
   <Nav />
-  <main
-    class="flex flex-col items-center mt-28 mb-24 px-4 min-h-[70vh]"
-  >
-    <div
-      class="max-w-[900px] w-full flex flex-col justify-center items-center gap-8"
-    >
-      <h1 class="reveal gradient-text-animated pb-2"><T es="Blogs" en="Blog" /></h1>
-      <div class="w-full mt-8">
-        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-          {blogs.map((blog, i) => (
-            <li class="flex h-full reveal" data-reveal-delay={100 + i * 100}>
-              <BotonBlog texto={blog.data.title} textoEn={en.get(blog.id)?.title} enlace={`/blog/${blog.id}`} />
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+  <main id="contenido-principal" class="wrap py-10 md:py-14 min-h-[60vh]">
+    <h1 class="text-4xl md:text-5xl font-medium">Blog</h1>
+    <ul class="mt-10 max-w-3xl">
+      {blogs.map(blog => {
+        const t = en.get(blog.id);
+        return (
+          <li class="rule-t py-5">
+            {blog.data.date && <p class="meta"><T es={fecha(blog.data.date, "es-ES")} en={fecha(blog.data.date, "en-US")} /></p>}
+            <h2 class="text-2xl"><a href={`/blog/${blog.id}`} class="plain"><T es={blog.data.title} en={t?.title} /></a></h2>
+            {blog.data.description && <p class="muted mt-2"><T es={blog.data.description} en={t?.description} /></p>}
+          </li>
+        );
+      })}
+    </ul>
   </main>
 </PaginaDeBlogs>

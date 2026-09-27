@@ -1,44 +1,158 @@
 ---
-import LineaSeparadoraHorizontal from "../Decoracion/LineaSeparadoraHorizontal.astro";
-import MobileNav from "./Nav/Mobile.astro";
-import DesktopNav from "./Nav/Desktop.astro";
+import T from "../T.astro";
 import BotonSubir from "../Botones/BotonSubir.astro";
+
+const paletas = [
+  { id: "bermellon", es: "Bermellón", en: "Vermilion", color: "#b83c1a" },
+  { id: "pino", es: "Pino", en: "Pine", color: "#1e664a" },
+  { id: "mostaza", es: "Mostaza", en: "Mustard", color: "#926408" },
+  { id: "tinta", es: "Tinta", en: "Ink", color: "#1c1a17" },
+];
 ---
 
-<div id="scroll-progress" aria-hidden="true" transition:persist="scroll-progress"></div>
-<nav
-  aria-label="Navegación principal"
-  data-en-aria-label="Main navigation"
-  id="main-nav"
-  transition:persist="main-nav"
-  class="text-slate-900 dark:text-white text-xl sm:text-2xl h-20 fixed top-0 w-full z-50 flex items-center justify-center flex-col px-4 animate-fade-in-up animation-delay-300 transition-all duration-500 bg-white/95 dark:bg-black/95 md:bg-white/70 md:dark:bg-black/80 md:backdrop-blur-xl"
->
-  <div class="lg:flex lg:justify-center items-center w-full">
-    <div
-      class="flex justify-between items-center lg:w-[900px] sm:w-[90%] w-[98%] sm:px-[10%] lg:px-0 lg:margin-auto"
-    >
-      <DesktopNav />
-      <MobileNav />
+<div id="nav-shell" class="nav-shell"><div class="wrap"><header class="site-head rule-b" aria-label="Cabecera" data-en-aria-label="Header">
+  <a href="/" class="brand plain" aria-label="Ir al inicio" data-en-aria-label="Go to home">
+    <img src="/img/Logo_MD.webp" alt="" class="logo-cats w-11" width="44" height="44" aria-hidden="true" />
+    <span>wDona</span>
+  </a>
+
+  <nav aria-label="Navegación principal" data-en-aria-label="Main navigation" class="links">
+    <a href="/" class="plain"><T es="Inicio" en="Home" /></a>
+    <a href="/#proyectos-titulo" class="plain"><T es="Proyectos" en="Projects" /></a>
+    <a href="/blogs" class="plain">Blog</a>
+    <a href="#contacto" class="plain"><T es="Contacto" en="Contact" /></a>
+    <a href="/github" target="_blank" rel="noopener noreferrer" class="plain">GitHub</a>
+  </nav>
+
+  <div class="prefs meta">
+    <div class="flex items-center gap-1.5" role="group" aria-label="Color de acento" data-en-aria-label="Accent colour">
+      {paletas.map(p => (
+        <button
+          type="button"
+          class="swatch"
+          data-palette-option={p.id}
+          aria-pressed="false"
+          style={`--sw:${p.color}`}
+          aria-label={p.es}
+          data-en-aria-label={p.en}
+          title={p.es}
+          data-en-title={p.en}
+        ></button>
+      ))}
     </div>
+    <button type="button" class="toggle lang-toggle" aria-label="Switch to English" data-en-aria-label="Cambiar a español">
+      <span data-l="es">EN</span><span data-l="en">ES</span>
+    </button>
+    <button type="button" class="toggle theme-toggle inline-flex items-center" aria-label="Cambiar tema" data-en-aria-label="Toggle theme" title="Cambiar tema" data-en-title="Toggle theme">
+      <svg class="h-4 w-4 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      <svg class="h-4 w-4 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
   </div>
-</nav>
-<div class="fixed top-20 w-full z-50 animate-fade-in-up animation-delay-300" transition:persist="nav-line">
-  <LineaSeparadoraHorizontal />
-</div>
+</header></div></div>
 
 <BotonSubir />
 
-<script>
-  window.addEventListener('scroll', () => {
-    document.getElementById('main-nav')?.classList.toggle('nav-scrolled', window.scrollY > 50);
-  }, { passive: true });
-</script>
-
 <style>
-  :global(.nav-scrolled) {
-    box-shadow: 0 1px 20px rgb(var(--c-fuchsia-500) / 0.08);
+  /* Sticky bar that tucks away while reading; see the script for when it shows */
+  .nav-shell {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgb(var(--paper));
+    transition: transform 0.2s ease-out;
   }
-  :global(html.dark) :global(.nav-scrolled) {
-    box-shadow: 0 1px 20px rgb(var(--c-fuchsia-500) / 0.12);
+  .nav-shell.tucked:not(:focus-within) { transform: translateY(-100%); }
+  @media (prefers-reduced-motion: reduce) { .nav-shell { transition: none; } }
+
+  .site-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: "Zilla Slab", Georgia, serif;
+    font-weight: 600;
+    font-size: 1.35rem;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+    font-size: 0.975rem;
+  }
+  .prefs {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: auto;
+  }
+  .swatch {
+    width: 0.9rem;
+    height: 0.9rem;
+    background: var(--sw);
+    border: 1px solid rgb(var(--rule));
+    cursor: pointer;
+  }
+  :global(html.dark) .swatch[data-palette-option="tinta"] { background: #e8e3d9; }
+  .swatch[aria-pressed="true"] {
+    outline: 1px solid rgb(var(--ink));
+    outline-offset: 2px;
+  }
+  @media (max-width: 639px) {
+    .links { order: 3; width: 100%; }
   }
 </style>
+
+<script>
+  type W = { wdApplyTheme: () => void; wdApplyLang: () => void };
+  const w = window as unknown as W;
+
+  const syncPalette = () => {
+    const current = document.documentElement.dataset.palette;
+    document.querySelectorAll<HTMLElement>('[data-palette-option]').forEach(b =>
+      b.setAttribute('aria-pressed', String(b.dataset.paletteOption === current)));
+  };
+
+  // The header is re-rendered on every page, so listen on the document
+  document.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement;
+    const swatch = t.closest?.<HTMLElement>('[data-palette-option]');
+    if (swatch) {
+      localStorage.setItem('palette', swatch.dataset.paletteOption!);
+      w.wdApplyTheme();
+    } else if (t.closest?.('.theme-toggle')) {
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'light' : 'dark');
+      w.wdApplyTheme();
+    } else if (t.closest?.('.lang-toggle')) {
+      localStorage.setItem('lang', document.documentElement.lang === 'en' ? 'es' : 'en');
+      w.wdApplyLang();
+    }
+  });
+  document.addEventListener('themechange', syncPalette);
+  document.addEventListener('astro:page-load', syncPalette);
+
+  // Hide on scroll down, show on scroll up; always shown near the top.
+  // --nav-offset tells other sticky elements how much room the bar takes.
+  let lastY = scrollY;
+  const setTucked = (t: boolean) => {
+    const shell = document.getElementById('nav-shell');
+    if (!shell) return;
+    shell.classList.toggle('tucked', t);
+    document.documentElement.style.setProperty('--nav-offset', t ? '0px' : `${shell.offsetHeight}px`);
+  };
+
+  addEventListener('scroll', () => {
+    const y = scrollY;
+    if (y < 80 || y < lastY - 4) setTucked(false);
+    else if (y > lastY + 4) setTucked(true);
+    lastY = y;
+  }, { passive: true });
+
+  document.addEventListener('astro:page-load', () => { lastY = scrollY; setTucked(false); });
+</script>

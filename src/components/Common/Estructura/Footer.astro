@@ -9,32 +9,15 @@ interface Props {
 const { texto, textoEn } = Astro.props;
 ---
 
-<footer class="spotlight w-full py-12 border-t-[1px] border-fuchsia-200/50 dark:border-fuchsia-900/30 bg-gradient-to-b from-transparent to-slate-100/70 dark:from-transparent dark:to-transparent dark:bg-black/30 md:backdrop-blur-md" id="footer">
-  <div class="lg:w-[900px] sm:w-[90%] w-[98%] mx-auto flex flex-col items-center gap-6 px-4 relative">
-    <Contacto/>
-  </div>
-  <div
-    class="lg:w-[900px] sm:w-[90%] w-[98%] mx-auto flex flex-col sm:flex-row justify-between items-center gap-6 px-4 mt-8 pt-8 border-t-[1px] border-slate-200/50 dark:border-white/5 reveal"
-    data-reveal-delay="200"
-  >
-    <p class="zilla-slab-regular text-center sm:text-left text-slate-500 dark:text-white/40 text-sm">
-      <T es={texto} en={textoEn} />
-    </p>
-    <nav aria-label="Redes sociales" data-en-aria-label="Social links" class="flex gap-4">
-      <a href="https://github.com/MiauDona" target="_blank" rel="noopener noreferrer"
-        class="hover:scale-110 hover:-translate-y-1 hover:drop-shadow-[0_0_15px_rgb(var(--c-fuchsia-500)/0.5)] transition-all duration-300"
-        aria-label="Perfil de GitHub (abre en nueva pestaña)"
-        data-en-aria-label="GitHub profile (opens in a new tab)"
-      >
-        <img src="/img/github.svg" alt="" class="w-10 h-10 brightness-0 dark:invert opacity-60 hover:opacity-100 transition-opacity" loading="lazy" aria-hidden="true" width="40" height="40" />
-      </a>
-      <a href="/"
-        class="hover:scale-110 hover:-translate-y-1 hover:drop-shadow-[0_0_15px_rgb(var(--c-fuchsia-500)/0.5)] transition-all duration-300"
-        aria-label="Ir al inicio"
-        data-en-aria-label="Go to home"
-      >
-        <img src="/img/Gato_D-sm.webp" alt="" class="w-10 h-10 invert dark:invert-0 opacity-60 hover:opacity-100 transition-opacity" loading="lazy" aria-hidden="true" width="40" height="40" />
+<footer class="band-soft mt-8" id="footer"><div class="wrap">
+  <Contacto />
+  <div class="rule-t flex flex-wrap items-center justify-between gap-4 py-6 meta">
+    <p><T es={texto} en={textoEn} /></p>
+    <nav aria-label="Redes sociales" data-en-aria-label="Social links" class="flex items-center gap-5">
+      <a href="https://github.com/wDona" target="_blank" rel="noopener noreferrer" aria-label="Perfil de GitHub (abre en nueva pestaña)" data-en-aria-label="GitHub profile (opens in a new tab)">GitHub</a>
+      <a href="/" class="inline-flex" aria-label="Ir al inicio" data-en-aria-label="Go to home">
+        <img src="/img/Gato_D-sm.webp" alt="" class="w-7 h-7 invert dark:invert-0" loading="lazy" aria-hidden="true" width="28" height="28" />
       </a>
     </nav>
   </div>
-</footer>
+</div></footer>

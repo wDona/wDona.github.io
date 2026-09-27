@@ -1,66 +1,48 @@
 ---
-// Project cover drawn inline so it follows the active palette and theme
-// (colours come from the --c-* accent variables in global.css).
+// Project cover drawn inline: flat line drawing in the accent colour on paper,
+// so it follows the theme and the chosen accent.
 interface Props {
-  name: "chat" | "interprete" | "todo";
+  name: "chat" | "interprete" | "todo" | "impostor" | "burntout";
   class?: string;
 }
 const { name, class: cls = "" } = Astro.props;
 const iconos: Record<Props["name"], string> = {
   chat: `<path d="M330 230h330a40 40 0 0 1 40 40v150a40 40 0 0 1-40 40H450l-80 60v-60h-40a40 40 0 0 1-40-40V270a40 40 0 0 1 40-40z"/>
-    <path d="M620 330h330a40 40 0 0 1 40 40v150a40 40 0 0 1-40 40h-40v60l-80-60H620a40 40 0 0 1-40-40V370a40 40 0 0 1 40-40z" stroke-opacity="0.8"/>
-    <path d="M360 300h220M360 350h160" stroke-width="12" stroke-opacity="0.6"/>
-    <path d="M660 410h240M660 460h170" stroke-width="12" stroke-opacity="0.5"/>`,
+    <path d="M620 330h330a40 40 0 0 1 40 40v150a40 40 0 0 1-40 40h-40v60l-80-60H620a40 40 0 0 1-40-40V370a40 40 0 0 1 40-40z"/>
+    <path d="M360 300h220M360 350h160M660 410h240M660 460h170" stroke-width="10" class="pc-soft"/>`,
   interprete: `<path d="M470 220l-150 140 150 140"/>
     <path d="M810 220l150 140-150 140"/>
-    <path d="M700 190l-120 340" stroke-opacity="0.8"/>`,
-  todo: `<rect x="390" y="170" width="500" height="400" rx="40"/>
+    <path d="M700 190l-120 340" class="pc-soft"/>`,
+  todo: `<rect x="390" y="170" width="500" height="400" rx="16"/>
     <path d="M450 270l30 30 55-60M450 370l30 30 55-60" />
-    <path d="M580 280h240M580 380h240M580 480h180" stroke-opacity="0.6"/>
-    <rect x="450" y="460" width="45" height="45" rx="10" stroke-opacity="0.6"/>`
+    <path d="M580 280h240M580 380h240M580 480h180" class="pc-soft"/>
+    <rect x="450" y="460" width="45" height="45" rx="4" class="pc-soft"/>`,
+  // Low battery (team energy) next to a finished task
+  burntout: `<rect x="290" y="240" width="460" height="240" rx="36" stroke-width="18" class="pc-soft"/>
+    <path d="M759 312h24a10 10 0 0 1 10 10v76a10 10 0 0 1-10 10h-24z" stroke-width="0" class="pc-soft-fill"/>
+    <rect x="322" y="272" width="112" height="176" rx="14" stroke-width="0" class="pc-fill"/>
+    <path d="M870 345l35 35 65-75"/>
+    <path d="M870 440h140M870 480h90" class="pc-soft"/>`,
+  // Four players get the word, one gets a question mark
+  impostor: `<rect x="300" y="215" width="165" height="250" rx="14" class="pc-soft"/>
+    <path d="M332 320h100M332 360h66" class="pc-soft"/>
+    <rect x="505" y="215" width="165" height="250" rx="14" class="pc-soft"/>
+    <path d="M537 320h100M537 360h66" class="pc-soft"/>
+    <rect x="710" y="215" width="165" height="250" rx="14"/>
+    <path d="M760 305a32 32 0 1 1 46 29c-10 5-14 12-14 24M792 395v1"/>
+    <rect x="915" y="215" width="165" height="250" rx="14" class="pc-soft"/>
+    <path d="M947 320h100M947 360h66" class="pc-soft"/>`
 };
 ---
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice" class={`project-cover ${cls}`} role="img" aria-hidden="true">
-  <defs>
-    <radialGradient id="pc-glowA" cx="0.25" cy="0.3" r="0.6">
-      <stop offset="0" class="pc-glow-a" />
-      <stop offset="1" class="pc-glow-a" style="stop-opacity:0" />
-    </radialGradient>
-    <radialGradient id="pc-glowB" cx="0.8" cy="0.8" r="0.55">
-      <stop offset="0" class="pc-glow-b" />
-      <stop offset="1" class="pc-glow-b" style="stop-opacity:0" />
-    </radialGradient>
-    <pattern id="pc-dots" width="32" height="32" patternUnits="userSpaceOnUse">
-      <circle cx="2" cy="2" r="1.4" class="pc-dot" />
-    </pattern>
-    <linearGradient id="pc-stroke" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" class="pc-s1" />
-      <stop offset="0.5" class="pc-s2" />
-      <stop offset="1" class="pc-s3" />
-    </linearGradient>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice" class={cls} aria-hidden="true">
   <rect width="1280" height="720" class="pc-bg" />
-  <rect width="1280" height="720" fill="url(#pc-glowA)" />
-  <rect width="1280" height="720" fill="url(#pc-glowB)" />
-  <rect width="1280" height="720" fill="url(#pc-dots)" />
-  <g fill="none" stroke="url(#pc-stroke)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" set:html={iconos[name]} />
+  <g fill="none" class="pc-ink" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" set:html={iconos[name]} />
 </svg>
 
 <style>
-  .project-cover { display: block; }
-  .pc-bg { fill: #ffffff; }
-  .pc-dot { fill: #18181b; fill-opacity: 0.06; }
-  .pc-glow-a { stop-color: rgb(var(--c-fuchsia-400)); stop-opacity: 0.16; }
-  .pc-glow-b { stop-color: rgb(var(--c-indigo-400)); stop-opacity: 0.14; }
-  .pc-s1 { stop-color: rgb(var(--c-fuchsia-600)); }
-  .pc-s2 { stop-color: rgb(var(--c-purple-500)); }
-  .pc-s3 { stop-color: rgb(var(--c-indigo-500)); }
-
-  :global(html.dark) .pc-bg { fill: #07060b; }
-  :global(html.dark) .pc-dot { fill: #ffffff; fill-opacity: 0.07; }
-  :global(html.dark) .pc-glow-a { stop-color: rgb(var(--c-fuchsia-500)); stop-opacity: 0.45; }
-  :global(html.dark) .pc-glow-b { stop-color: rgb(var(--c-indigo-500)); stop-opacity: 0.35; }
-  :global(html.dark) .pc-s1 { stop-color: rgb(var(--c-fuchsia-300)); }
-  :global(html.dark) .pc-s2 { stop-color: rgb(var(--c-fuchsia-500)); }
-  :global(html.dark) .pc-s3 { stop-color: rgb(var(--c-indigo-400)); }
+  .pc-bg { fill: rgb(var(--tint)); }
+  .pc-ink { stroke: rgb(var(--accent)); }
+  .pc-ink :global(.pc-soft) { stroke: rgb(var(--ink) / 0.55); }
+  .pc-ink :global(.pc-fill) { fill: rgb(var(--accent)); }
+  .pc-ink :global(.pc-soft-fill) { fill: rgb(var(--ink) / 0.55); }
 </style>

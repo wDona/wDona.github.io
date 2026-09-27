@@ -1,9 +1,7 @@
 ---
 import Footer from "../components/Common/Estructura/Footer.astro";
-import BackgroundAnimado from "../components/Common/Decoracion/BackgroundAnimado.astro";
 import Head from "../components/Common/Estructura/Head.astro";
 import '../styles/global.css';
-
 ---
 
 <!doctype html>
@@ -11,19 +9,11 @@ import '../styles/global.css';
   <head>
     <Head
       titlePestana="Blog de wDona"
-      keywords="desarrollador, aplicaciones multiplataforma, portfolio, Astro, programación, frontend, backend, wdona, dona, miaudona, kotlin, jetpack compose, kmp, blog, blogs"
+      keywords="desarrollador, aplicaciones multiplataforma, portfolio, Astro, programación, frontend, backend, wdona, dona, kotlin, jetpack compose, kmp, blog, blogs"
       description="Aqui encontrarás mis blogs y artículos sobre temas diversos, que me apasionan y que espero que te resulten interesantes también."
     />
-    <style is:global>
-      * {
-        font-family: "Zilla Slab", sans-serif;
-        font-weight: 400;
-        font-style: normal;
-      }
-    </style>
   </head>
-  <body class="zilla-slab-regular">
-    <BackgroundAnimado />
+  <body>
     <slot />
     <Footer texto="Blog de wDona" textoEn="wDona's blog" />
   </body>

@@ -20,7 +20,8 @@ const absoluteImage = image.startsWith('http') ? image : `https://wdona.dev${ima
 <meta name="keywords" content={keywords} />
 <meta name="robots" content="index, follow, max-snippet:150, max-image-preview:large" />
 <meta name="description" content={description} />
-<meta name="theme-color" content="rgb(var(--c-fuchsia-500))" />
+<meta name="theme-color" content="#f5eee5" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#1b1614" media="(prefers-color-scheme: dark)" />
 
 <link rel="canonical" href={canonicalURL} />
 <link rel="icon" type="image/png" href="/img/Gato_D-icon.png" />
@@ -48,13 +49,13 @@ const absoluteImage = image.startsWith('http') ? image : `https://wdona.dev${ima
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Fernando M. de Cisneros González",
-    "alternateName": ["wDona", "MiauDona", "YoSoyDona", "Dona"],
+    "alternateName": ["wDona", "YoSoyDona", "Dona"],
     "url": "https://wdona.dev/",
     "image": "https://wdona.dev/img/Gato_D.png",
     "jobTitle": "Desarrollador de aplicaciones multiplataforma",
     "description": "Portfolio de proyectos personales y profesionales en desarrollo multiplataforma. Especializado en Kotlin, Java y frameworks modernos.",
     "sameAs": [
-      "https://github.com/MiauDona",
+      "https://github.com/wDona",
       "https://www.linkedin.com/in/wdona"
     ],
     "knowsAbout": ["Kotlin", "Java", "Jetpack Compose", "Ktor", "Android Development", "Web Development"],
@@ -71,58 +72,20 @@ const absoluteImage = image.startsWith('http') ? image : `https://wdona.dev${ima
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Zilla+Slab:wght@500;600&display=swap" rel="stylesheet">
 
 <script is:inline>
-  // Theme (light/dark) + accent palette (mono/fucsia/sky). First visit: dark + fucsia.
-  // Without a stored palette: mono in light mode, fucsia in dark mode.
+  // Theme (light/dark) + accent (bermellon/pino/mostaza/tinta). First visit: the system theme.
+  // Until a palette is picked it follows the theme: tinta (monochrome) in dark, bermellón in light.
   function applyTheme(doc) {
     const stored = localStorage.getItem('theme');
-    const dark = stored ? stored === 'dark' : true; // first visit: dark
-    const palette = localStorage.getItem('palette') || (dark ? 'fucsia' : 'mono');
+    const dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    const palette = localStorage.getItem('palette') || (dark ? 'tinta' : 'bermellon');
     doc.documentElement.classList.toggle('dark', dark);
     doc.documentElement.dataset.palette = palette;
     if (doc === document) document.dispatchEvent(new CustomEvent('themechange', { detail: { dark, palette } }));
   }
   window.wdApplyTheme = () => applyTheme(document);
-  // Theme/palette change with an overlay animation from the click point.
-  // No View Transitions: page snapshots flickered in Firefox/Zen.
-  window.wdTransition = (event, change, kind) => {
-    const root = document.documentElement;
-    // Apply instantly with per-element colour transitions disabled
-    const apply = () => {
-      root.classList.add('theme-vt');
-      change();
-      requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove('theme-vt')));
-    };
-    if (!event || matchMedia('(prefers-reduced-motion: reduce)').matches) { apply(); return; }
-
-    const x = event.clientX || innerWidth / 2, y = event.clientY || 0;
-    const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-    const wipe = document.createElement('div');
-    wipe.className = 'theme-wipe';
-    const circle = (radius) => `circle(${radius}px at ${x}px ${y}px)`;
-
-    if (kind === 'theme') {
-      // Curtain in the new background colour; switch underneath, then fade it out
-      wipe.style.background = root.classList.contains('dark') ? '#fbfbfd' : 'rgb(5, 5, 8)';
-      document.body.appendChild(wipe);
-      wipe.animate([{ clipPath: circle(0) }, { clipPath: circle(r) }], { duration: 550, easing: 'cubic-bezier(0.65, 0, 0.35, 1)', fill: 'forwards' })
-        .finished
-        .then(() => { apply(); return wipe.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, easing: 'ease-out', fill: 'forwards' }).finished; })
-        .finally(() => wipe.remove());
-    } else {
-      // Palette: switch now, a soft ripple of the new accent spreads from the click
-      apply();
-      const c = getComputedStyle(root).getPropertyValue('--c-fuchsia-500').trim();
-      wipe.style.background = `rgb(${c} / 0.22)`;
-      document.body.appendChild(wipe);
-      wipe.animate(
-        [{ clipPath: circle(0), opacity: 1 }, { clipPath: circle(r), opacity: 0 }],
-        { duration: 800, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }
-      ).finished.finally(() => wipe.remove());
-    }
-  };
 
   // Language (es/en): text comes in both languages and CSS hides the other one
   // by <html lang>; translated attributes live in data-en-* (Spanish is saved in data-es-*).
@@ -144,47 +107,8 @@ const absoluteImage = image.startsWith('http') ? image : `https://wdona.dev${ima
   document.addEventListener('DOMContentLoaded', () => applyLang(document));
   // Keep theme and language when the client router swaps in a new page
   document.addEventListener('astro:before-swap', (e) => { applyTheme(e.newDocument); applyLang(e.newDocument); });
+  // Remember that the visitor moved inside the site (project pages use it for their back link)
+  document.addEventListener('astro:after-swap', () => { window.wdNavegado = true; });
 </script>
 <ClientRouter />
 <title>{titlePestana}</title>
-
-<script>
-  document.documentElement.classList.add('js-ready');
-
-  // Reveal on scroll (re-armed on every client-side navigation)
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target as HTMLElement;
-      const delay = matchMedia('(max-width: 767px)').matches ? 0 : parseInt(el.dataset.revealDelay ?? '0');
-      setTimeout(() => el.classList.add('revealed'), delay);
-      io.unobserve(el);
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-  document.addEventListener('astro:before-swap', (e) => {
-    e.newDocument.documentElement.classList.add('js-ready');
-  });
-  document.addEventListener('astro:page-load', () => {
-    document.querySelectorAll('.reveal:not(.revealed)').forEach(el => io.observe(el));
-  });
-
-  // Cursor spotlight on cards
-  document.addEventListener('pointermove', (e) => {
-    if (e.pointerType !== 'mouse') return;
-    const card = (e.target as HTMLElement).closest?.('.card, .spotlight') as HTMLElement | null;
-    if (!card) return;
-    const r = card.getBoundingClientRect();
-    card.style.setProperty('--mx', `${e.clientX - r.left}px`);
-    card.style.setProperty('--my', `${e.clientY - r.top}px`);
-  }, { passive: true });
-
-  // Scroll progress bar
-  const updateProgress = () => {
-    const bar = document.getElementById('scroll-progress');
-    if (!bar) return;
-    const max = document.documentElement.scrollHeight - innerHeight;
-    bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
-  };
-  addEventListener('scroll', updateProgress, { passive: true });
-  document.addEventListener('astro:page-load', updateProgress);
-</script>

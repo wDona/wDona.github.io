@@ -1,71 +1,39 @@
 ---
 import T from "../Common/T.astro";
 import ExperienciaItem from "./Experiencia/ExperienciaItem.astro";
-import EmpresaCard from "./Experiencia/EmpresaCard.astro";
-import Tag from "./Experiencia/Tag.astro";
-import SectionBlobs from "../Common/Decoracion/SectionBlobs.astro";
+
+const practicas = [
+  { area: "Web y WordPress", areaEn: "Web and WordPress", empresa: "Valentina System", meses: 3 },
+  { area: "Android (Java)", areaEn: "Android (Java)", empresa: "WUL 4", meses: 5 },
+];
 ---
 
-<section class="relative w-full max-w-5xl px-4 sm:px-6 py-16 mx-auto z-10" id="experiencia" aria-labelledby="experiencia-titulo">
-  <SectionBlobs variant="fuchsia" />
-  <h2 id="experiencia-titulo" class="section-title reveal"><T es="Experiencia" en="Experience" /></h2>
+<section class="sec" id="experiencia" aria-labelledby="experiencia-titulo">
+  <h2 id="experiencia-titulo"><T es="Experiencia" en="Experience" /></h2>
+  <div>
+    <ExperienciaItem title="Investigador de IA" titleEn="AI Researcher" org="Softtek" timeRange="Actual" timeRangeEn="Current" />
 
-  <div class="flex flex-col relative">
-
-    <!-- Softtek — Actual -->
-    <ExperienciaItem 
-      title="Investigador de IA" 
-      titleEn="AI Researcher"
-      timeRange="Actual"
-      timeRangeEn="Current"
-      isLast={false}
-      accent="active"
-    >
-      <Tag color="fuchsia">Softtek</Tag>
-    </ExperienciaItem>
-
-    <!-- Formación Oficial -->
-    <ExperienciaItem 
-      title="Formación Oficial" 
-      titleEn="Formal Education"
+    <ExperienciaItem
+      title="Formación oficial"
+      titleEn="Formal education"
       tags={["Grado Medio", "Grado Superior"]}
       tagsEn={["Intermediate Vocational Degree", "Higher Vocational Degree"]}
-      accent="past"
     >
-      <div class="flex flex-col gap-4">
-        <p class="text-slate-600 dark:text-white/60 font-light leading-relaxed text-lg">
-          <T es="Formaciones en empresa durante el Grado Superior — 3 proyectos en producción + proyectos internos:" en="Company internships during the Higher Vocational Degree — 3 projects shipped to production + internal projects:" />
-        </p>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <EmpresaCard title="Web & Wordpress">
-            <Tag color="indigo">Valentina System</Tag>
-            <Tag color="slate"><T es="3 meses" en="3 months" /></Tag>
-            <Tag color="slate"><T es="3 días/semana" en="3 days/week" /></Tag>
-          </EmpresaCard>
-
-          <EmpresaCard title="Android (Java)">
-            <Tag color="emerald">WUL 4</Tag>
-            <Tag color="slate"><T es="5 meses" en="5 months" /></Tag>
-            <Tag color="slate"><T es="3 días/semana" en="3 days/week" /></Tag>
-          </EmpresaCard>
-        </div>
-      </div>
+      <table class="w-full max-w-xl text-[0.95rem]">
+        <tbody>
+          {practicas.map(p => (
+            <tr class="rule-t">
+              <td class="py-2 pr-4"><T es={p.area} en={p.areaEn} /></td>
+              <td class="py-2 pr-4 muted">{p.empresa}</td>
+              <td class="py-2 meta text-right whitespace-nowrap">
+                <T es={`${p.meses} meses, 3 días/sem.`} en={`${p.meses} months, 3 days/wk`} />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </ExperienciaItem>
 
-    <!-- Autodidacta -->
-    <ExperienciaItem 
-      title="Autodidacta" 
-      titleEn="Self-taught"
-      timeRange="+1.5 años"
-      timeRangeEn="1.5+ years"
-      isLast={true}
-      accent="past"
-    >
-      <p class="text-slate-600 dark:text-white/60 font-light leading-relaxed text-lg">
-        <T es="Proyectos personales, automatización y gestión de servidores." en="Personal projects, automation and server management." />
-      </p>
-    </ExperienciaItem>
-
+    <ExperienciaItem title="Autodidacta" titleEn="Self-taught" timeRange="+1,5 años" timeRangeEn="1.5+ years" tags={["Proyectos propios", "Automatización", "Despliegues"]} tagsEn={["Personal projects", "Automation", "Deployments"]} />
   </div>
 </section>

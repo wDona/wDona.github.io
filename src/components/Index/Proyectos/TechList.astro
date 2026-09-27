@@ -1,0 +1,18 @@
+---
+// Technologies of a project: icon + name, like the skills list
+interface Props {
+  tecnologias?: Array<{ name: string; img: string }>;
+  class?: string;
+}
+const { tecnologias = [], class: cls = "" } = Astro.props;
+---
+{tecnologias.length > 0 && (
+  <ul class={`meta flex flex-wrap gap-x-3.5 gap-y-1 ${cls}`} aria-label="Tecnologías" data-en-aria-label="Technologies">
+    {tecnologias.map(t => (
+      <li class="inline-flex items-center gap-1.5">
+        <img src={"/" + t.img} alt="" class="h-4 w-4 object-contain" loading="lazy" aria-hidden="true" />
+        {t.name}
+      </li>
+    ))}
+  </ul>
+)}

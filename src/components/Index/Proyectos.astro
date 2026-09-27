@@ -2,167 +2,134 @@
 import { getCollection } from 'astro:content';
 import T from '../Common/T.astro';
 import ProyectoCard from "./Proyectos/ProyectoCard.astro";
-import SectionBlobs from "../Common/Decoracion/SectionBlobs.astro";
+import ProjectImage from './Proyectos/ProjectImage.astro';
+import Plataformas from './Proyectos/Plataformas.astro';
+import TechList from './Proyectos/TechList.astro';
 
-const proyectos = (await getCollection('proyectos'))
-  .filter(p => !p.data.highlight);
+const todos = await getCollection('proyectos');
+const destacados = todos.filter(p => p.data.highlight);
+const proyectos = todos.filter(p => !p.data.highlight);
 const en = new Map((await getCollection('proyectosEn')).map(e => [e.id, e.data]));
 
-const allTechs = [...new Map(
-  proyectos.flatMap(p => p.data.tecnologias ?? []).map(t => [t.name, t])
-).values()];
+const allTechs = [...new Set(proyectos.flatMap(p => p.data.tecnologias?.map(t => t.name) ?? []))];
 ---
 
-<section id="proyectos" class="relative xl:w-[1200px] sm:w-[90%] w-[98%] py-16 mx-auto" aria-labelledby="proyectos-titulo">
-  <SectionBlobs variant="mixed" />
-  <h2 id="proyectos-titulo" class="section-title reveal"><T es="Más proyectos" en="More projects" /></h2>
+<section class="sec" id="destacados" aria-labelledby="proyectos-titulo">
+  <h2 id="proyectos-titulo"><T es="Proyectos" en="Projects" /></h2>
+  <div>
+    <div class="flex flex-col gap-10">
+      {destacados.map(({ id, data }) => {
+        const t = en.get(id);
+        return (
+          <article class="featured">
+            <a href={`/proyectos/${id}`} tabindex="-1" aria-hidden="true">
+              <ProjectImage img={data.img} cover={data.cover} alt="" class="aspect-[16/10]" />
+            </a>
+            <div>
+              <h3 class="text-2xl sm:text-[1.7rem]"><a href={`/proyectos/${id}`} class="plain"><T es={data.title} en={t?.title} /></a></h3>
+              {data.summary && <p class="mt-2"><T es={data.summary} en={t?.summary} /></p>}
+              <TechList tecnologias={data.tecnologias} class="mt-3" />
+              <div class="mt-2"><Plataformas plataformas={data.plataformas} /></div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
 
-  <!-- Filtros -->
-  <div id="tech-filters" class="flex flex-wrap gap-2 justify-center mb-10 relative z-10 reveal" data-reveal-delay="150">
-    <button
-      data-filter="all"
-      class="filter-btn chip active"
-      aria-pressed="true"
-    >
-      <T es="Todos" en="All" />
-    </button>
-    {allTechs.map(tec => (
-      <button
-        data-filter={tec.name}
-        class="filter-btn chip"
-        aria-pressed="false"
-      >
-        <img src={"/" + tec.img} alt={tec.name} class="w-4 h-4 object-contain" loading="lazy" />
-        {tec.name}
-      </button>
-    ))}
-  </div>
+    <div id="proyectos" class="mt-14">
+      <h3 class="text-xl"><T es="Otros proyectos" en="Other projects" /></h3>
 
-  <!-- Grid de proyectos -->
-  <div class="flex flex-wrap justify-center gap-8 zilla-slab-regular relative">
-    {proyectos.map((proyecto, i) => (
-      <div
-        class="proyecto-item reveal w-full md:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)]"
-        data-techs={JSON.stringify(proyecto.data.tecnologias?.map(t => t.name) ?? [])}
-        data-reveal-delay={200 + i * 150}
-      >
-        <ProyectoCard
-          id={proyecto.id}
-          title={proyecto.data.title}
-          titleEn={en.get(proyecto.id)?.title}
-          img={proyecto.data.img}
-          cover={proyecto.data.cover}
-          link={proyecto.data.link}
-          linkdescarga={proyecto.data.linkdescarga}
-          tecnologias={proyecto.data.tecnologias}
-          summary={proyecto.data.summary}
-          plataformas={proyecto.data.plataformas}
-        />
+      <div id="tech-filters" class="mt-3 flex flex-wrap gap-x-4 gap-y-1" role="group" aria-label="Filtrar por tecnología" data-en-aria-label="Filter by technology">
+        <button type="button" data-filter="all" class="filter-btn toggle" aria-pressed="true"><T es="todos" en="all" /></button>
+        {allTechs.map(name => (
+          <button type="button" data-filter={name} class="filter-btn toggle" aria-pressed="false">{name}</button>
+        ))}
       </div>
-    ))}
-  </div>
 
-  <div id="pagination-controls" class="flex justify-center items-center gap-4 mt-12 hidden relative z-10 zilla-slab-regular">
-    <button id="prev-page" class="chip disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0">
-      <T es="Anterior" en="Previous" />
-    </button>
-    <span id="page-info" class="text-slate-800 dark:text-gray-300 font-medium">
-    </span>
-    <button id="next-page" class="chip disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0">
-      <T es="Siguiente" en="Next" />
-    </button>
+      <ul class="mt-5">
+        {proyectos.map(p => (
+          <li class="proyecto-item rule-t py-5" data-techs={JSON.stringify(p.data.tecnologias?.map(t => t.name) ?? [])}>
+            <ProyectoCard
+              id={p.id}
+              title={p.data.title}
+              titleEn={en.get(p.id)?.title}
+              img={p.data.img}
+              cover={p.data.cover}
+              link={p.data.link}
+              linkdescarga={p.data.linkdescarga}
+              tecnologias={p.data.tecnologias}
+              summary={p.data.summary}
+              summaryEn={en.get(p.id)?.summary}
+              plataformas={p.data.plataformas}
+            />
+          </li>
+        ))}
+      </ul>
+
+      <div id="pagination-controls" class="rule-t pt-4 flex items-center gap-5 hidden">
+        <button type="button" id="prev-page" class="toggle"><T es="← anterior" en="← previous" /></button>
+        <span id="page-info" class="meta"></span>
+        <button type="button" id="next-page" class="toggle"><T es="siguiente →" en="next →" /></button>
+      </div>
+    </div>
   </div>
 </section>
 
+<style>
+  .featured {
+    display: grid;
+    gap: 1rem;
+  }
+  @media (min-width: 900px) {
+    .featured { grid-template-columns: 5fr 4fr; gap: 1.75rem; align-items: start; }
+  }
+</style>
+
 <script>
+  import { linkLatestReleases } from '../../lib/releases';
+
   document.addEventListener('astro:page-load', () => {
+    linkLatestReleases();
     if (!document.getElementById('tech-filters')) return;
     const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
-    const cards = document.querySelectorAll<HTMLElement>('.proyecto-item');
-    const paginationControls = document.getElementById('pagination-controls');
-    const prevPageBtn = document.getElementById('prev-page') as HTMLButtonElement;
-    const nextPageBtn = document.getElementById('next-page') as HTMLButtonElement;
-    const pageInfo = document.getElementById('page-info');
+    const cards = [...document.querySelectorAll<HTMLElement>('.proyecto-item')];
+    const controls = document.getElementById('pagination-controls')!;
+    const prev = document.getElementById('prev-page') as HTMLButtonElement;
+    const next = document.getElementById('next-page') as HTMLButtonElement;
+    const pageInfo = document.getElementById('page-info')!;
 
-    let currentPage = 1;
-    const itemsPerPage = 6;
-    let currentFilter = 'all';
+    const perPage = 6;
+    let page = 1;
+    let filter = 'all';
 
-    function updatePagination(animate = true) {
-      const visibleCards = Array.from(cards).filter(card => {
-        if (currentFilter === 'all') return true;
-        const techs: string[] = JSON.parse(card.dataset.techs || '[]');
-        return techs.includes(currentFilter);
-      });
+    const visible = () => cards.filter(c => filter === 'all' || (JSON.parse(c.dataset.techs || '[]') as string[]).includes(filter));
 
-      const totalPages = Math.ceil(visibleCards.length / itemsPerPage);
-
-      cards.forEach(card => card.style.display = 'none');
-
-      const startIndex = (currentPage - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-
-      visibleCards.slice(startIndex, endIndex).forEach(card => {
-        card.style.display = '';
-      });
-
-      // On load the scroll reveal handles the entrance; on filter/page change replay it staggered
-      if (animate) {
-        visibleCards.slice(startIndex, endIndex).forEach((card, index) => {
-          card.classList.remove('revealed');
-          void card.offsetWidth;
-          setTimeout(() => card.classList.add('revealed'), 50 + index * 100);
-        });
-      }
-
-      if (totalPages > 1) {
-        paginationControls?.classList.remove('hidden');
-        if (pageInfo) pageInfo.innerHTML = `<span data-l="es">Página ${currentPage} de ${totalPages}</span><span data-l="en">Page ${currentPage} of ${totalPages}</span>`;
-        if (prevPageBtn) prevPageBtn.disabled = currentPage === 1;
-        if (nextPageBtn) nextPageBtn.disabled = currentPage === totalPages;
-      } else {
-        paginationControls?.classList.add('hidden');
-      }
+    function render() {
+      const list = visible();
+      const pages = Math.ceil(list.length / perPage);
+      cards.forEach(c => (c.hidden = true));
+      list.slice((page - 1) * perPage, page * perPage).forEach(c => (c.hidden = false));
+      controls.classList.toggle('hidden', pages <= 1);
+      pageInfo.innerHTML = `<span data-l="es">página ${page} de ${pages}</span><span data-l="en">page ${page} of ${pages}</span>`;
+      prev.disabled = page === 1;
+      next.disabled = page === pages;
     }
 
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        currentFilter = btn.dataset.filter!;
-        currentPage = 1; 
+    const go = (delta: number) => {
+      page += delta;
+      render();
+      document.getElementById('proyectos')?.scrollIntoView();
+    };
 
-        filterBtns.forEach(b => {
-          b.classList.toggle('active', b === btn);
-          b.setAttribute('aria-pressed', String(b === btn));
-        });
+    filterBtns.forEach(btn => btn.addEventListener('click', () => {
+      filter = btn.dataset.filter!;
+      page = 1;
+      filterBtns.forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+      render();
+    }));
+    prev.addEventListener('click', () => go(-1));
+    next.addEventListener('click', () => go(1));
 
-        updatePagination();
-      });
-    });
-
-    prevPageBtn?.addEventListener('click', () => {
-      if (currentPage > 1) {
-        currentPage--;
-        updatePagination();
-        document.getElementById('proyectos')?.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-
-    nextPageBtn?.addEventListener('click', () => {
-      const visibleCards = Array.from(cards).filter(card => {
-        if (currentFilter === 'all') return true;
-        const techs: string[] = JSON.parse(card.dataset.techs || '[]');
-        return techs.includes(currentFilter);
-      });
-      const totalPages = Math.ceil(visibleCards.length / itemsPerPage);
-
-      if (currentPage < totalPages) {
-        currentPage++;
-        updatePagination();
-        document.getElementById('proyectos')?.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-
-    // Init
-    updatePagination(false);
-});
+    render();
+  });
 </script>
