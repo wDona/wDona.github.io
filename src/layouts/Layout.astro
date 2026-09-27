@@ -1,4 +1,5 @@
 ---
+import T from '../components/Common/T.astro';
 import Head from '../components/Common/Estructura/Head.astro';
 import BackgroundAnimado from '../components/Common/Decoracion/BackgroundAnimado.astro';
 import '../styles/global.css';
@@ -28,7 +29,7 @@ const image = Astro.props.image;
   <body>
     <!-- Skip link para accesibilidad -->
     <a href="#contenido-principal" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-fuchsia-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-fuchsia-400 focus:ring-offset-2">
-      Saltar al contenido principal
+      <T es="Saltar al contenido principal" en="Skip to main content" />
     </a>
     <BackgroundAnimado />
     <slot />

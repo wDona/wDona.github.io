@@ -1,4 +1,5 @@
 ---
+import T from "../Common/T.astro";
 import RoleBadge from "./Header/RoleBadge.astro";
 import SectionBlobs from "../Common/Decoracion/SectionBlobs.astro";
 ---
@@ -16,32 +17,32 @@ import SectionBlobs from "../Common/Decoracion/SectionBlobs.astro";
       </p> 
       
       <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight zilla-slab-regular text-pretty text-slate-800 dark:text-white header-title leading-[1.1]">
-        <span class="header-word" style="--i:0"><span class="gradient-text-animated">Perfeccionista</span></span>
-        <span class="header-word" style="--i:1">por</span>
-        <span class="header-word" style="--i:2">vocación,</span>
+        <span class="header-word" style="--i:0"><span class="gradient-text-animated"><T es="Perfeccionista" en="Perfectionist" /></span></span>
+        <span class="header-word" style="--i:1"><T es="por" en="by" /></span>
+        <span class="header-word" style="--i:2"><T es="vocación," en="vocation," /></span>
         <br class="hidden sm:block" />
-        <span class="header-word" style="--i:3"><span class="gradient-text-animated">explorador</span></span>
-        <span class="header-word" style="--i:4">por</span>
-        <span class="header-word" style="--i:5">afición.</span>
+        <span class="header-word" style="--i:3"><span class="gradient-text-animated"><T es="explorador" en="explorer" /></span></span>
+        <span class="header-word" style="--i:4"><T es="por" en="by" /></span>
+        <span class="header-word" style="--i:5"><T es="afición." en="passion." /></span>
       </h1> 
     </div>
 
     <div class="header-badge">
-      <RoleBadge texto="Desarrollador Apps Multiplataforma" />
+      <RoleBadge texto="Desarrollador Apps Multiplataforma" textoEn="Cross-Platform App Developer" />
     </div>
 
     <div class="header-cta flex flex-wrap gap-3 mt-2">
       <a href="#destacados" class="btn btn-primary">
-        Ver proyectos
+        <T es="Ver proyectos" en="View projects" />
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
       <a href="#contacto" class="btn btn-ghost">
-        Contactar
+        <T es="Contactar" en="Get in touch" />
       </a>
     </div>
   </div>
 
-  <a href="#experiencia" class="hero-scroll absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:flex p-2 text-slate-400 dark:text-white/40 hover:text-fuchsia-500 dark:hover:text-fuchsia-400 transition-colors duration-300" aria-label="Bajar a experiencia">
+  <a href="#experiencia" class="hero-scroll absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:flex p-2 text-slate-400 dark:text-white/40 hover:text-fuchsia-500 dark:hover:text-fuchsia-400 transition-colors duration-300" aria-label="Bajar a experiencia" data-en-aria-label="Scroll to experience">
     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="m6 9 6 6 6-6"/>
     </svg>

@@ -1,5 +1,6 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
+import T from "../Common/T.astro";
 import { getRepos } from "../../lib/github";
 import SectionBlobs from "../Common/Decoracion/SectionBlobs.astro";
 
@@ -22,26 +23,27 @@ const lenguajes = [...counts.entries()]
   .sort((a, b) => b[1] - a[1])
   .map(([name, n]) => ({ name, pct: Math.round((n / total) * 100), color: langColors[name] ?? "#94a3b8" }));
 
-const fecha = (iso: string) =>
-  new Date(iso).toLocaleDateString("es-ES", { day: "numeric", month: "short", year: "numeric" });
+const fecha = (iso: string, locale = "es-ES") =>
+  new Date(iso).toLocaleDateString(locale, { day: "numeric", month: "short", year: "numeric" });
 
 const blogs = await getCollection("blog");
 const ultimoBlog = blogs.sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))[0];
+const ultimoBlogEn = ultimoBlog && (await getEntry("blogEn", ultimoBlog.id))?.data;
 ---
 <section class="relative xl:w-[1200px] sm:w-[90%] w-[98%] py-12 mx-auto" id="actividad" aria-labelledby="actividad-titulo">
   <SectionBlobs variant="purple" />
-  <h2 id="actividad-titulo" class="section-title reveal">Actividad</h2>
+  <h2 id="actividad-titulo" class="section-title reveal"><T es="Actividad" en="Activity" /></h2>
 
   <div class="flex flex-wrap gap-4 w-full">
 
     {recientes.length > 0 && (
       <article class="card group reveal flex-[1_1_340px] p-6 flex flex-col gap-4 cursor-pointer" data-reveal-delay="100">
-        <a href="https://github.com/wDona" target="_blank" rel="noopener noreferrer" class="absolute inset-0 z-0 rounded-[inherit]" aria-label="Perfil de GitHub (abre en nueva pestaña)"></a>
+        <a href="https://github.com/wDona" target="_blank" rel="noopener noreferrer" class="absolute inset-0 z-0 rounded-[inherit]" aria-label="Perfil de GitHub (abre en nueva pestaña)" data-en-aria-label="GitHub profile (opens in a new tab)"></a>
         <div class="flex items-center gap-4 pointer-events-none">
           <img src="/img/github.svg" alt="" class="w-12 h-12 brightness-0 dark:invert" aria-hidden="true" />
           <div class="flex flex-col">
             <span class="font-bold text-lg text-slate-800 dark:text-white group-hover:text-fuchsia-600 dark:group-hover:text-fuchsia-300 transition-colors duration-300">GitHub</span>
-            <span class="text-sm text-slate-500 dark:text-white/50">Últimos repos</span>
+            <span class="text-sm text-slate-500 dark:text-white/50"><T es="Últimos repos" en="Latest repos" /></span>
           </div>
         </div>
         <ul class="relative z-10 flex flex-col gap-2 pointer-events-none">
@@ -52,7 +54,7 @@ const ultimoBlog = blogs.sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.
                   <span class="h-2.5 w-2.5 flex-shrink-0 rounded-full" style={`background:${langColors[r.language ?? ""] ?? "#94a3b8"}`} aria-hidden="true"></span>
                   <span class="text-base truncate text-slate-700 dark:text-white/80 group-hover/repo:text-fuchsia-600 dark:group-hover/repo:text-fuchsia-300 transition-colors">{r.name}</span>
                 </span>
-                <span class="text-xs flex-shrink-0 text-slate-500 dark:text-white/40">{fecha(r.pushed_at)}</span>
+                <span class="text-xs flex-shrink-0 text-slate-500 dark:text-white/40"><T es={fecha(r.pushed_at)} en={fecha(r.pushed_at, "en-US")} /></span>
               </a>
             </li>
           ))}
@@ -61,10 +63,10 @@ const ultimoBlog = blogs.sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.
     )}
 
     {lenguajes.length > 0 && (
-      <a href="https://github.com/wDona" target="_blank" rel="noopener noreferrer" aria-label="Lenguajes en GitHub (abre en nueva pestaña)" class="card group reveal flex-[1_1_340px] p-6 flex flex-col gap-4" data-reveal-delay="200">
+      <a href="https://github.com/wDona" target="_blank" rel="noopener noreferrer" aria-label="Lenguajes en GitHub (abre en nueva pestaña)" data-en-aria-label="Languages on GitHub (opens in a new tab)" class="card group reveal flex-[1_1_340px] p-6 flex flex-col gap-4" data-reveal-delay="200">
         <div class="flex flex-col">
-          <span class="font-bold text-lg text-slate-800 dark:text-white group-hover:text-fuchsia-600 dark:group-hover:text-fuchsia-300 transition-colors duration-300">Lenguajes</span>
-          <span class="text-sm text-slate-500 dark:text-white/50">Por repositorio en GitHub</span>
+          <span class="font-bold text-lg text-slate-800 dark:text-white group-hover:text-fuchsia-600 dark:group-hover:text-fuchsia-300 transition-colors duration-300"><T es="Lenguajes" en="Languages" /></span>
+          <span class="text-sm text-slate-500 dark:text-white/50"><T es="Por repositorio en GitHub" en="By GitHub repository" /></span>
         </div>
         <div class="flex h-3 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-white/10" role="img" aria-label={lenguajes.map(l => `${l.name} ${l.pct}%`).join(", ")}>
           {lenguajes.map((l, i) => (
@@ -85,13 +87,13 @@ const ultimoBlog = blogs.sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.
 
     {ultimoBlog && (
       <a href={`/blog/${ultimoBlog.id}`} class="card group reveal flex-[1_1_340px] p-6 flex flex-col gap-3" data-reveal-delay="300">
-        <span class="text-xs font-medium uppercase tracking-widest text-fuchsia-600 dark:text-fuchsia-400">Último post</span>
-        <span class="text-2xl font-bold text-slate-800 dark:text-white group-hover:text-fuchsia-600 dark:group-hover:text-fuchsia-300 transition-colors duration-300">{ultimoBlog.data.title}</span>
+        <span class="text-xs font-medium uppercase tracking-widest text-fuchsia-600 dark:text-fuchsia-400"><T es="Último post" en="Latest post" /></span>
+        <span class="text-2xl font-bold text-slate-800 dark:text-white group-hover:text-fuchsia-600 dark:group-hover:text-fuchsia-300 transition-colors duration-300"><T es={ultimoBlog.data.title} en={ultimoBlogEn?.title} /></span>
         {ultimoBlog.data.description && (
-          <p class="text-base leading-relaxed text-slate-500 dark:text-white/60 line-clamp-5">{ultimoBlog.data.description}</p>
+          <p class="text-base leading-relaxed text-slate-500 dark:text-white/60 line-clamp-5"><T es={ultimoBlog.data.description} en={ultimoBlogEn?.description} /></p>
         )}
         <span class="mt-auto inline-flex items-center gap-1.5 text-sm text-slate-500 dark:text-white/50 group-hover:text-fuchsia-600 dark:group-hover:text-fuchsia-300 transition-colors duration-300">
-          Leer
+          <T es="Leer" en="Read" />
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform duration-300" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </span>
       </a>

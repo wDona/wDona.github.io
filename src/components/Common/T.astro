@@ -1,0 +1,9 @@
+---
+// Inline translation: renders both texts, CSS shows the one matching <html lang>
+interface Props {
+  es: string;
+  en?: string;
+}
+const { es, en } = Astro.props;
+---
+{en === undefined || en === es ? es : <><span data-l="es">{es}</span><span data-l="en">{en}</span></>}

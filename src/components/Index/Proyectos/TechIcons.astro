@@ -6,7 +6,7 @@ const { tecnologias } = Astro.props;
 ---
 
 {tecnologias.length > 0 && (
-  <ul class="absolute bottom-3 left-3 right-3 z-10 flex flex-wrap justify-end gap-1.5 max-h-[70px] overflow-hidden" aria-label="Tecnologías">
+  <ul class="absolute bottom-3 left-3 right-3 z-10 flex flex-wrap justify-end gap-1.5 max-h-[70px] overflow-hidden" aria-label="Tecnologías" data-en-aria-label="Technologies">
     {tecnologias.map(tec => (
       <li
         class="h-8 w-8"

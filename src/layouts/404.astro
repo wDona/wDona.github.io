@@ -1,4 +1,5 @@
 ---
+import T from "../components/Common/T.astro";
 import BotonPrimario from "../components/Common/Botones/BotonPrimario.astro";
 import Footer from "../components/Common/Estructura/Footer.astro";
 import BackgroundAnimado from "../components/Common/Decoracion/BackgroundAnimado.astro";
@@ -11,9 +12,10 @@ interface Props {
   title: string;
   description: string;
   footerText: string;
+  footerTextEn?: string;
   keywords?: string;
 }
-const { title, description, keywords, footerText } = Astro.props;
+const { title, description, keywords, footerText, footerTextEn } = Astro.props;
 ---
 
 <!doctype html>
@@ -29,13 +31,13 @@ const { title, description, keywords, footerText } = Astro.props;
     <BackgroundAnimado />
     <Nav />
     <main>
-      <h2>Error 404 - Página no encontrada</h2>
-      <p class="mt-4">Lo siento, la página que buscas no existe.</p>
+      <h2><T es="Error 404 - Página no encontrada" en="Error 404 - Page not found" /></h2>
+      <p class="mt-4"><T es="Lo siento, la página que buscas no existe." en="Sorry, the page you are looking for doesn't exist." /></p>
       <div class="w-content mt-6 md:mt-12 px-4 sm:px-0">
-          <BotonPrimario texto="Volver a la página principal" enlace="/" target="_self"/>
+          <BotonPrimario texto="Volver a la página principal" textoEn="Back to the home page" enlace="/" target="_self"/>
       </div>
     </main>
-    <Footer texto={footerText} />
+    <Footer texto={footerText} textoEn={footerTextEn} />
   </body>
 </html>
 <style is:global>

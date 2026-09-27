@@ -11,9 +11,10 @@ interface Props {
   title: string;
   description: string;
   footerText: string;
+  footerTextEn?: string;
   keywords?: string;
 }
-const { title, description, keywords, footerText } = Astro.props;
+const { title, description, keywords, footerText, footerTextEn } = Astro.props;
 ---
 
 <!doctype html>
@@ -32,9 +33,9 @@ const { title, description, keywords, footerText } = Astro.props;
       <slot />
     </main>
     <div class="flex justify-center items-center fit-content mt-6 md:mt-12 px-4 sm:px-0">
-        <BotonPrimario texto="Volver a blogs" enlace="/blogs" target="_self"/>
+        <BotonPrimario texto="Volver a blogs" textoEn="Back to blog" enlace="/blogs" target="_self"/>
     </div>
-    <Footer texto={footerText + ' x wDona'} />
+    <Footer texto={footerText + ' x wDona'} textoEn={footerTextEn && footerTextEn + ' x wDona'} />
   </body>
 </html>
 <style is:global>

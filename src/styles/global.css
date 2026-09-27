@@ -5,6 +5,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Language ────────────────────────────────
+   Both translations are in the HTML (see T.astro); <html lang> picks one.
+   Set by the language script in Head.astro. */
+html[lang="en"] [data-l="es"],
+html:not([lang="en"]) [data-l="en"] {
+  display: none !important;
+}
+
 /* ── Accent palettes ────────────────────────────
    Tailwind's fuchsia/purple/indigo resolve through these variables.
    <html data-palette="mono|fucsia|sky"> is set by the theme script in Head.astro

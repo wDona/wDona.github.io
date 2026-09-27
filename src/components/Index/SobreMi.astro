@@ -1,4 +1,5 @@
 ---
+import T from '../Common/T.astro';
 import BirthdayBadge from './SobreMi/BirthdayBadge.astro';
 import SectionBlobs from "../Common/Decoracion/SectionBlobs.astro";
 import { getCollection } from "astro:content";
@@ -23,9 +24,9 @@ const stack = [
 ];
 
 const intereses = [
-  { label: "Tecnología", svg: `<path d="M12 20v2" />  <path d="M12 2v2" />  <path d="M17 20v2" />  <path d="M17 2v2" />  <path d="M2 12h2" />  <path d="M2 17h2" />  <path d="M2 7h2" />  <path d="M20 12h2" />  <path d="M20 17h2" />  <path d="M20 7h2" />  <path d="M7 20v2" />  <path d="M7 2v2" />  <rect x="4" y="4" width="16" height="16" rx="2" />  <rect x="8" y="8" width="8" height="8" rx="1" />` },
-  { label: "Psicología", svg: `<path d="M12 18V5" />  <path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4" />  <path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5" />  <path d="M17.997 5.125a4 4 0 0 1 2.526 5.77" />  <path d="M18 18a4 4 0 0 0 2-7.464" />  <path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517" />  <path d="M6 18a4 4 0 0 1-2-7.464" />  <path d="M6.003 5.125a4 4 0 0 0-2.526 5.77" />` },
-  { label: "Ajedrez", svg: `<path d="M5 20a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z" />  <path d="M16.5 18c1-2 2.5-5 2.5-9a7 7 0 0 0-7-7H6.635a1 1 0 0 0-.768 1.64L7 5l-2.32 5.802a2 2 0 0 0 .95 2.526l2.87 1.456" />  <path d="m15 5 1.425-1.425" />  <path d="m17 8 1.53-1.53" />  <path d="M9.713 12.185 7 18" />` },
+  { label: "Tecnología", labelEn: "Technology", svg: `<path d="M12 20v2" />  <path d="M12 2v2" />  <path d="M17 20v2" />  <path d="M17 2v2" />  <path d="M2 12h2" />  <path d="M2 17h2" />  <path d="M2 7h2" />  <path d="M20 12h2" />  <path d="M20 17h2" />  <path d="M20 7h2" />  <path d="M7 20v2" />  <path d="M7 2v2" />  <rect x="4" y="4" width="16" height="16" rx="2" />  <rect x="8" y="8" width="8" height="8" rx="1" />` },
+  { label: "Psicología", labelEn: "Psychology", svg: `<path d="M12 18V5" />  <path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4" />  <path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5" />  <path d="M17.997 5.125a4 4 0 0 1 2.526 5.77" />  <path d="M18 18a4 4 0 0 0 2-7.464" />  <path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517" />  <path d="M6 18a4 4 0 0 1-2-7.464" />  <path d="M6.003 5.125a4 4 0 0 0-2.526 5.77" />` },
+  { label: "Ajedrez", labelEn: "Chess", svg: `<path d="M5 20a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z" />  <path d="M16.5 18c1-2 2.5-5 2.5-9a7 7 0 0 0-7-7H6.635a1 1 0 0 0-.768 1.64L7 5l-2.32 5.802a2 2 0 0 0 .95 2.526l2.87 1.456" />  <path d="m15 5 1.425-1.425" />  <path d="m17 8 1.53-1.53" />  <path d="M9.713 12.185 7 18" />` },
 ];
 
 const setup = [
@@ -40,15 +41,18 @@ const setup = [
 
 <section class="relative xl:w-[1200px] sm:w-[90%] w-[98%] py-16 flex flex-col gap-8 z-10 mx-auto" id="sobre-mi" aria-labelledby="sobre-mi-titulo">
   <SectionBlobs variant="blue" />
-  <h2 id="sobre-mi-titulo" class="section-title reveal">Sobre Mí</h2>
+  <h2 id="sobre-mi-titulo" class="section-title reveal"><T es="Sobre Mí" en="About Me" /></h2>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 w-full">
 
     <!-- ¿Quién soy? (big tile) -->
     <article class="card md:col-span-2 lg:row-span-2 p-7 sm:p-8 flex flex-col items-center justify-center gap-4 text-center reveal" data-reveal-delay="100">
-      <h3 class="text-2xl sm:text-3xl zilla-slab-regular text-slate-800 dark:text-white">¿Quién soy?</h3>
-      <p class="text-lg sm:text-xl text-slate-600 dark:text-white/90 font-light leading-relaxed">
-        Tengo <strong id="dynamic-age" class="dark:font-bold">19</strong><strong class="dark:font-bold"> años</strong> y una meta clara: <strong class="dark:font-bold">hacer feliz</strong> a la gente creando <strong class="dark:font-bold">soluciones de software</strong>. La informática para mí no es la simple rutina de <em>"hacer mis horas e irme"</em>, es mi <strong class="dark:font-bold">estilo de vida</strong>.
+      <h3 class="text-2xl sm:text-3xl zilla-slab-regular text-slate-800 dark:text-white"><T es="¿Quién soy?" en="Who am I?" /></h3>
+      <p data-l="es" class="text-lg sm:text-xl text-slate-600 dark:text-white/90 font-light leading-relaxed">
+        Tengo <strong class="dynamic-age dark:font-bold">19</strong><strong class="dark:font-bold"> años</strong> y una meta clara: <strong class="dark:font-bold">hacer feliz</strong> a la gente creando <strong class="dark:font-bold">soluciones de software</strong>. La informática para mí no es la simple rutina de <em>"hacer mis horas e irme"</em>, es mi <strong class="dark:font-bold">estilo de vida</strong>.
+      </p>
+      <p data-l="en" class="text-lg sm:text-xl text-slate-600 dark:text-white/90 font-light leading-relaxed">
+        I'm <strong class="dynamic-age dark:font-bold">19</strong><strong class="dark:font-bold"> years old</strong> and I have a clear goal: <strong class="dark:font-bold">making people happy</strong> by building <strong class="dark:font-bold">software solutions</strong>. For me, computing isn't just the routine of <em>"putting in my hours and leaving"</em>, it's my <strong class="dark:font-bold">way of life</strong>.
       </p>
     </article>
 
@@ -56,17 +60,17 @@ const setup = [
     <article class="card md:col-span-2 px-6 py-6 flex items-center justify-evenly gap-6 reveal" data-reveal-delay="200">
       <div class="flex flex-col items-center text-center gap-1">
         <span class="text-4xl sm:text-5xl font-bold tabular-nums gradient-text-animated" data-count={numProyectos}>{numProyectos}</span>
-        <span class="text-sm text-slate-500 dark:text-white/50">Proyectos</span>
+        <span class="text-sm text-slate-500 dark:text-white/50"><T es="Proyectos" en="Projects" /></span>
       </div>
       {numRepos > 0 && (
         <div class="flex flex-col items-center text-center gap-1">
           <span class="text-4xl sm:text-5xl font-bold tabular-nums gradient-text-animated" data-count={numRepos}>{numRepos}</span>
-          <span class="text-sm text-slate-500 dark:text-white/50">Repos en GitHub</span>
+          <span class="text-sm text-slate-500 dark:text-white/50"><T es="Repos en GitHub" en="GitHub repos" /></span>
         </div>
       )}
       <div class="flex flex-col items-center text-center gap-1">
         <span class="text-4xl sm:text-5xl font-bold tabular-nums gradient-text-animated">2021</span>
-        <span class="text-sm text-slate-500 dark:text-white/50">Programando desde</span>
+        <span class="text-sm text-slate-500 dark:text-white/50"><T es="Programando desde" en="Coding since" /></span>
       </div>
     </article>
 
@@ -74,9 +78,9 @@ const setup = [
 
     <!-- Mentalidad -->
     <article class="card p-7 flex flex-col items-center justify-center text-center reveal" data-reveal-delay="400">
-      <h3 class="text-xl zilla-slab-regular mb-2 text-slate-800 dark:text-white">Curiosidad</h3>
+      <h3 class="text-xl zilla-slab-regular mb-2 text-slate-800 dark:text-white"><T es="Curiosidad" en="Curiosity" /></h3>
       <p class="text-slate-600 dark:text-white/80 font-light text-base mb-5">
-        Aprendo por mi cuenta sobre:
+        <T es="Aprendo por mi cuenta sobre:" en="I teach myself about:" />
       </p>
       <svg width="0" height="0" class="absolute" aria-hidden="true">
         <defs>
@@ -91,12 +95,12 @@ const setup = [
         {intereses.map(it => (
           <li class="group/int flex flex-col items-center gap-2 text-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="interes-icon block h-9 w-9" fill="none" stroke="url(#interes-grad)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={it.svg} />
-            <span class="text-sm text-slate-600 dark:text-white/70">{it.label}</span>
+            <span class="text-sm text-slate-600 dark:text-white/70"><T es={it.label} en={it.labelEn} /></span>
           </li>
         ))}
       </ul>
       <p class="mt-4 flex items-baseline justify-center gap-[3px] text-sm text-slate-400 dark:text-white/40">
-        y más<span class="sr-only">...</span>
+        <T es="y más" en="and more" /><span class="sr-only">...</span>
         <span class="more-dot" aria-hidden="true"></span>
         <span class="more-dot" aria-hidden="true" style="animation-delay:0.2s"></span>
         <span class="more-dot" aria-hidden="true" style="animation-delay:0.4s"></span>
@@ -120,8 +124,8 @@ const setup = [
 
     <!-- Stack -->
     <article class="card md:col-span-2 p-6 sm:p-7 flex flex-col items-center justify-center text-center reveal" data-reveal-delay="200">
-      <h3 class="text-2xl leading-none zilla-slab-regular mb-4 text-slate-800 dark:text-white">Mi Stack</h3>
-      <ul class="stack-grid grid grid-cols-5 gap-x-3 gap-y-2 w-full max-w-md" aria-label="Mis Skills">
+      <h3 class="text-2xl leading-none zilla-slab-regular mb-4 text-slate-800 dark:text-white"><T es="Mi Stack" en="My Stack" /></h3>
+      <ul class="stack-grid grid grid-cols-5 gap-x-3 gap-y-2 w-full max-w-md" aria-label="Mis Skills" data-en-aria-label="My skills">
         {stack.map((t, i) => (
           <li class="stack-tile group/tile flex flex-col items-center gap-1" style={`--c:${t.color};--i:${i}`}>
             <img src={`/img/stack/${t.id}-light.svg`} alt="" class="stack-icon block dark:hidden h-12 w-12 sm:h-[52px] sm:w-[52px]" aria-hidden="true" />
@@ -147,10 +151,7 @@ const setup = [
         age--;
     }
     
-    const ageElement = document.getElementById('dynamic-age');
-    if (ageElement) {
-        ageElement.innerText = age.toString();
-    }
+    document.querySelectorAll<HTMLElement>('.dynamic-age').forEach(el => el.innerText = age.toString());
   }
 
   document.addEventListener('astro:page-load', updateAge);

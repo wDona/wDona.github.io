@@ -3,8 +3,10 @@ import Nav from "../components/Common/Estructura/Nav.astro";
 import BotonBlog from "../components/PaginaDeBlogs/BotonBlog.astro";
 import PaginaDeBlogs from "../layouts/PaginaDeBlogs.astro";
 import { getCollection } from "astro:content";
+import T from "../components/Common/T.astro";
 
 const blogs = await getCollection("blog");
+const en = new Map((await getCollection("blogEn")).map(e => [e.id, e.data]));
 ---
 
 <PaginaDeBlogs>
@@ -15,12 +17,12 @@ const blogs = await getCollection("blog");
     <div
       class="max-w-[900px] w-full flex flex-col justify-center items-center gap-8"
     >
-      <h1 class="reveal gradient-text-animated pb-2">Blogs</h1>
+      <h1 class="reveal gradient-text-animated pb-2"><T es="Blogs" en="Blog" /></h1>
       <div class="w-full mt-8">
         <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           {blogs.map((blog, i) => (
             <li class="flex h-full reveal" data-reveal-delay={100 + i * 100}>
-              <BotonBlog texto={blog.data.title} enlace={`/blog/${blog.id}`} />
+              <BotonBlog texto={blog.data.title} textoEn={en.get(blog.id)?.title} enlace={`/blog/${blog.id}`} />
             </li>
           ))}
         </ul>

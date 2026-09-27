@@ -1,8 +1,10 @@
 ---
+import T from "../../Common/T.astro";
 interface Props {
   texto: string;
+  textoEn?: string;
 }
-const { texto } = Astro.props;
+const { texto, textoEn } = Astro.props;
 ---
 
 <div class="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border border-fuchsia-300 dark:border-fuchsia-500/30 bg-fuchsia-50 dark:bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-300 text-xs sm:text-sm font-medium backdrop-blur-sm shadow-[0_0_15px_rgb(var(--c-fuchsia-500)/0.1)] dark:shadow-[0_0_15px_rgb(var(--c-fuchsia-500)/0.15)] animate-fade-in-up">
@@ -10,5 +12,5 @@ const { texto } = Astro.props;
     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-fuchsia-400 opacity-75"></span>
     <span class="relative inline-flex rounded-full h-2 w-2 bg-fuchsia-500"></span>
   </span>
-  {texto}
+  <T es={texto} en={textoEn} />
 </div>

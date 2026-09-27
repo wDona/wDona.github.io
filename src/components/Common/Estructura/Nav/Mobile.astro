@@ -1,4 +1,6 @@
 ---
+import T from "../../T.astro";
+import LangToggle from "../../LangToggle.astro";
 import LineaSeparadoraHorizontal from "../../Decoracion/LineaSeparadoraHorizontal.astro";
 import ItemNavMobile from "./Item/Mobile.astro";
 import ThemeToggle from "../../ThemeToggle.astro";
@@ -13,16 +15,17 @@ import PaletteSelector from "../../PaletteSelector.astro";
       aria-controls="mobile-menu"
       aria-expanded="false"
       aria-label="Abrir menú de navegación"
+      data-en-aria-label="Open navigation menu"
     >
       <img src="/img/menu.svg" alt="" class="w-12 md:w-20 lg:w-24 invert dark:invert-0" aria-hidden="true" />
     </button>
   
     <div>
-      <p class="text-3xl">Menú</p>
+      <p class="text-3xl"><T es="Menú" en="Menu" /></p>
     </div>
   </div>
 
-  <a href="/" class="hover:scale-110 hover:drop-shadow-[0_0_15px_rgb(var(--c-fuchsia-500)/0.5)] transition-all duration-300" aria-label="Ir al inicio">
+  <a href="/" class="hover:scale-110 hover:drop-shadow-[0_0_15px_rgb(var(--c-fuchsia-500)/0.5)] transition-all duration-300" aria-label="Ir al inicio" data-en-aria-label="Go to home">
     <img src="/img/Logo_MD.png" alt="" class="w-16 logo-cats" aria-hidden="true" />
   </a>
 </div>
@@ -33,15 +36,17 @@ import PaletteSelector from "../../PaletteSelector.astro";
   role="dialog"
   aria-modal="true"
   aria-label="Menú de navegación"
+  data-en-aria-label="Navigation menu"
 >
   <ul class="w-full text-center">
     <LineaSeparadoraHorizontal />
-    <ItemNavMobile enlace="/" texto="Inicio" />
-    <ItemNavMobile enlace="/blogs" texto="Blogs" />
+    <ItemNavMobile enlace="/" texto="Inicio" textoEn="Home" />
+    <ItemNavMobile enlace="/blogs" texto="Blogs" textoEn="Blog" />
   </ul>
   <div class="flex gap-6 items-center">
     <PaletteSelector />
-  <ThemeToggle />
+    <LangToggle />
+    <ThemeToggle />
     <!-- <a href="/youtube" target="_blank"
       ><img src="/img/youtube.svg" alt="YT" class="w-12" />
     </a> -->
@@ -65,7 +70,10 @@ import PaletteSelector from "../../PaletteSelector.astro";
     menu.classList.toggle("-translate-x-full", !open);
     menu.classList.toggle("opacity-0", !open);
     toggleButton.setAttribute("aria-expanded", String(open));
-    toggleButton.setAttribute("aria-label", open ? "Cerrar menú de navegación" : "Abrir menú de navegación");
+    const [es, en] = open ? ["Cerrar menú de navegación", "Close navigation menu"] : ["Abrir menú de navegación", "Open navigation menu"];
+    toggleButton.dataset.esAriaLabel = es;
+    toggleButton.dataset.enAriaLabel = en;
+    toggleButton.setAttribute("aria-label", document.documentElement.lang === "en" ? en : es);
     document.body.style.overflow = open ? "hidden" : "";
     if (open) menu.querySelector("a")?.focus();
   }

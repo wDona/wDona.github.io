@@ -124,9 +124,26 @@ const absoluteImage = image.startsWith('http') ? image : `https://wdona.dev${ima
     }
   };
 
+  // Language (es/en): text comes in both languages and CSS hides the other one
+  // by <html lang>; translated attributes live in data-en-* (Spanish is saved in data-es-*).
+  // First visit: Spanish if the browser is in Spanish, English otherwise.
+  function applyLang(doc) {
+    const lang = localStorage.getItem('lang') || (navigator.language.startsWith('es') ? 'es' : 'en');
+    doc.documentElement.lang = lang;
+    for (const a of ['aria-label', 'title', 'alt']) {
+      doc.querySelectorAll(`[data-en-${a}]`).forEach((el) => {
+        if (!el.hasAttribute(`data-es-${a}`)) el.setAttribute(`data-es-${a}`, el.getAttribute(a) ?? '');
+        el.setAttribute(a, el.getAttribute(`data-${lang}-${a}`));
+      });
+    }
+  }
+  window.wdApplyLang = () => applyLang(document);
+
   applyTheme(document);
-  // Keep theme when the client router swaps in a new page
-  document.addEventListener('astro:before-swap', (e) => applyTheme(e.newDocument));
+  applyLang(document);
+  document.addEventListener('DOMContentLoaded', () => applyLang(document));
+  // Keep theme and language when the client router swaps in a new page
+  document.addEventListener('astro:before-swap', (e) => { applyTheme(e.newDocument); applyLang(e.newDocument); });
 </script>
 <ClientRouter />
 <title>{titlePestana}</title>

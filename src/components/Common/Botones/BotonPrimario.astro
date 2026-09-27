@@ -1,11 +1,13 @@
 ---
+import T from "../T.astro";
 interface Props {
   texto: string;
+  textoEn?: string;
   enlace: string;
   target?: string;
   id?: string;
 }
-const texto = Astro.props.texto;
+const { texto, textoEn } = Astro.props;
 const enlace = Astro.props.enlace;
 const target = Astro.props.target || "_blank";
 const id = Astro.props.id;
@@ -17,5 +19,5 @@ const id = Astro.props.id;
   class="btn btn-primary w-full"
   target={target}
 >
-  {texto}
+  <T es={texto} en={textoEn} />
 </a>

@@ -1,8 +1,9 @@
 ---
+import T from "./T.astro";
 const paletas = [
-  { id: "mono", label: "Monocromo", swatch: "linear-gradient(135deg, #fafafa 0%, #fafafa 50%, #18181b 50%, #18181b 100%)" },
-  { id: "fucsia", label: "Fucsia", swatch: "linear-gradient(135deg, #f0abfc, #d946ef 45%, #6366f1)" },
-  { id: "sky", label: "Sky", swatch: "linear-gradient(135deg, #bae6fd, #0ea5e9 45%, #6366f1)" },
+  { id: "mono", label: "Monocromo", labelEn: "Monochrome", swatch: "linear-gradient(135deg, #fafafa 0%, #fafafa 50%, #18181b 50%, #18181b 100%)" },
+  { id: "fucsia", label: "Fucsia", labelEn: "Fuchsia", swatch: "linear-gradient(135deg, #f0abfc, #d946ef 45%, #6366f1)" },
+  { id: "sky", label: "Sky", labelEn: "Sky", swatch: "linear-gradient(135deg, #bae6fd, #0ea5e9 45%, #6366f1)" },
 ];
 ---
 <div class="palette-selector relative">
@@ -12,7 +13,9 @@ const paletas = [
     aria-haspopup="true"
     aria-expanded="false"
     aria-label="Paleta de colores"
+    data-en-aria-label="Color palette"
     title="Paleta de colores"
+    data-en-title="Color palette"
   >
     <span class="palette-current block h-6 w-6 rounded-full ring-2 ring-white dark:ring-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.25)] transition-transform duration-500 group-hover:rotate-180"></span>
   </button>
@@ -27,7 +30,7 @@ const paletas = [
         class="palette-option flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors duration-200 hover:bg-slate-100 dark:hover:bg-white/5"
       >
         <span class="block h-8 w-8 flex-shrink-0 rounded-full ring-1 ring-black/10 dark:ring-white/15 shadow-sm" style={`background:${p.swatch}`} data-swatch={p.swatch}></span>
-        <span class="flex-1 text-base text-slate-700 dark:text-white/85">{p.label}</span>
+        <span class="flex-1 text-base text-slate-700 dark:text-white/85"><T es={p.label} en={p.labelEn} /></span>
         <svg class="palette-check h-5 w-5 text-slate-900 dark:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
       </button>
     ))}

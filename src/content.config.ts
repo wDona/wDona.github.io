@@ -2,7 +2,7 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 const blogCollection = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
+  loader: glob({ pattern: '*.{md,mdx}', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
@@ -13,7 +13,7 @@ const blogCollection = defineCollection({
 });
 
 const proyectosCollection = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/proyectos' }),
+  loader: glob({ pattern: '*.{md,mdx}', base: './src/content/proyectos' }),
   schema: z.object({
     title: z.string(),
     img: z.string().optional(),
@@ -32,7 +32,27 @@ const proyectosCollection = defineCollection({
   }),
 });
 
+// English translations: same id as the Spanish entry, only the translatable fields
+const blogEnCollection = defineCollection({
+  loader: glob({ pattern: '*.{md,mdx}', base: './src/content/blog/en' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    footerText: z.string().optional(),
+  }),
+});
+
+const proyectosEnCollection = defineCollection({
+  loader: glob({ pattern: '*.{md,mdx}', base: './src/content/proyectos/en' }),
+  schema: z.object({
+    title: z.string(),
+    summary: z.string().optional(),
+  }),
+});
+
 export const collections = {
   blog: blogCollection,
   proyectos: proyectosCollection,
+  blogEn: blogEnCollection,
+  proyectosEn: proyectosEnCollection,
 };

@@ -1,13 +1,17 @@
 ---
+import T from "../../Common/T.astro";
 interface Props {
 	title: string;
+	titleEn?: string;
 	timeRange?: string;
+	timeRangeEn?: string;
 	tags?: string[];
+	tagsEn?: string[];
 	isLast?: boolean;
 	accent?: 'active' | 'past';
 }
 
-const { title, timeRange, tags, isLast = false, accent = 'past' } = Astro.props;
+const { title, titleEn, timeRange, timeRangeEn, tags, tagsEn, isLast = false, accent = 'past' } = Astro.props;
 
 const accentBar = accent === 'active'
   ? 'bg-fuchsia-500 dark:bg-fuchsia-400 shadow-[0_0_10px_rgb(var(--c-fuchsia-500)/0.3)] dark:shadow-[0_0_14px_rgb(var(--c-fuchsia-500)/0.4)]'
@@ -29,16 +33,16 @@ const marginBottom = isLast ? 'mb-0' : 'mb-6';
 
   <div class="flex flex-col gap-1.5">
     <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-      <h3 class="text-3xl font-semibold text-slate-800 dark:text-white/90 tracking-tight transition-colors duration-300 group-hover:text-fuchsia-600 dark:group-hover:text-fuchsia-300">{title}</h3>
+      <h3 class="text-3xl font-semibold text-slate-800 dark:text-white/90 tracking-tight transition-colors duration-300 group-hover:text-fuchsia-600 dark:group-hover:text-fuchsia-300"><T es={title} en={titleEn} /></h3>
       {timeRange && (
-        <span class="text-base text-fuchsia-600 dark:text-fuchsia-400">{timeRange}</span>
+        <span class="text-base text-fuchsia-600 dark:text-fuchsia-400"><T es={timeRange} en={timeRangeEn} /></span>
       )}
     </div>
 
     {tags && tags.length > 0 && (
       <div class="flex flex-wrap gap-3">
-        {tags.map((tag) => (
-          <span class="text-base text-slate-500 dark:text-white/40">{tag}</span>
+        {tags.map((tag, i) => (
+          <span class="text-base text-slate-500 dark:text-white/40"><T es={tag} en={tagsEn?.[i]} /></span>
         ))}
       </div>
     )}

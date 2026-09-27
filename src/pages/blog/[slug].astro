@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Blog from '../../layouts/Blog.astro';
-import { render } from 'astro:content';
+import { render, getEntry } from 'astro:content';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -14,6 +14,8 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const en = await getEntry('blogEn', post.id);
+const ContentEn = en && (await render(en)).Content;
 ---
 
 <Blog
@@ -21,10 +23,16 @@ const { Content } = await render(post);
   description={post.data.description ?? ''}
   keywords={post.data.keywords}
   footerText={post.data.footerText ?? 'Publicación de wDona'}
+  footerTextEn={en?.data.footerText ?? 'Post by wDona'}
 >
-  <article>
+  <article data-l={ContentEn && "es"}>
     <Content />
   </article>
+  {ContentEn && (
+    <article data-l="en">
+      <ContentEn />
+    </article>
+  )}
 </Blog>
 
 <style is:global>

@@ -1,4 +1,5 @@
 ---
+import T from "../../Common/T.astro";
 import BotonPrimario from "../../Common/Botones/BotonPrimario.astro";
 import TechIcons from "./TechIcons.astro";
 import ProjectImage from "./ProjectImage.astro";
@@ -7,6 +8,7 @@ import Plataformas from "./Plataformas.astro";
 interface Props {
   id?: string;
   title: string;
+  titleEn?: string;
   link: string;
   linkdescarga?: string;
   img?: string;
@@ -15,17 +17,18 @@ interface Props {
   summary?: string;
   plataformas?: Array<"linux" | "windows" | "android" | "ios" | "web">;
 }
-const { title, linkdescarga, img, cover, plataformas } = Astro.props;
+const { title, titleEn = title, linkdescarga, img, cover, plataformas } = Astro.props;
 const id = Astro.props.id || title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 const tecnologias = Astro.props.tecnologias ?? [];
 
-const alt = "Imagen de " + title.toLowerCase();
+const alt = title;
 ---
 
 <a
   href={`/proyectos/${id}`}
   class="card group flex flex-col h-full !rounded-2xl"
   aria-label={`Ver detalles de ${title}`}
+  data-en-aria-label={`View details of ${titleEn}`}
 >
   <!-- Image -->
   <div class="relative w-full aspect-video bg-white dark:bg-black overflow-hidden border-b border-slate-100 dark:border-transparent">
@@ -44,7 +47,7 @@ const alt = "Imagen de " + title.toLowerCase();
     <!-- Hover overlay -->
     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none flex items-center justify-center">
       <span class="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-white/95 dark:bg-black/75 text-slate-900 dark:text-white text-xs font-semibold shadow-lg translate-y-3 group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] border border-white/20">
-        Ver proyecto
+        <T es="Ver proyecto" en="View project" />
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
         </svg>
@@ -55,7 +58,7 @@ const alt = "Imagen de " + title.toLowerCase();
   <!-- Content -->
   <div class="p-4 flex flex-col flex-grow gap-2">
     <h3 class="text-lg sm:text-xl font-bold text-slate-800 dark:text-white group-hover:text-fuchsia-600 dark:group-hover:text-fuchsia-300 transition-colors duration-300 line-clamp-2">
-      {title}
+      <T es={title} en={titleEn} />
     </h3>
 
     <div class="mt-auto flex justify-end pt-1">
@@ -64,7 +67,7 @@ const alt = "Imagen de " + title.toLowerCase();
 
     {linkdescarga && (
       <div class="mt-auto pt-3">
-        <BotonPrimario texto="Descargar" enlace={linkdescarga} id={`btn-descarga-card-${id}`} />
+        <BotonPrimario texto="Descargar" textoEn="Download" enlace={linkdescarga} id={`btn-descarga-card-${id}`} />
       </div>
     )}
   </div>
