@@ -80,7 +80,9 @@ const absoluteImage = image.startsWith('http') ? image : `https://wdona.dev${ima
   function applyTheme(doc) {
     const stored = localStorage.getItem('theme');
     const dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-    const palette = localStorage.getItem('palette') || (dark ? 'tinta' : 'bermellon');
+    // Ignore values this site doesn't have (the old site stored fucsia/sky/mono under the same key)
+    const storedPalette = localStorage.getItem('palette');
+    const palette = ['bermellon', 'pino', 'mostaza', 'tinta'].includes(storedPalette) ? storedPalette : (dark ? 'tinta' : 'bermellon');
     doc.documentElement.classList.toggle('dark', dark);
     doc.documentElement.dataset.palette = palette;
     if (doc === document) document.dispatchEvent(new CustomEvent('themechange', { detail: { dark, palette } }));
