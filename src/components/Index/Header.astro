@@ -142,4 +142,9 @@ import SectionBlobs from "../Common/Decoracion/SectionBlobs.astro";
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+
+  @media (max-width: 767px) {
+    .header-word { filter: none !important; }
+    .hero-aurora { animation: none; }
+  }
 </style>

@@ -416,7 +416,14 @@ html {
               border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+              filter 0.35s ease-out;
+}
+/* Project cards: short blur so the small summary text is sharp while it still fades in
+   (a 0.8s blur kept it unreadable until the end, then it popped in) */
+.js-ready .proyecto-item.reveal {
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.35s ease-out;
 }
 .card::before {
   content: "";
@@ -428,12 +435,24 @@ html {
   transition: opacity 0.4s ease;
   background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgb(var(--c-fuchsia-500) / 0.12), transparent 60%);
 }
-.card:hover {
-  @apply -translate-y-1 border-fuchsia-300 shadow-[0_2px_4px_rgb(var(--c-purple-900)/0.05),0_24px_48px_-20px_rgb(var(--c-fuchsia-600)/0.35)]
-         dark:border-fuchsia-500/30 dark:shadow-[0_12px_40px_rgb(var(--c-fuchsia-500)/0.18)];
+@media (hover: hover) {
+  .card:hover {
+    @apply -translate-y-1 border-fuchsia-300 shadow-[0_2px_4px_rgb(var(--c-purple-900)/0.05),0_24px_48px_-20px_rgb(var(--c-fuchsia-600)/0.35)]
+           dark:border-fuchsia-500/30 dark:shadow-[0_12px_40px_rgb(var(--c-fuchsia-500)/0.18)];
+  }
+  .card:hover::before {
+    opacity: 1;
+  }
 }
-.card:hover::before {
-  opacity: 1;
+
+/* ── Phones: drop the effects that repaint every frame ── */
+@media (max-width: 767px) {
+  /* Blur filters look smeared and are costly on mobile GPUs */
+  .js-ready .reveal { filter: none; }
+  /* No hover there, so no reason to keep every card on its own layer */
+  .card { will-change: auto; }
+  /* Infinite background-position / box-shadow animations repaint constantly */
+  .gradient-text-animated, .glow-pulse { animation: none; }
 }
 
 /* ── Large area spotlight (footer / contact) ──── */
@@ -452,8 +471,10 @@ html {
   transition: opacity 0.6s ease;
   background: radial-gradient(650px circle at var(--mx, 50%) var(--my, 30%), rgb(var(--c-fuchsia-500) / 0.12), transparent 65%);
 }
-.spotlight:hover::before {
-  opacity: 1;
+@media (hover: hover) {
+  .spotlight:hover::before {
+    opacity: 1;
+  }
 }
 
 /* ── Project images in light mode (monochrome theme) ── */

@@ -88,7 +88,7 @@ const allTechs = [...new Map(
     const itemsPerPage = 6;
     let currentFilter = 'all';
 
-    function updatePagination() {
+    function updatePagination(animate = true) {
       const visibleCards = Array.from(cards).filter(card => {
         if (currentFilter === 'all') return true;
         const techs: string[] = JSON.parse(card.dataset.techs || '[]');
@@ -106,13 +106,14 @@ const allTechs = [...new Map(
         card.style.display = '';
       });
 
-      // Resetear las clases 'reveal' para la nueva página se anime de nuevo (opcional para smooth feel)
-      visibleCards.slice(startIndex, endIndex).forEach((card, index) => {
-         card.classList.remove('revealed');
-         // Asignar nuevos delays
-         card.dataset.revealDelay = String(200 + index * 100);
-         setTimeout(() => card.classList.add('revealed'), 50);
-      });
+      // On load the scroll reveal handles the entrance; on filter/page change replay it staggered
+      if (animate) {
+        visibleCards.slice(startIndex, endIndex).forEach((card, index) => {
+          card.classList.remove('revealed');
+          void card.offsetWidth;
+          setTimeout(() => card.classList.add('revealed'), 50 + index * 100);
+        });
+      }
 
       if (totalPages > 1) {
         paginationControls?.classList.remove('hidden');
@@ -162,6 +163,6 @@ const allTechs = [...new Map(
     });
 
     // Init
-    updatePagination();
+    updatePagination(false);
 });
 </script>

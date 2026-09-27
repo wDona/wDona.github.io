@@ -135,6 +135,12 @@
     animation-duration: 17s;
     animation-delay: 9s;
   }
+  @media (max-width: 767px) {
+    .orb-c, .stars-far, .shooting-star { display: none; }
+    .stars-near { animation: rise 80s linear infinite; }
+    :global(html.dark) .stars { filter: none; }
+  }
+
   @keyframes shoot {
     0%   { opacity: 0; transform: rotate(-35deg) translateX(0); }
     2%   { opacity: 1; }

@@ -9,7 +9,7 @@ interface Props {
 const { texto, textoEn } = Astro.props;
 ---
 
-<footer class="spotlight w-full py-12 border-t-[1px] border-fuchsia-200/50 dark:border-fuchsia-900/30 bg-gradient-to-b from-transparent to-slate-100/70 dark:from-transparent dark:to-transparent dark:bg-black/30 backdrop-blur-md" id="footer">
+<footer class="spotlight w-full py-12 border-t-[1px] border-fuchsia-200/50 dark:border-fuchsia-900/30 bg-gradient-to-b from-transparent to-slate-100/70 dark:from-transparent dark:to-transparent dark:bg-black/30 md:backdrop-blur-md" id="footer">
   <div class="lg:w-[900px] sm:w-[90%] w-[98%] mx-auto flex flex-col items-center gap-6 px-4 relative">
     <Contacto/>
   </div>
@@ -33,7 +33,7 @@ const { texto, textoEn } = Astro.props;
         aria-label="Ir al inicio"
         data-en-aria-label="Go to home"
       >
-        <img src="/img/Gato_D.png" alt="" class="w-10 h-10 invert dark:invert-0 opacity-60 hover:opacity-100 transition-opacity" loading="lazy" aria-hidden="true" width="40" height="40" />
+        <img src="/img/Gato_D-sm.webp" alt="" class="w-10 h-10 invert dark:invert-0 opacity-60 hover:opacity-100 transition-opacity" loading="lazy" aria-hidden="true" width="40" height="40" />
       </a>
     </nav>
   </div>

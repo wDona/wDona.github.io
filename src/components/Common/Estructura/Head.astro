@@ -23,7 +23,7 @@ const absoluteImage = image.startsWith('http') ? image : `https://wdona.dev${ima
 <meta name="theme-color" content="rgb(var(--c-fuchsia-500))" />
 
 <link rel="canonical" href={canonicalURL} />
-<link rel="icon" type="image/png" href="/img/Gato_D.png" />
+<link rel="icon" type="image/png" href="/img/Gato_D-icon.png" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
@@ -156,7 +156,8 @@ const absoluteImage = image.startsWith('http') ? image : `https://wdona.dev${ima
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       const el = entry.target as HTMLElement;
-      setTimeout(() => el.classList.add('revealed'), parseInt(el.dataset.revealDelay ?? '0'));
+      const delay = matchMedia('(max-width: 767px)').matches ? 0 : parseInt(el.dataset.revealDelay ?? '0');
+      setTimeout(() => el.classList.add('revealed'), delay);
       io.unobserve(el);
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
@@ -169,6 +170,7 @@ const absoluteImage = image.startsWith('http') ? image : `https://wdona.dev${ima
 
   // Cursor spotlight on cards
   document.addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse') return;
     const card = (e.target as HTMLElement).closest?.('.card, .spotlight') as HTMLElement | null;
     if (!card) return;
     const r = card.getBoundingClientRect();

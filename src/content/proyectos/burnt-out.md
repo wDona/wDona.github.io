@@ -1,6 +1,6 @@
 ---
 title: "Burn't out"
-img: "img/burntoutlogo.png"
+img: "img/burntoutlogo.webp"
 summary: "Trello gamificado que fomenta trabajo en equipo y evita el Sindrome de Burnout."
 link: "https://github.com/wDona/Burnt-out"
 linkdescarga: "https://wdona.dev/burnt-out"
