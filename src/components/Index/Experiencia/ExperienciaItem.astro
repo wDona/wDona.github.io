@@ -15,7 +15,7 @@ const { title, titleEn, org, timeRange, timeRangeEn, tags, tagsEn } = Astro.prop
 
 <article class="item">
   <p class="meta">{timeRange && <T es={timeRange} en={timeRangeEn} />}</p>
-  <div>
+  <div class="min-w-0">
     <h3 class="text-xl">
       <T es={title} en={titleEn} />{org && <span class="muted font-normal">, {org}</span>}
     </h3>
