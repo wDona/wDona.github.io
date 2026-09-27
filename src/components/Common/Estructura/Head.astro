@@ -20,7 +20,7 @@ const absoluteImage = image.startsWith('http') ? image : `https://wdona.dev${ima
 <meta name="keywords" content={keywords} />
 <meta name="robots" content="index, follow, max-snippet:150, max-image-preview:large" />
 <meta name="description" content={description} />
-<meta name="theme-color" content="#f5eee5" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#f6f1e1" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#1b1614" media="(prefers-color-scheme: dark)" />
 
 <link rel="canonical" href={canonicalURL} />
@@ -76,13 +76,12 @@ const absoluteImage = image.startsWith('http') ? image : `https://wdona.dev${ima
 
 <script is:inline>
   // Theme (light/dark) + accent (bermellon/pino/mostaza/tinta). First visit: the system theme.
-  // Until a palette is picked it follows the theme: tinta (monochrome) in dark, bermellón in light.
+  // Each mode keeps its own accent (palette-light / palette-dark); default: mostaza in light, tinta in dark.
   function applyTheme(doc) {
     const stored = localStorage.getItem('theme');
     const dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-    // Ignore values this site doesn't have (the old site stored fucsia/sky/mono under the same key)
-    const storedPalette = localStorage.getItem('palette');
-    const palette = ['bermellon', 'pino', 'mostaza', 'tinta'].includes(storedPalette) ? storedPalette : (dark ? 'tinta' : 'bermellon');
+    const storedPalette = localStorage.getItem(dark ? 'palette-dark' : 'palette-light');
+    const palette = ['bermellon', 'pino', 'mostaza', 'tinta'].includes(storedPalette) ? storedPalette : (dark ? 'tinta' : 'mostaza');
     doc.documentElement.classList.toggle('dark', dark);
     doc.documentElement.dataset.palette = palette;
     if (doc === document) document.dispatchEvent(new CustomEvent('themechange', { detail: { dark, palette } }));

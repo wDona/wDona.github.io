@@ -124,7 +124,8 @@ const paletas = [
     const t = e.target as HTMLElement;
     const swatch = t.closest?.<HTMLElement>('[data-palette-option]');
     if (swatch) {
-      localStorage.setItem('palette', swatch.dataset.paletteOption!);
+      const dark = document.documentElement.classList.contains('dark');
+      localStorage.setItem(dark ? 'palette-dark' : 'palette-light', swatch.dataset.paletteOption!);
       w.wdApplyTheme();
     } else if (t.closest?.('.theme-toggle')) {
       localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'light' : 'dark');
